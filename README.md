@@ -32,6 +32,10 @@ pnpm run build
 
 The portfolio and the projects described in it continue to evolve. Project labels distinguish active development, coursework and learning projects.
 
+The Dino game uses shared logical physics and collision bounds, independent of screen width and emoji rendering. Run `pnpm test:dino` for jump, collision, duck, pause and frame-rate regression checks. Keyboard input is scoped to the game; leaving its playground tab pauses it.
+
+Project cards 02–05 open an animated learning note with keyboard and touch controls. FamilyOS keeps its documented case-study link. The dialogs respect reduced motion and restore focus when closed.
+
 ## Freelance services
 
 `/services` introduces Websites, Apps & Digital Design to Dutch-speaking business owners. The homepage remains focused on software employment and links to this separate services page.

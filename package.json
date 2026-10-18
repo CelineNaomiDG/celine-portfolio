@@ -10,6 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "oxlint",
+    "test:dino": "node --experimental-strip-types --test tests/dino-engine.test.mjs",
     "format": "oxfmt"
   },
   "dependencies": {

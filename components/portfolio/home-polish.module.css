@@ -1,0 +1,81 @@
+.contextCards {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.contextCards > article,
+.technicalCards > article {
+  position: relative;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+  transform-origin: center;
+}
+.contextCards > article {
+  padding: 25px;
+}
+.contextCards > article > small {
+  font-size: 14px;
+  letter-spacing: 0.055em;
+  line-height: 1.5;
+}
+.contextCards > article > p {
+  font-size: 18px;
+  line-height: 1.65;
+}
+.technicalCards {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 0;
+  gap: 16px;
+}
+.technicalCards > article {
+  border: 1px solid var(--line);
+  padding: 25px;
+  border-radius: 20px;
+  background: var(--card);
+}
+.technicalCards > article > h4 {
+  font-size: 20px;
+  margin: 22px 0 12px;
+}
+.technicalCards > article > p {
+  font-size: 17px;
+  line-height: 1.65;
+}
+.technicalCards > article > b {
+  font-size: 30px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .contextCards > article:hover,
+  .technicalCards > article:hover {
+    transform: scale(1.04);
+    box-shadow:
+      0 14px 40px color-mix(in srgb, var(--fg) 10%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--fg) 25%, transparent);
+    z-index: 1;
+  }
+}
+@media (max-width: 1100px) {
+  .contextCards,
+  .technicalCards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 650px) {
+  .contextCards,
+  .technicalCards {
+    grid-template-columns: 1fr;
+  }
+  .contextCards > article > p {
+    font-size: 17px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contextCards > article,
+  .technicalCards > article {
+    transition: none;
+  }
+  .contextCards > article:hover,
+  .technicalCards > article:hover {
+    transform: none;
+  }
+}
