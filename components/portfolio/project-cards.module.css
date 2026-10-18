@@ -1,0 +1,271 @@
+.grid .interactive {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+.grid .interactive h3 {
+  max-width: calc(100% - 45px);
+}
+.open {
+  margin-top: auto;
+  padding: 25px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--fg);
+  font-size: 14px;
+  font-weight: 650;
+  text-align: left;
+  cursor: pointer;
+}
+.open::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.open:focus-visible {
+  outline: none;
+}
+.open:focus-visible::after {
+  outline: 2px solid var(--fg);
+  outline-offset: 5px;
+}
+.grid .interactive:focus-within {
+  box-shadow: 0 12px 38px color-mix(in srgb, var(--fg) 10%, transparent);
+}
+.dialog {
+  position: fixed;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: min(720px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  color: var(--fg);
+  background: transparent;
+}
+.dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(7px);
+}
+.stage {
+  perspective: 1600px;
+}
+.travel {
+  transform-origin: center;
+  position: relative;
+}
+.flip {
+  display: grid;
+  transform: rotateY(180deg);
+  transform-style: preserve-3d;
+}
+.face {
+  grid-area: 1/1;
+  min-height: min(560px, calc(100dvh - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 42px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.25);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.front {
+  transform: rotateY(0deg);
+  overflow: hidden;
+  padding-top: 52px;
+}
+.back {
+  transform: rotateY(180deg);
+  padding-top: 56px;
+}
+.close {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--card);
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+}
+.close:hover {
+  background: var(--soft);
+}
+.close:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+}
+.dialog .status {
+  margin: 0 48px 12px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.projectTitle {
+  margin: 0;
+  max-width: 570px;
+  font-size: 23px;
+  letter-spacing: -0.035em;
+  line-height: 1.3;
+  font-weight: 550;
+}
+.learningNote {
+  border-top: 1px solid var(--line);
+  padding-top: 25px;
+  margin-top: 26px;
+}
+.noteLabel {
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.learningNote h3 {
+  margin: 0 0 20px;
+  font:
+    italic 42px/1.12 Georgia,
+    serif;
+  letter-spacing: -0.04em;
+}
+.learningNote > p:last-child {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--muted);
+}
+.remember {
+  margin-top: 24px;
+  padding: 18px 20px;
+  background: var(--soft);
+  border-left: 2px solid var(--fg);
+}
+.remember span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.remember p {
+  margin: 7px 0 0;
+  font-size: 19px;
+  line-height: 1.5;
+  font-weight: 550;
+  letter-spacing: -0.02em;
+}
+.projectFocus {
+  margin-top: 24px;
+}
+.projectFocus h4 {
+  margin: 0 0 9px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.projectFocus p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+.modalNumber {
+  position: absolute;
+  right: 30px;
+  top: 50px;
+  font:
+    italic 36px Georgia,
+    serif;
+  color: var(--muted);
+}
+.front h2 {
+  margin: 28px 0 18px;
+  max-width: 85%;
+  font-size: 34px;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+.front > p:not(.status) {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.modalTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 25px;
+}
+.modalTags span {
+  border: 1px solid var(--line);
+  padding: 7px 10px;
+  font-size: 13px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .grid .interactive:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px color-mix(in srgb, var(--fg) 10%, transparent);
+  }
+}
+@media (hover: none) {
+  .grid .interactive:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+@media (max-width: 560px) {
+  .face {
+    padding: 56px 24px 26px;
+    border-radius: 22px;
+  }
+  .projectTitle {
+    font-size: 21px;
+  }
+  .learningNote h3 {
+    font-size: 34px;
+  }
+  .learningNote > p:last-child {
+    font-size: 16px;
+  }
+  .remember {
+    padding: 15px;
+  }
+  .remember p {
+    font-size: 18px;
+  }
+  .front h2 {
+    font-size: 27px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .grid .interactive,
+  .grid .interactive:hover {
+    transition: none;
+    transform: none;
+  }
+  .dialog::backdrop {
+    backdrop-filter: none;
+  }
+}
