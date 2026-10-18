@@ -7,7 +7,7 @@ The site presents my current learning path, selected software projects and a doc
 ## Built with
 
 - React and TypeScript
-- Vinext and Vite
+- Next.js App Router
 - Responsive CSS with light and dark modes
 - Interactive playground components
 
@@ -31,3 +31,13 @@ pnpm run build
 ## Status
 
 The portfolio and the projects described in it continue to evolve. Project labels distinguish active development, coursework and learning projects.
+
+## Freelance services
+
+`/services` introduces Websites, Apps & Digital Design to Dutch-speaking business owners. The homepage remains focused on software employment and links to this separate services page.
+
+The page serves business clients in the Netherlands and Belgium, with development, redesign, maintenance, management, social-media graphics and flyer design. Prices and monthly packages are proposals with explicit scope; a quote establishes the final agreement. The contact action opens an email draft; it does not submit or store an enquiry.
+
+Commercial assumptions, pricing rationale and remaining publication requirements are in [docs/dienstverlening-en-tarieven.md](docs/dienstverlening-en-tarieven.md). `/services/voorwaarden` and `/services/privacy` are clearly labeled, non-indexable drafts pending business details and legal/privacy review. The owner's three completed websites will be showcased later; no sample client projects are included now.
+
+Before publishing changes, run `pnpm lint`, `pnpm exec tsc --noEmit` and `pnpm build`, and inspect `/` and `/services` on desktop and mobile. Root fonts currently use Google Fonts during the build, which requires network access.

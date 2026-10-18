@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { GitFork, Mail } from 'lucide-react';
+import Link from 'next/link';
+import ThemeButton from '@/components/theme-button';
+import bridgeStyles from './services/home-bridge.module.css';
 
 const projects = [
   { title:'FamilyOS', state:'In Progress · Not production-ready', desc:'A family collaboration and safety product in active development. Current evidence covers Swift/SwiftUI flows, role-based restrictions, account linking, Firebase backend work, successful builds and automated tests.', tags:['Swift','SwiftUI','Firebase','Testing'] },
@@ -26,13 +29,6 @@ const education = [
 ];
 
 const chips = ['Celine de Graaf','Bachelor Informatica','SwiftUI','Python + SQL','FamilyOS — In Progress','AI/LLM learning','Creative code','Remote opportunities'];
-
-function ThemeButton(){
-  const [dark,setDark]=useState(false);
-  useEffect(()=>{const saved=localStorage.getItem('portfolio-theme'); const initial=saved?saved==='dark':matchMedia('(prefers-color-scheme: dark)').matches; setDark(initial); document.documentElement.classList.toggle('dark',initial)},[]);
-  const toggle=()=>{const next=!dark;setDark(next);document.documentElement.classList.toggle('dark',next);localStorage.setItem('portfolio-theme',next?'dark':'light')};
-  return <button className="themeButton" onClick={toggle} aria-label={dark?'Switch to light mode':'Switch to dark mode'} aria-pressed={dark}><span>{dark?'☀':'☾'}</span><span>{dark?'Light':'Dark'}</span></button>
-}
 
 function Eyes(){
   const [pupils,setPupils]=useState({x:0,y:0});
@@ -130,8 +126,10 @@ function PlaygroundHub(){
 }
 
 export default function Home(){const [messageOpen,setMessageOpen]=useState(false);return <main>
-  <nav className="nav shell"><a className="brand" href="#home"><Eyes/>Celine de Graaf</a><div className="navLinks"><a href="#playground">Playground</a><a href="#projects">Projects</a><a href="#case-study">Case study</a><a href="#skills">Skills</a><a href="#about">About</a></div><div className="navActions"><a className="cvButton" href="/Celine_de_Graaf_CV_EN.pdf" target="_blank">CV EN ↗</a><a className="cvButton cvNlButton" href="/Celine_de_Graaf_CV_NL.pdf" target="_blank">NL</a><ThemeButton/></div></nav>
+  <nav className={`nav shell ${bridgeStyles.navigation}`}><a className="brand" href="#home"><Eyes/>Celine de Graaf</a><div className="navLinks"><a href="#playground">Playground</a><a href="#projects">Projects</a><a href="#case-study">Case study</a><a href="#skills">Skills</a><a href="#about">About</a><Link href="/services" lang="nl">Diensten</Link></div><div className="navActions"><a className="cvButton" href="/Celine_de_Graaf_CV_EN.pdf" target="_blank">CV EN ↗</a><a className="cvButton cvNlButton" href="/Celine_de_Graaf_CV_NL.pdf" target="_blank">NL</a><ThemeButton/></div></nav>
   <section id="home" className="hero shell"><div className="heroCopy"><p className="kicker">Computer Science student · Remote opportunities</p><h1>Building reliable software.<br/><em>Growing into AI/LLM engineering.</em></h1><p className="heroText">Bachelor Informatica student combining structured computer-science learning with hands-on software projects, testing, documentation and iterative development.</p><div className="heroActions"><a className="solid" href="#projects">Explore my work</a><button className="outline" onClick={()=>setMessageOpen(true)}>Message me</button><a className="outline" href="/Celine_de_Graaf_CV_EN.pdf" target="_blank">Open CV ↗</a></div></div><IOSWidgets openMessage={()=>setMessageOpen(true)}/></section>
+
+  <aside lang="nl" className={`shell ${bridgeStyles.bridge}`} aria-label="Diensten voor ondernemers"><p>Een website of app voor je bedrijf?<span>Ontdek Websites, Apps & Digital Design.</span></p><Link href="/services">Bekijk mijn diensten <b aria-hidden="true">↗</b></Link></aside>
 
   <section id="playground" className="band"><div className="shell"><div className="sectionIntro"><span>01</span><div><h2>Playground</h2><p>Drag the profile blocks, run with the no‑Wi‑Fi dinosaur or solve a quick code-themed word. Mouse, keyboard and touch friendly.</p></div></div><PlaygroundHub/></div></section>
 
