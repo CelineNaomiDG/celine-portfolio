@@ -8,6 +8,17 @@ De bestaande homepage blijft het IT-portfolio. `/services` is de algemene commer
 
 Deze versie is een reviewbaar voorstel op de featurebranch. Tarieven zijn nog niet door Celine vastgesteld; voorwaarden en privacyverklaring zijn herkenbare concepten. Publicatie op de live website en berichten aan klanten zijn afzonderlijke vervolgstappen.
 
+## Pagina-indeling
+
+`/services` is een kort overzicht met vier keuzes. Uitleg, prijzen en veelgestelde vragen staan per onderwerp op een eigen pagina:
+
+- `/services/websites`: nieuwe websites en het vernieuwen van bestaande websites.
+- `/services/software-apps`: software op maat, apps en SaaS-ontwikkeling voor ondernemers en startups. Een prototype en eerste bruikbare versie worden in gewone taal uitgelegd. Bouwkosten, terugkerende gebruiks- en ondersteuningskosten en eventuele abonnementen van de eindklanten zijn afzonderlijke onderdelen. Alles op offerte.
+- `/services/socialmedia-design`: ontwerpen voor socialmedia en flyers, met de bestaande losse tarieven en sets.
+- `/services/onderhoud`: optionele websiteondersteuning met de bestaande begrensde maandpakketten. Software- en SaaS-beheer vallen buiten deze websitepakketten en worden afzonderlijk geoffreerd.
+
+De gewone leestekst is 18px op desktop en 17px op mobiel; toelichtingen minimaal 16px. Gedeelde navigatie, contact en opmaak houden de pagina’s herkenbaar. 3D-ontwerp wordt later beoordeeld en behoort nog niet tot dit aanbod.
+
 ## Voorgestelde eenmalige tarieven
 
 Alle bedragen in euro, exclusief btw voor zakelijke klanten. Vanafprijzen gelden uitsluitend binnen onderstaande omvang, met definitieve prijs vooraf in een offerte.
@@ -112,3 +123,10 @@ Eerst deze algemene basis beoordelen: aanbod, tariefniveau, uren per pakket en w
 - Scrollbeweging gebruikt een kleine clientcomponent met IntersectionObserver, gestaffelde verschijning, sectielijnen, leesvoortgang en een meegroeiende procestijdlijn. Geen extra bibliotheek. Inhoud wordt op de server weergegeven en is zonder JavaScript zichtbaar. Reduced motion heeft CSS- en JavaScript-afhandeling; toetsenbordfocus onderbreekt de reveal-overgang direct.
 - Productiebuild, TypeScript, gerichte lintcontrole en whitespacecontrole slagen. In de browser neemt het aantal zichtbare reveal-elementen toe tijdens scrollen, zonder nog verborgen elementen in het gemeten zichtbare gebied; leesvoortgang en procestijdlijn reageren op scrollen.
 - Geen horizontale overloop gemeten op 1519px en 388px. Een dienst-detail opent via Enter. Desktopbeelden zijn bruikbaar; de mobiele screenshotfunctie geeft nog een grotendeels zwart beeld en is geen betrouwbaar visueel bewijs. Live schakelen van de systeeminstelling voor minder beweging is niet getest; de ondersteunde browserbediening biedt hiervoor geen emulatie.
+
+### Controle na opsplitsing in aparte pagina’s — 18 oktober
+
+- Het overzicht telt 352 woorden inclusief navigatie en footer. De uitgebreide dienstinformatie, tarieven en FAQ zijn verplaatst naar vier afzonderlijke routes; de oude zesdelige catalogus is verwijderd.
+- Productiebuild, TypeScript en gerichte lintcontrole slagen. Alle zeven services-routes (inclusief voorwaarden/privacy) hebben één hoofdkop; een controle van de gebouwde HTML vond geen ontbrekende interne routes of ankers. De juridische concepten blijven `noindex, nofollow`.
+- Navigatie via het toetsenbord van overzicht naar alle vier diensten en terug werkt. De motion-component wordt per route opnieuw geïnitialiseerd; zichtbaar worden tijdens scrollen is bevestigd, met geen nog verborgen reveal-elementen in het gemeten zichtbare gebied.
+- Geen horizontale overloop op het overzicht en software bij 1519px; software/websites ook gecontroleerd op 463px, ontwerp/onderhoud/overzicht op 398px. Bodytekst van 18px en 17px is in de browser bevestigd. Desktopbeelden zijn bruikbaar; mobiele captures bevatten dubbele beeldstroken. Exact 320px en live wisselen van de systeeminstelling voor minder beweging blijven niet bevestigd.
