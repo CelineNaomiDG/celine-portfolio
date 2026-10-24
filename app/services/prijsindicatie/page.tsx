@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { Metadata } from 'next';
 import { ContactSection, PageIntro, SectionHeading, ServicesShell } from '../services-shared';
 import { websitePackages } from '../website-packages';
@@ -25,7 +26,7 @@ export default function PriceIndicationPage() {
             <caption>Websiteprojecten: richtbedragen en uitgangspunten</caption>
             <thead><tr><th scope="col">Traject</th><th scope="col">Prijsindicatie</th><th scope="col">Uitgangspunt</th></tr></thead>
             <tbody>{websitePackages.map((item) => (
-              <tr key={item.name}><th scope="row">{item.name}</th><td>{item.price}</td><td>{item.basis}</td></tr>
+              <tr key={item.name}><th scope="row"><Link className={styles.inlineLink} href={`/services/websites/${item.slug}`}>{item.name}</Link></th><td>{item.price}</td><td>{item.basis}</td></tr>
             ))}</tbody>
           </table>
         </div>

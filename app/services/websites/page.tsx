@@ -1,3 +1,4 @@
+import PackageStars from '../package-stars';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
@@ -83,18 +84,21 @@ export default function WebsitesPage() {
             Een passende basis.
           </SectionHeading>
           <PriceNote />
+          <p className={styles.note}>Sterren geven de omvang en complexiteit aan, geen klantbeoordeling. Elk traject krijgt dezelfde kwaliteitszorg.</p>
           <div className={styles.packageGrid}>
-            {websitePackages.map((item) => (
+            {websitePackages.map((item, index) => (
               <article className={styles.package} key={item.name}>
+                <PackageStars level={index + 1} />
                 <h3 data-reveal>{item.name}</h3>
                 <p>{item.text}</p>
                 <p className={styles.price} data-reveal>
-                  <strong>Op offerte</strong>
+                  <strong>{item.price}</strong>
+                  <span>Op offerte</span>
                   <span>eenmalig · excl. btw</span>
                 </p>
-                <a className={styles.textLink} href="#contact">
-                  Bespreek deze website <span aria-hidden="true">↗</span>
-                </a>
+                <Link className={styles.textLink} href={`/services/websites/${item.slug}`}>
+                  Bekijk wat je krijgt <span aria-hidden="true">↗</span>
+                </Link>
               </article>
             ))}
           </div>
