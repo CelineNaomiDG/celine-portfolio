@@ -77,6 +77,10 @@ export function ServicesShell({
               {link.label}
             </Link>
           ))}
+          <Link href="/services/prijsindicatie"
+            aria-current={current === '/services/prijsindicatie' ? 'page' : undefined}>
+            Prijsindicatie
+          </Link>
         </nav>
       </header>
       <main id="inhoud" tabIndex={-1}>

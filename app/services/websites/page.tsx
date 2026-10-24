@@ -17,32 +17,7 @@ export const metadata: Metadata = {
     'Een nieuwe website voor je bedrijf of je bestaande website vernieuwen. Bekijk de mogelijkheden, heldere afspraken en indicatieve prijzen.',
 };
 
-const packages = [
-  {
-    name: 'Een website op één pagina',
-    price: '€795',
-    text: 'Een compacte plek voor je aanbod, je verhaal en contact.',
-    features: [
-      '1 pagina met maximaal 6 onderdelen',
-      'Ontwerp en bouw voor telefoon, tablet en computer',
-      'Paginatitel, omschrijving voor zoekmachines en duidelijke koppen',
-      'Links om te mailen of contact op te nemen',
-      '1 ronde waarin je gebundeld wijzigingen doorgeeft',
-    ],
-  },
-  {
-    name: 'Bedrijfswebsite',
-    price: '€1.495',
-    text: 'Meer ruimte om je bedrijf en verschillende diensten uit te leggen.',
-    features: [
-      'Maximaal 5 inhoudspagina’s',
-      'Ontwerp en bouw voor telefoon, tablet en computer',
-      'Paginatitels, omschrijvingen voor zoekmachines en duidelijke koppen',
-      'Instellen van 1 standaard contactformulier, nadat we een formulierdienst hebben gekozen',
-      '2 rondes waarin je gebundeld wijzigingen doorgeeft',
-    ],
-  },
-];
+import { websitePackages } from '../website-packages';
 
 export default function WebsitesPage() {
   return (
@@ -109,51 +84,30 @@ export default function WebsitesPage() {
           </SectionHeading>
           <PriceNote />
           <div className={styles.packageGrid}>
-            {packages.map((item) => (
+            {websitePackages.map((item) => (
               <article className={styles.package} key={item.name}>
                 <h3 data-reveal>{item.name}</h3>
                 <p>{item.text}</p>
                 <p className={styles.price} data-reveal>
-                  <span>vanaf</span>
-                  <strong>{item.price}</strong>
+                  <strong>Op offerte</strong>
                   <span>eenmalig · excl. btw</span>
                 </p>
-                <ul>
-                  {item.features.map((feature, i) => (
-                    <li key={feature} data-reveal data-reveal-delay={i * 35}>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
                 <a className={styles.textLink} href="#contact">
                   Bespreek deze website <span aria-hidden="true">↗</span>
                 </a>
               </article>
             ))}
           </div>
+          <p>
+            <Link className={styles.textLink} href="/services/prijsindicatie">
+              Bekijk de prijsindicatie per traject <span aria-hidden="true">↗</span>
+            </Link>
+          </p>
           <article className={styles.horizontalOffer} data-reveal>
-            <div>
-              <h3>Je bestaande website vernieuwen</h3>
-              <p className={styles.price}>
-                <span>vanaf</span>
-                <strong>€695</strong>
-                <span>eenmalig · excl. btw</span>
-              </p>
-            </div>
-            <div>
-              <p>
-                Een nieuwe uitstraling en duidelijkere indeling voor maximaal 3
-                bestaande pagina’s. We behouden hetzelfde systeem en dezelfde
-                inhoud.
-              </p>
-              <p>
-                Inclusief 1 ronde met gebundelde wijzigingen. Verhuizen naar
-                andere techniek is niet inbegrepen.
-              </p>
-              <a className={styles.textLink} href="#contact">
-                Bespreek je huidige website <span aria-hidden="true">↗</span>
-              </a>
-            </div>
+            <div><h3>Je bestaande website vernieuwen</h3><p>Op offerte</p></div>
+            <div><p>We onderzoeken welk traject bij je bestaande website past.
+              Wat behouden blijft, wat verandert en een eventuele migratie leggen
+              we vooraf vast in een voorstel.</p></div>
           </article>
           <div className={styles.scopeBox}>
             <h3>Wat regelen we apart?</h3>
@@ -212,7 +166,7 @@ export default function WebsitesPage() {
           ],
           [
             'Kan ik mijn website zelf aanpassen?',
-            'Dat kan als we een systeem om inhoud te bewerken afspreken. Zo’n systeem is niet standaard inbegrepen in de vaste pakketten. We bekijken vooraf of je zelf wilt aanpassen of liever wijzigingen laat uitvoeren.',
+            'Dat kan als we een systeem om inhoud te bewerken afspreken. Zo’n systeem is niet standaard inbegrepen in ieder traject. We bekijken vooraf of je zelf wilt aanpassen of liever wijzigingen laat uitvoeren.',
           ],
           [
             'Wat is een ronde met wijzigingen?',

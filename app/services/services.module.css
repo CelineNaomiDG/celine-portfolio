@@ -965,3 +965,14 @@
     display: none;
   }
 }
+
+/* Keep the comparison readable on narrow screens without page overflow. */
+.priceTableWrap { overflow-x: auto; }
+.priceTable { width: 100%; border-collapse: collapse; text-align: left; }
+.priceTable caption { text-align: left; padding-block: 1rem; font-weight: 600; }
+.priceTable th, .priceTable td { padding: 1.25rem 1rem; border-bottom: 1px solid currentColor; vertical-align: top; }
+.priceTable td:nth-child(2) { white-space: nowrap; }
+@media (max-width: 600px) {
+  .priceTable th, .priceTable td { padding: .75rem .4rem; font-size: .875rem; overflow-wrap: anywhere; }
+  .priceTable td:nth-child(2) { white-space: normal; }
+}
