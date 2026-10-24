@@ -26,7 +26,7 @@ export default async function PackagePage({ params }: Props) {
       <PackageStars level={detail.level} />
       <p>{item.text}</p><p>{detail.audience}</p>
       <p className={styles.price}><strong>{item.price}</strong><span>excl. btw · op offerte</span></p>
-      <p className={styles.note}>De sterren geven de omvang aan, geen kwaliteitsbeoordeling. Alle trajecten krijgen dezelfde kwaliteitszorg.</p>
+      <div className={styles.actionRow}><Link className={styles.primaryLink} href="/services/contact">Bespreek dit traject ↗</Link><Link className={styles.textLink} href="/services/prijsindicatie">Vergelijk pakketten</Link></div>
     </PageIntro>
     <section className={`${styles.section} ${styles.shell}`} aria-labelledby="beeld-title">
       <SectionHeading id="beeld-title">Van idee naar een duidelijke opbouw.</SectionHeading>
@@ -43,7 +43,7 @@ export default async function PackagePage({ params }: Props) {
         <article><p className={styles.eyebrow}>＋ Alleen na afspraak</p><h3>Mogelijke uitbreidingen</h3><ul>{detail.optional.map(s => <li key={s}>{s}</li>)}</ul><p className={styles.note}>Niet automatisch inbegrepen. Eventuele meerprijs staat vooraf in de offerte.</p></article>
         <article><p className={styles.eyebrow}>↗ Afzonderlijke scope</p><h3>Waar de grens ligt</h3><p>{detail.boundary}</p></article>
       </div>
-      <div className={styles.scopeBox}><h3>De kwaliteitsbasis bij een bouwopdracht</h3><p>Een afgesproken structuur, ontwerp voor mobiel en desktop, implementatie, controle van navigatie en contactfuncties, paginatitels, beschrijvingen en duidelijke koppen. Ik controleer ook toetsenbordbediening, labels, contrast en afbeeldingen binnen de geleverde pagina’s. Je ontvangt uitleg en de afgesproken overdracht.</p><p>Voor Enterprise volgt een eventuele bouwopdracht pas na de verkenning. Technische SEO is geen garantie op zoekposities of omzet.</p></div>
+      <details className={styles.detailDisclosure}><summary>De kwaliteitsbasis bij elke bouwopdracht</summary><p>Ontwerp voor mobiel en desktop, implementatie, controle van navigatie en afgesproken contactfuncties, paginatitels en beschrijvingen, toetsenbordbediening, labels en overdracht. Technische SEO is geen garantie op zoekposities. Bij Enterprise volgt een bouwopdracht pas na de verkenning.</p></details>
     </div></section>
     <section id="werkwijze" className={`${styles.section} ${styles.shell}`} aria-labelledby="werkwijze-title">
       <SectionHeading id="werkwijze-title">Je kijkt mee, van begin tot oplevering.</SectionHeading>
@@ -52,12 +52,12 @@ export default async function PackagePage({ params }: Props) {
         ['Ontwerp & feedback', 'Bij een bouwtraject beoordeel je structuur en vormgeving op afgesproken momenten. Je verzamelt feedback; aantallen rondes leggen we vooraf vast.'],
         ['Bouw, controle & overdracht', 'Ik bouw en controleer de afgesproken website. Na je beoordeling plannen we de publicatie en krijg je uitleg over toegang en beheer.'],
       ].map(([title,text],i) => <li key={title}><span className={styles.stepLabel}>Stap {i+1}</span><h3>{title}</h3><p>{text}</p></li>)}</ol>
-      <div className={styles.scopeBox}><h3>Welke tools en techniek gebruik ik?</h3><p>Voor websites gebruik ik Next.js en React met TypeScript en eigen componenten. Git en GitHub houden wijzigingen bij. Een aparte preview, bijvoorbeeld via Vercel, maakt het mogelijk om de site vóór publicatie te bekijken.</p><p>Een formulierdienst, CMS, boekingstool of betaalprovider kies ik op basis van je wensen, budget en benodigde toegang. Die keuze en eventuele abonnementskosten staan in de offerte. Een specifiek platform of betaalde tool is niet automatisch inbegrepen.</p></div>
+      <details className={styles.detailDisclosure}><summary>Tools, techniek & toegang</summary><p>Next.js, React en TypeScript vormen de technische basis. GitHub houdt wijzigingen bij; via een aparte preview kijk je mee. Een CMS, formulierdienst of betaalprovider kiezen we op basis van je wensen. Kosten, accounts en de overdracht staan vooraf in de offerte.</p></details>
     </section>
     <section id="investering" className={styles.paperBand} aria-labelledby="investering-title"><div className={`${styles.section} ${styles.shell}`}>
       <SectionHeading id="investering-title">Je investering, zonder verborgen verwachtingen.</SectionHeading>
       <div className={styles.scopeCards}><article><h3>Eenmalig project</h3><p className={styles.price}><strong>{item.price}</strong><span>exclusief btw</span></p><p>{item.basis}</p><p>De offerte bevat één vaste totaalprijs voor één afgesproken omvang.</p></article><article><h3>Externe kosten</h3><p>Hosting, domeinnaam, licenties en betaalde tools staan apart vermeld, inclusief of ze eenmalig of terugkerend zijn. Teksten, fotografie, video en merkontwikkeling zijn aparte opdrachten tenzij uitdrukkelijk opgenomen.</p></article><article><h3>Na oplevering</h3><p>Onderhoud en nieuwe functionaliteit spreken we apart af. Een abonnement is niet verplicht. Herstel van werk dat afwijkt van de gemaakte afspraken is iets anders dan een nieuwe wens.</p><Link className={styles.textLink} href="/services/onderhoud">Bekijk onderhoud ↗</Link></article></div>
-      <div className={styles.scopeBox}><h3>Hoe betaal je mijn opdracht?</h3><p>Je ontvangt een factuur. De betaalwijze, betaalmomenten en betalingstermijn leggen we in de offerte vast. Het huidige conceptvoorstel is 40% bij opdracht en 60% na de afgesproken oplevering; een grotere opdracht kan andere mijlpalen krijgen als we die samen afspreken.</p><p>Er is nog geen standaard aanbod voor maandelijkse financiering of betalen met iDEAL of creditcard aan mij. Betalingen die bezoekers op jouw website doen zijn een aparte functie; die bespreken we hieronder.</p></div>
+      <details className={styles.detailDisclosure}><summary>Factuur, betaalmomenten & termijnen</summary><p>Je ontvangt een factuur. Het huidige conceptvoorstel is 40% bij opdracht en 60% na afgesproken oplevering. Bij grotere trajecten kunnen we andere mijlpalen afspreken. De offerte bepaalt betaalwijze, termijnen en totale prijs. Betalen in maandelijkse financiering is geen standaardaanbod.</p></details>
     </div></section>
     <FAQ items={[
       ['Kunnen mijn klanten via iDEAL of creditcard betalen?', 'Dat kunnen we als uitbreiding onderzoeken met een geschikte betaalprovider. Een betaalpagina, webshop of reservering met betaling is niet standaard inbegrepen. Landen, betaalmethoden, transactiekosten, accounts en technische inrichting leggen we apart vast.'],

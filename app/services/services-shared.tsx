@@ -59,6 +59,7 @@ export function ServicesShell({
           <Link href="/" className={styles.portfolioLink}>
             IT-portfolio ↗
           </Link>
+          <Link href="/en/services" hrefLang="en" lang="en" className={styles.portfolioLink}>English overview</Link>
           <ThemeButton language="nl" className={styles.theme} />
         </div>
         <nav className={styles.navigation} aria-label="Diensten">
@@ -77,11 +78,14 @@ export function ServicesShell({
               {link.label}
             </Link>
           ))}
+          <Link href="/services/voorbeelden" aria-current={current === '/services/voorbeelden' ? 'page' : undefined}>Voorbeelden</Link>
+          <Link href="/services/contact" aria-current={current === '/services/contact' ? 'page' : undefined}>Project bespreken ↗</Link>
           <Link href="/services/prijsindicatie"
             aria-current={current === '/services/prijsindicatie' ? 'page' : undefined}>
             Prijsindicatie
           </Link>
         </nav>
+        <details className={styles.mobileServicesMenu}><summary>Menu · diensten</summary><nav aria-label="Mobiele dienstennavigatie"><Link href="/services">Overzicht</Link>{serviceLinks.map(link=><Link key={link.href} href={link.href} aria-current={current===link.href?'page':undefined}>{link.label}</Link>)}<Link href="/services/voorbeelden">Voorbeelden</Link><Link href="/services/prijsindicatie">Pakketten vergelijken</Link><Link href="/services/contact">Project bespreken ↗</Link></nav></details>
       </header>
       <main id="inhoud" tabIndex={-1}>
         {children}
@@ -92,9 +96,9 @@ export function ServicesShell({
         </div>
         <nav aria-label="Footer">
           <Link href="/services">Alle diensten</Link>
-          <a href="#contact">Contact</a>
-          <Link href="/services/voorwaarden">Voorwaarden</Link>
-          <Link href="/services/privacy">Privacy</Link>
+          <Link href="/services/contact">Contact</Link>
+          <Link href="/services/voorwaarden">Voorwaarden (concept)</Link>
+          <Link href="/services/privacy">Privacy (concept)</Link>
           <Link href="/">IT-portfolio ↗</Link>
         </nav>
       </footer>
@@ -218,14 +222,12 @@ export function ContactSection({
           <p>{text}</p>
         </div>
         <div className={styles.contactAction} data-reveal>
-          <a className={styles.primaryLink} href={enquiry(subject)}>
-            Bespreek je idee <span aria-hidden="true">↗</span>
-          </a>
-          <p>
-            Deze link opent je e-mailprogramma. Je schrijft en verstuurt het
-            bericht zelf.
-          </p>
-          <a className={styles.email} href={`mailto:${email}`}>
+          <Link className={styles.primaryLink} href="/services/contact">
+            Start je projectaanvraag <span aria-hidden="true">↗</span>
+          </Link>
+          <Link className={styles.textLink} href="/services/contact#aanvraag">Vraag een kennismaking aan ↗</Link>
+          <p>Rechtstreeks contact. Gesprekken plannen we in overleg, meestal op een doordeweekse avond.</p>
+          <a className={styles.email} href={enquiry(subject)}>
             {email}
           </a>
           <p>Je kunt het e-mailadres ook kopiëren.</p>

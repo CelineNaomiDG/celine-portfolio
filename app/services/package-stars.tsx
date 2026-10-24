@@ -1,7 +1,5 @@
 import styles from './services.module.css';
+const labels = ['Compact', 'Bedrijfswebsite', 'Visueel onderscheidend', 'Meerdere doelgroepen', 'Complex maatwerk'];
 export default function PackageStars({ level }: { level: number }) {
-  return <p className={styles.packageStars} aria-label={`Omvang traject: ${level} van 5`}>
-    <span aria-hidden="true">{'★'.repeat(level)}<span className={styles.emptyStars}>{'☆'.repeat(5 - level)}</span></span>
-    <span>Omvang {level}/5</span>
-  </p>;
+ return <p className={styles.packageStars}><span className={styles.scopeIndicator} aria-hidden="true">{[1,2,3,4,5].map(n => <i key={n} data-filled={n<=level} />)}</span><span>{labels[level-1]}</span></p>;
 }

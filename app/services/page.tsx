@@ -20,9 +20,9 @@ export default function ServicesPage() {
       <section className={`${styles.hubHero} ${styles.shell}`}>
         <p className={styles.eyebrow}>Voor ondernemers in Nederland & België</p>
         <h1>
-          Wat wil je
+          Een helder verhaal.
           <br />
-          <em>laten maken?</em>
+          <em>Een sterke digitale plek.</em>
         </h1>
         <div className={styles.hubIntroduction}>
           <p>
@@ -35,9 +35,8 @@ export default function ServicesPage() {
             mogelijk is, hoe we samenwerken en welke kosten erbij horen.
           </p>
         </div>
-        <a className={styles.textLink} href="#diensten">
-          Vind jouw dienst <span aria-hidden="true">↓</span>
-        </a>
+        <div className={styles.actionRow}><Link className={styles.primaryLink} href="/services/contact">Bespreek je project ↗</Link><Link className={styles.textLink} href="/services/voorbeelden">Bekijk voorbeelden ↗</Link></div>
+        <div className={styles.trustStrip}><span>Rechtstreeks met de maker</span><span>Vooraf een duidelijke offerte</span><span>Meekijken vóór livegang</span></div>
       </section>
       <section
         id="diensten"

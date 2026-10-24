@@ -1,3 +1,4 @@
+import ConceptGallery from '../concept-gallery';
 import type { Metadata } from 'next';
 import {
   ContactSection,
@@ -54,6 +55,7 @@ export default function SocialDesignPage() {
           inbegrepen.
         </p>
       </PageIntro>
+      <section className={`${styles.section} ${styles.shell}`} aria-labelledby="voorbeelden-title"><SectionHeading id="voorbeelden-title">Zo wordt je boodschap zichtbaar.</SectionHeading><ConceptGallery kind="design" /></section>
       <section
         id="ontwerpen"
         className={`${styles.section} ${styles.shell}`}

@@ -1,7 +1,6 @@
-import Link from 'next/link';
+import PackageComparison from '../package-comparison';
 import type { Metadata } from 'next';
 import { ContactSection, PageIntro, SectionHeading, ServicesShell } from '../services-shared';
-import { websitePackages } from '../website-packages';
 import styles from '../services.module.css';
 
 export const metadata: Metadata = {
@@ -21,15 +20,7 @@ export default function PriceIndicationPage() {
       <section id="richtbedragen" className={`${styles.section} ${styles.shell}`} aria-labelledby="richtbedragen-title">
         <SectionHeading id="richtbedragen-title">Vijf trajecten, een passende basis.</SectionHeading>
         <p className={styles.note}>Alle bedragen zijn exclusief btw en eenmalig voor het project. Het zijn prijsindicaties, geen vaste pakketprijzen.</p>
-        <div className={styles.priceTableWrap}>
-          <table className={styles.priceTable}>
-            <caption>Websiteprojecten: richtbedragen en uitgangspunten</caption>
-            <thead><tr><th scope="col">Traject</th><th scope="col">Prijsindicatie</th><th scope="col">Uitgangspunt</th></tr></thead>
-            <tbody>{websitePackages.map((item) => (
-              <tr key={item.name}><th scope="row"><Link className={styles.inlineLink} href={`/services/websites/${item.slug}`}>{item.name}</Link></th><td>{item.price}</td><td>{item.basis}</td></tr>
-            ))}</tbody>
-          </table>
-        </div>
+        <PackageComparison />
       </section>
       <section id="afspraken" className={styles.softBand} aria-labelledby="afspraken-title">
         <div className={`${styles.section} ${styles.shell}`}>

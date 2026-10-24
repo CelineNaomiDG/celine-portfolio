@@ -65,7 +65,7 @@ export const termsContent: LegalContent = {
       paragraphs: [
         'Een maandpakket geldt voor één vooraf beoordeelde website en de afgesproken techniek. Basis (€49 per maand) omvat een maandelijks technisch controlemoment van maximaal 30 minuten, met passende updates, controle van deployment en herstelmogelijkheid en een kort overzicht. Beheer (€99) voegt 45 minuten kleine inhoudswijzigingen toe. Doorontwikkeling (€179) voegt twee uur wijzigingen of kleine verbeteringen toe aan Basis.',
         'Resterende tijd vervalt aan het einde van de maand. Extra werk, grote versie-upgrades, migraties, incidentherstel en nieuwe functies vallen buiten de vaste omvang en worden vooraf besproken. Voor een bestaande website kan een apart geoffreerde startcontrole nodig zijn. Hosting, domein, licenties en eventuele opslag voor back-ups worden afzonderlijk afgesproken. Bij sites met gegevensopslag legt de offerte ook back-upfrequentie, bewaartermijn en herstelprocedure vast; een codeherstelpunt is geen back-up van klantgegevens.',
-        'Het voorgestelde contactmoment is maandag tot en met vrijdag overdag, met reactie binnen twee werkdagen. Een reactie is geen toezegging dat het probleem binnen die termijn is opgelost. Er is geen 24/7-bewaking of gegarandeerde ononderbroken beschikbaarheid. Partijen spreken escalatie en eventuele vakantievervanging vooraf af.',
+        'Contact en gesprekken vinden op afspraak plaats, doorgaans in de avond, met een voorgestelde reactie binnen twee werkdagen. Er is geen servicedesk die overdag direct beschikbaar is. Een reactie is geen toezegging dat het probleem binnen die termijn is opgelost. Er is geen 24/7-bewaking of gegarandeerde ononderbroken beschikbaarheid. Partijen spreken escalatie en eventuele vakantievervanging vooraf af.',
       ],
     },
     {
@@ -107,9 +107,10 @@ export const termsContent: LegalContent = {
 
 export const privacyContent: LegalContent = {
   title: 'Privacy & cookies',
-  intro: 'Hoe contactgegevens, websitebezoek en je voorkeur voor het thema worden behandeld.',
+  intro: 'Hoe contactgegevens, websitebezoek en je lokale weergavevoorkeuren worden behandeld.',
   notice: 'Concept: nog niet klaar voor publicatie. De verantwoordelijke onderneming, vestigingsgegevens, leveranciersafspraken, daadwerkelijke logbewaring en eventuele internationale doorgifte moeten nog worden bevestigd. De hieronder voorgestelde bewaartermijnen moeten ook daadwerkelijk worden ingericht.',
   sections: [
+    { title: 'Lokale weergavevoorkeuren', paragraphs: ['De thema-instelling en Creative Mode worden alleen in de lokale opslag van je browser bewaard. Creative Mode bewaart of de modus aanstaat en de tekst en posities van decoratieve stickers. Je kunt de stickers resetten via de bediening of de lokale gegevens verwijderen via je browser. De rondleiding verstuurt geen gegevens en onthoudt geen bezoekgeschiedenis.'] },
     {
       title: 'Wie is verantwoordelijk?',
       paragraphs: ['Contactpersoon voor deze website: Celine de Graaf, celinedegraaf.tech@gmail.com. De volledige naam en het adres van de verwerkingsverantwoordelijke worden vóór publicatie aangevuld. Deze verklaring gaat over de eigen portfolio- en dienstenwebsite; voor websites van klanten gelden afzonderlijke afspraken.'],
@@ -117,7 +118,7 @@ export const privacyContent: LegalContent = {
     {
       title: 'Wanneer je contact opneemt',
       paragraphs: [
-        'De contactknoppen openen je eigen e-mailprogramma. Pas wanneer jij de e-mail verstuurt, ontvangt Celine je afzenderadres, naam en de inhoud die je zelf meestuurt. De website heeft momenteel geen serverformulier dat aanvragen opslaat. Deel in een eerste bericht geen wachtwoorden of onnodige gevoelige gegevens.',
+        'Het projectformulier maakt lokaal in je browser een e-mailconcept klaar. Je kunt dit kopiëren of in je eigen e-mailprogramma openen. Het formulier verstuurt niets en bewaart de invoer niet na het verlaten van de pagina. Een kennismakingsvoorkeur wordt pas een afspraak na bevestiging. Pas wanneer jij de e-mail verstuurt, ontvangt Celine je afzenderadres, naam en de inhoud die je zelf meestuurt. De website heeft momenteel geen serverformulier dat aanvragen opslaat. Deel in een eerste bericht geen wachtwoorden of onnodige gevoelige gegevens.',
         'Contactgegevens worden gebruikt om je vraag te beantwoorden en, als je dat vraagt, een voorstel of opdracht voor te bereiden. De grondslag is het uitvoeren of voorbereiden van een overeenkomst met jou, of een gerechtvaardigd belang bij zakelijke correspondentie als je namens een organisatie contact opneemt. Administratie van een opdracht kan daarnaast nodig zijn voor wettelijke verplichtingen. Er wordt geen automatische nieuwsbriefinschrijving gedaan.',
       ],
     },

@@ -1,3 +1,4 @@
+import PackageComparison from '../package-comparison';
 import PackageStars from '../package-stars';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -84,7 +85,7 @@ export default function WebsitesPage() {
             Een passende basis.
           </SectionHeading>
           <PriceNote />
-          <p className={styles.note}>Sterren geven de omvang en complexiteit aan, geen klantbeoordeling. Elk traject krijgt dezelfde kwaliteitszorg.</p>
+          <p className={styles.note}>Kies op basis van je inhoud en gewenste functies. Elk traject krijgt dezelfde kwaliteitszorg.</p>
           <div className={styles.packageGrid}>
             {websitePackages.map((item, index) => (
               <article className={styles.package} key={item.name}>
@@ -102,6 +103,7 @@ export default function WebsitesPage() {
               </article>
             ))}
           </div>
+          <PackageComparison />
           <p>
             <Link className={styles.textLink} href="/services/prijsindicatie">
               Bekijk de prijsindicatie per traject <span aria-hidden="true">↗</span>

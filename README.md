@@ -52,3 +52,15 @@ Prices and monthly packages are proposals with explicit scope; a quote establish
 Commercial assumptions, pricing rationale and remaining publication requirements are in [docs/dienstverlening-en-tarieven.md](docs/dienstverlening-en-tarieven.md). `/services/voorwaarden` and `/services/privacy` are clearly labeled, non-indexable drafts pending business details and legal/privacy review. The owner's three completed websites will be showcased later; no sample client projects are included now.
 
 Before publishing changes, run `pnpm lint`, `pnpm exec tsc --noEmit` and `pnpm build`, and inspect `/`, `/services` and the four detail routes on desktop and mobile. Root fonts currently use Google Fonts during the build, which requires network access.
+
+## Customer experience update — 24 October 2026
+
+- `/services/voorbeelden` contains labelled interface demos and fictional design studies, not customer results.
+- `/services/contact` prepares an enquiry locally. It does not submit to a backend, persist personal data or confirm a calendar booking. The user sends the email themselves. Connect a delivery provider and verify the associated privacy arrangements before claiming direct submission.
+- `/en/services` is an English service overview with an English enquiry flow. Detailed package pages and draft legal documents remain Dutch.
+- The homepage has optional Creative Mode (local browser storage) and a voluntary guided tour. Reduced motion disables automatic playback. Pointer, keyboard and touch-based interruption are supported.
+- Package comparison describes the offer basis; exact page counts, feedback rounds and scope are agreed in the quote.
+- The sitemap uses the known production domain. Robots block non-production deployments; draft legal pages remain noindex. Update the domain configuration if a custom domain is adopted.
+- Company identity, definitive legal documents, approved customer work, enquiry delivery and confirmed calendar booking remain launch dependencies. Do not represent these as complete.
+
+Validation for this update: production build and TypeScript pass; targeted lint passes. Browser checks covered 320px, 390px and 1440px layouts, enquiry preparation without transmission, demo controls, theme switching, sticker keyboard movement and persistence, modal Escape, mobile menus, reduced-motion tour and automatic-tour interruption. Physical-device testing and an independent accessibility audit are not claimed.

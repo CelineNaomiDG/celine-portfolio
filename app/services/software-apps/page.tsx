@@ -1,3 +1,4 @@
+import ConceptGallery from '../concept-gallery';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
@@ -36,6 +37,7 @@ export default function SoftwareAppsPage() {
           versie.
         </p>
       </PageIntro>
+      <section className={`${styles.section} ${styles.shell}`} aria-labelledby="voorbeelden-title"><SectionHeading id="voorbeelden-title">Bekijk hoe een proces kan werken.</SectionHeading><ConceptGallery kind="software" /></section>
       <section
         id="mogelijkheden"
         className={`${styles.section} ${styles.shell}`}

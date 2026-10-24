@@ -1,3 +1,5 @@
+/* Scroll containers remain keyboard-focusable for horizontal table navigation. */
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex, jsx-a11y/prefer-tag-over-role */
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
@@ -107,6 +109,15 @@ export default function MaintenancePage() {
             Kies wat bij je website past.
           </SectionHeading>
           <PriceNote />
+          <div className={styles.priceTableWrap} tabIndex={0} role="region" aria-label="Vergelijk onderhoudspakketten"><table className={styles.priceTable}><caption>Je maandpakket in één overzicht</caption><thead><tr><th scope="col">Per maand</th><th scope="col">Basis · €49</th><th scope="col">Beheer · €99</th><th scope="col">Doorontwikkeling · €179</th></tr></thead><tbody>{[
+            ['Technische tijd','30 minuten','30 minuten','30 minuten'],
+            ['Tekst, beeld & kleine verbeteringen','Niet inbegrepen','45 minuten tekst en beeld','2 uur wijzigingen en verbeteringen'],
+            ['Voorbeeld','Technisch controlemoment','Foto of openingstijden aanpassen','Bestaande sectie verbeteren'],
+            ['Kort verslag','Inbegrepen','Inbegrepen','Inbegrepen'],
+            ['Hosting & licenties','Apart','Apart','Apart'],
+            ['Nieuwe functies & grote reparaties','Aparte offerte','Aparte offerte','Aparte offerte'],
+          ].map(([label,...cells])=><tr key={label}><th scope="row">{label}</th>{cells.map((cell,i)=><td key={i}>{cell}</td>)}</tr>)}</tbody></table></div>
+          <p className={styles.note}>Exclusief btw. Voorbeelden moeten binnen de beschikbare tijd passen; ongebruikte tijd vervalt per maand.</p>
           <div className={styles.maintenancePlans}>
             {plans.map((plan) => (
               <article key={plan.name} data-reveal>
@@ -157,8 +168,8 @@ export default function MaintenancePage() {
           <article data-reveal>
             <h3>Contact en reactie</h3>
             <p>
-              Het voorstel is een reactie binnen 2 werkdagen, maandag tot en met
-              vrijdag overdag. Dat is de tijd om te reageren, niet de belofte
+              Het voorstel is een reactie binnen 2 werkdagen. Ik werk op afspraak,
+              doorgaans in de avond; er is geen servicedesk die overdag direct beschikbaar is. Dat is de tijd om te reageren, niet de belofte
               dat het probleem dan is opgelost. Er is geen 24/7-dienst,
               beschikbaarheidsgarantie of veiligheidsgarantie.
             </p>
