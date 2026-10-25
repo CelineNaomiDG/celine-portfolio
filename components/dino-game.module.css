@@ -255,3 +255,61 @@
     animation: none;
   }
 }
+
+.runner svg {
+  overflow: visible;
+  transform-origin: center bottom;
+  transition: height 0.1s;
+}
+.legA,
+.legB {
+  transform-origin: center 44px;
+}
+.stage[data-status='playing'] .runner[data-jumping='false'] .legA {
+  animation: stride 0.18s steps(2) infinite;
+}
+.stage[data-status='playing'] .runner[data-jumping='false'] .legB {
+  animation: stride 0.18s steps(2) infinite reverse;
+}
+.runner[data-jumping='true'] svg {
+  transform: rotate(-7deg);
+}
+.runner[data-ducking='true'] svg {
+  transform: rotate(6deg);
+}
+.cloud,
+.cloudTwo {
+  width: 65px;
+  height: 16px;
+  border: 1px solid var(--muted);
+  border-radius: 40px;
+  letter-spacing: 0;
+  font-size: 0;
+}
+.cloud:before,
+.cloudTwo:before {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 15px;
+  width: 25px;
+  height: 16px;
+  border-radius: 20px 20px 0 0;
+  border: 1px solid var(--muted);
+  border-bottom: 0;
+  background: var(--card);
+}
+@keyframes stride {
+  to {
+    transform: translateY(-5px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .legA,
+  .legB {
+    animation: none !important;
+  }
+  .runner svg {
+    transition: none;
+  }
+}

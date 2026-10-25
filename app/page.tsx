@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { GitFork, Mail } from 'lucide-react';
 import Link from 'next/link';
 import ThemeButton from '@/components/theme-button';
+import SnakeGame from '@/components/snake-game';
 import DinoGame from '@/components/dino-game';
 import bridgeStyles from './services/home-bridge.module.css';
 import ProjectCards from '@/components/portfolio/project-cards';
@@ -71,6 +72,31 @@ function Playground(){
 }
 
 const hangmanWords=[
+{word:'COMPILER',hint:'Translates source code into another form'},
+{word:'DEBUGGING',hint:'Finding and fixing errors'},
+{word:'NETWORK',hint:'Connected devices sharing information'},
+{word:'BOOLEAN',hint:'A value that is true or false'},
+{word:'RECURSION',hint:'A function calling itself'},
+{word:'INTERFACE',hint:'A boundary through which systems interact'},
+{word:'BROWSER',hint:'The application displaying this website'},
+{word:'SERVER',hint:'A system responding to client requests'},
+{word:'ENCRYPTION',hint:'Protecting information by encoding it'},
+{word:'GITHUB',hint:'A platform for collaborating on code'},
+{word:'PYTHON',hint:'A language named after a comedy group'},
+{word:'ARRAY',hint:'A collection of indexed values'},
+{word:'OBJECT',hint:'A value grouping properties and behaviour'},
+{word:'COMPONENT',hint:'A reusable part of an interface'},
+{word:'TESTING',hint:'Checking that software behaves as expected'},
+{word:'DEPLOYMENT',hint:'Making an application available to users'},
+{word:'PROMPT',hint:'An instruction given to a language model'},
+{word:'TOKEN',hint:'A piece of text processed by a language model'},
+{word:'CACHE',hint:'Storage used to avoid repeating work'},
+{word:'VERSION',hint:'A specific state of a software project'},
+{word:'ASYNC',hint:'Work that can complete without blocking'},
+{word:'ROUTER',hint:'Directs traffic or page navigation'},
+{word:'PIXEL',hint:'A tiny unit of a digital image'},
+{word:'SCHEMA',hint:'A description of data structure'},
+
   {word:'ALGORITHM',hint:'A step-by-step way to solve a problem'},
   {word:'FIREBASE',hint:'A backend platform used in FamilyOS'},
   {word:'VARIABLE',hint:'A named place to store a value'},
@@ -103,17 +129,18 @@ function PlaygroundHub(){
   const rail=useRef<HTMLDivElement>(null);const [active,setActive]=useState(0);
   const goTo=(index:number)=>{const el=rail.current;if(!el)return;el.scrollTo({left:el.clientWidth*index,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});setActive(index)};
   const onScroll=()=>{const el=rail.current;if(el)setActive(Math.round(el.scrollLeft/el.clientWidth))};
-  return <div className="playgroundHub"><fieldset className="playgroundTabs" aria-label="Playground views"><button className={active===0?'active':''} onClick={()=>goTo(0)}>Profile blocks</button><button className={active===1?'active':''} onClick={()=>goTo(1)}>Dino</button><button className={active===2?'active':''} onClick={()=>goTo(2)}>Hangman</button></fieldset><div className="playRail" ref={rail} onScroll={onScroll}><div className="playSlide"><Playground/><button className="swipeHint" onClick={()=>goTo(1)}>Swipe left to play <span>→</span></button></div><div className="playSlide"><DinoGame active={active===1}/><button className="swipeHint back" onClick={()=>goTo(0)}><span>←</span> Blocks</button><button className="swipeHint nextGame" onClick={()=>goTo(2)}>Hangman <span>→</span></button></div><div className="playSlide"><div className="hangmanGame"><div className="hangmanTop"><div><span className="offlineDot"/>Code Hangman</div><span>Keyboard or tap</span></div><HangmanGame/></div><button className="swipeHint back hangmanBack" onClick={()=>goTo(1)}><span>←</span> Dino</button></div></div><div className="pageDots" aria-label={`Playground page ${active+1} of 3`}><i className={active===0?'active':''}/><i className={active===1?'active':''}/><i className={active===2?'active':''}/></div></div>
+  return <div className="playgroundHub"><fieldset className="playgroundTabs" aria-label="Playground views"><button className={active===0?'active':''} onClick={()=>goTo(0)}>Profile blocks</button><button className={active===1?'active':''} onClick={()=>goTo(1)}>Dino</button><button className={active===2?'active':''} onClick={()=>goTo(2)}>Hangman</button><button className={active===3?'active':''} onClick={()=>goTo(3)}>Snake</button></fieldset><div className="playRail" ref={rail} onScroll={onScroll}><div className="playSlide"><Playground/><button className="swipeHint" onClick={()=>goTo(1)}>Swipe left to play <span>→</span></button></div><div className="playSlide"><DinoGame active={active===1}/><button className="swipeHint back" onClick={()=>goTo(0)}><span>←</span> Blocks</button><button className="swipeHint nextGame" onClick={()=>goTo(2)}>Hangman <span>→</span></button></div><div className="playSlide"><div className="hangmanGame"><div className="hangmanTop"><div><span className="offlineDot"/>Code Hangman</div><span>Keyboard or tap</span></div><HangmanGame/></div><button className="swipeHint back hangmanBack" onClick={()=>goTo(1)}><span>←</span> Dino</button></div><div className="playSlide"><SnakeGame active={active===3}/></div></div><div className="pageDots" aria-label={`Playground page ${active+1} of 4`}><i className={active===0?'active':''}/><i className={active===1?'active':''}/><i className={active===2?'active':''}/><i className={active===3?'active':''}/></div></div>
 }
 
 export default function Home(){const [messageOpen,setMessageOpen]=useState(false);return <main id="portfolio-page">
   <a className="homeSkip" href="#projects">Skip to work</a>
-  <nav className={`nav shell ${bridgeStyles.navigation}`}><a className="brand" href="#home"><Eyes/>Celine de Graaf</a><div className="navLinks"><a href="#playground">Playground</a><a href="#projects">Projects</a><a href="#case-study">Case study</a><a href="#skills">Skills</a><a href="#about">About</a><Link href="/services" lang="nl">Diensten</Link></div><details className="mobileMenu"><summary>Menu</summary><nav aria-label="Compact navigation"><a href="#projects">Work</a><Link href="/services">Diensten / Services</Link><a href="#about">About</a><a href="#contact">Contact</a></nav></details><div className="navActions"><a className="cvButton" href="/Celine_de_Graaf_CV_EN.pdf" target="_blank">CV EN ↗</a><a className="cvButton cvNlButton" href="/Celine_de_Graaf_CV_NL.pdf" target="_blank">NL</a><ThemeButton/></div></nav>
+  <nav className={`nav shell ${bridgeStyles.navigation}`}><a className="brand" href="#home"><Eyes/>Celine de Graaf</a><div className="navLinks"><a href="#playground">Mini arcade</a><a href="#projects">Projects</a><a href="#case-study">Case study</a><a href="#skills">Skills</a><a href="#about">About</a><Link href="/services" lang="nl">Diensten</Link></div><details className="mobileMenu"><summary>Menu</summary><nav aria-label="Compact navigation"><a href="#projects">Work</a><Link href="/services">Diensten / Services</Link><a href="#about">About</a><a href="#contact">Contact</a></nav></details><div className="navActions"><a className="cvButton" href="/Celine_de_Graaf_CV_EN.pdf" target="_blank">CV EN ↗</a><a className="cvButton cvNlButton" href="/Celine_de_Graaf_CV_NL.pdf" target="_blank">NL</a><ThemeButton/></div></nav>
+  <CreativeTools />
   <section id="home" className="hero shell"><div className="heroCopy"><p className="kicker">Computer Science student · Remote opportunities</p><h1>Building reliable software.<br/><em>Growing into AI/LLM engineering.</em></h1><p className="heroText">Bachelor Informatica student combining structured computer-science learning with hands-on software projects, testing, documentation and iterative development.</p><div className="heroActions"><a className="solid" href="#projects">Explore my work</a><Link className="outline" href="/services">Start a project ↗</Link></div></div><IOSWidgets openMessage={()=>setMessageOpen(true)}/></section>
 
   <aside lang="nl" className={`shell ${bridgeStyles.bridge}`} aria-label="Diensten voor ondernemers"><p>Een website of app voor je bedrijf?<span>Ontdek Websites, Apps & Digital Design.</span></p><Link href="/services">Bekijk mijn diensten <b aria-hidden="true">↗</b></Link></aside>
 
-  <CreativeTools />
+
   <section id="projects" className="section shell"><div className="sectionIntro"><span>02</span><div><h2>Projects</h2><p>Current work, coursework and learning projects—labelled by evidence status.</p></div></div><ProjectCards projects={projects}/></section>
 
   <article id="case-study" className="caseStudy"><header className="caseHero shell"><div><p className="kicker">FamilyOS · Software/product case study</p><h2>Building a clearer family coordination experience across parent and child roles.</h2><p>In Progress · Not production-ready · Evidence updated from the current development record</p></div><dl><div><dt>Status</dt><dd>Active development</dd></div><div><dt>User roles</dt><dd>Parent + child</dd></div><div><dt>Evidence</dt><dd>Builds, tests and implemented flows</dd></div></dl></header>
@@ -124,7 +151,7 @@ export default function Home(){const [messageOpen,setMessageOpen]=useState(false
     <section className="caseConclusion shell"><p className="kicker">Current conclusion</p><blockquote>Strong portfolio evidence comes from showing the working decisions and the unfinished boundaries—not from calling an active project production-ready.</blockquote><a href="#contact">Discuss this project ↓</a></section>
   </article>
 
-  <section id="playground" className="band"><div className="shell"><div className="sectionIntro"><span>01</span><div><h2>Playground</h2><p>Drag the profile blocks, run with the no‑Wi‑Fi dinosaur or solve a quick code-themed word. Mouse, keyboard and touch friendly.</p></div></div><PlaygroundHub/></div></section>
+  <section id="playground" className="band"><div className="shell"><div className="sectionIntro"><span>01</span><div><h2>Mini arcade</h2><p>A small creative break. Move the profile blocks, dodge obstacles, solve a code word or chase a new Snake score.</p></div></div><PlaygroundHub/></div></section>
 
 
   <section id="skills" className="band"><div className="shell"><div className="sectionIntro"><span>03</span><div><h2>Skills & Learning</h2><p>Organized by depth and current focus, without turning learning goals into expertise claims.</p></div></div>{skillGroups.map(g=><div className="skillGroup" key={g.title}><div className="skillHeading"><h3>{g.title}</h3><p>{g.note}</p></div><div className="skillGrid">{g.items.map(([name,desc])=><article key={name}><h4>{name}</h4><p>{desc}</p></article>)}</div></div>)}</div></section>

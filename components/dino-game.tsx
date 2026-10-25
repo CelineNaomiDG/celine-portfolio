@@ -99,7 +99,10 @@ export default function DinoGame({ active }: { active: boolean }) {
       className={styles.game}
       aria-label="Dinosaur runner"
       onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) duck(false);
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          duck(false);
+          pause();
+        }
       }}
       onKeyDown={(event) => {
         if (!active || !['Space', 'ArrowUp', 'ArrowDown'].includes(event.code))
@@ -170,7 +173,18 @@ export default function DinoGame({ active }: { active: boolean }) {
           }}
           aria-hidden="true"
         >
-          <span>🦖</span>
+          <svg
+            viewBox="0 0 48 58"
+            width="100%"
+            height="100%"
+            fill="currentColor"
+          >
+            <path d="M21 4h25v22H31v7h9v5H28l-5 10H12L3 36V22l11 12h7Z" />
+            <rect x="35" y="9" width="4" height="4" fill="var(--card)" />
+            <path d="M34 21h12" stroke="var(--card)" strokeWidth="2" />
+            <path className={styles.legA} d="M13 43h7v11h7v4H13Z" />
+            <path className={styles.legB} d="M23 43h7v8h7v4H23Z" />
+          </svg>
         </div>
         <div
           className={`${styles.obstacle} ${run.obstacle === 'double' ? styles.double : ''}`}
@@ -182,7 +196,27 @@ export default function DinoGame({ active }: { active: boolean }) {
           }}
           aria-hidden="true"
         >
-          {obstacle.glyph}
+          <svg
+            viewBox="0 0 54 46"
+            width="100%"
+            height="100%"
+            preserveAspectRatio="none"
+            fill="currentColor"
+          >
+            {run.obstacle === 'bird' ? (
+              <path d="M0 23 17 19 24 0 34 18 54 25 34 31 24 46 18 29Z" />
+            ) : run.obstacle === 'rock' ? (
+              <path d="M0 46 6 17 25 0 45 12 54 46Z" />
+            ) : (
+              <path
+                d={
+                  run.obstacle === 'double'
+                    ? 'M8 46V8h8v13h7V12h6v18H16v16Zm29 0V0h8v19h9v9h-9v18Z'
+                    : 'M22 46V0h10v22h11V9h8v22H32v15ZM22 29H3V11h8v10h11Z'
+                }
+              />
+            )}
+          </svg>
         </div>
         <div className={styles.ground} aria-hidden="true" />
         {!inGame && (

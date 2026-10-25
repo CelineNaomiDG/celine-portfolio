@@ -1,3 +1,4 @@
+import DeliveryGuide from '../delivery-guide';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
@@ -135,6 +136,7 @@ export default function VisibilityPage() {
           </Link>
         </div>
       </section>
+      <DeliveryGuide kind="visibility" />
       <ContactSection
         title="Waar loopt je website nu vast?"
         text="Deel je website en wat je wilt verbeteren. Dan bespreken we wat zinvol en haalbaar is."

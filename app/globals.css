@@ -127,3 +127,5 @@ fieldset.playgroundTabs{border:0;margin:0;padding:0}
 .creativeToolbar output:empty{display:none}
 .creativeToolbar.activeTour{position:fixed;top:auto;bottom:24px;left:50%;transform:translateX(-50%);padding:16px 22px;border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 30px #0002;max-height:35dvh;overflow:auto;z-index:30}
 @media(max-width:680px){.creativeToolbar.activeTour{bottom:82px}}
+
+.stickerAdjust{display:flex;flex-wrap:wrap;gap:16px;padding:12px 0}.stickerAdjust label{display:flex;align-items:center;gap:8px;font-size:12px}.imageSticker,.pageSticker.imageSticker:nth-child(even){padding:0;background:transparent;border:0;box-shadow:none;border-radius:0}.imageSticker img{display:block;width:100%;height:auto;pointer-events:none}.playgroundTabs{flex-wrap:wrap}.creativeToolbar:not(.activeTour){position:relative;top:0}.creativeToolbar a{font-size:12px}.hangmanWord{flex-wrap:wrap}
