@@ -8,6 +8,7 @@ import {
   SectionHeading,
   ServicesShell,
 } from '../services-shared';
+import ui from '../studio.module.css';
 import styles from '../services.module.css';
 
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ export default function SoftwareAppsPage() {
         emphasis="naar iets bruikbaars."
         links={[
           { href: '#mogelijkheden', label: 'Wat kun je laten maken?' },
+          { href: '#automatisering', label: 'Koppelingen & automatisering' },
           { href: '#aanpak', label: 'Van idee naar eerste versie' },
           { href: '#kosten', label: 'Kosten' },
           { href: '#contact', label: 'Contact' },
@@ -37,7 +39,7 @@ export default function SoftwareAppsPage() {
           versie.
         </p>
       </PageIntro>
-      <section className={`${styles.section} ${styles.shell}`} aria-labelledby="voorbeelden-title"><SectionHeading id="voorbeelden-title">Bekijk hoe een proces kan werken.</SectionHeading><ConceptGallery kind="software" /></section>
+      <section id="voorbeelden" className={`${styles.section} ${styles.shell}`} aria-labelledby="voorbeelden-title"><SectionHeading id="voorbeelden-title">Bekijk hoe een proces kan werken.</SectionHeading><ConceptGallery kind="software" /></section>
       <section
         id="mogelijkheden"
         className={`${styles.section} ${styles.shell}`}
@@ -105,6 +107,14 @@ export default function SoftwareAppsPage() {
             vaak de passende eerste stap.
           </p>
         </aside>
+      </section>
+      <section id="automatisering" className={`${styles.section} ${styles.shell}`}>
+        <SectionHeading id="automatisering-title">Van aanvraag<br/><em>naar overzicht en opvolging.</em></SectionHeading>
+        <p>Bijvoorbeeld: een aanvraag komt binnen, wordt gecontroleerd, verschijnt in je CRM en krijgt een opvolgtaak. We beginnen bij één proces en de systemen die je al gebruikt.</p>
+        <ol className={ui.flow}>{[['Aanvraag','De afgesproken gegevens komen binnen.'],['Controle','Ontbrekende of ongeldige invoer wordt gesignaleerd.'],['Registratie','De aanvraag komt in het afgesproken overzicht of CRM.'],['Opvolging','Een taak of conceptbericht staat klaar voor de juiste persoon.']].map(([title,text],i)=><li key={title}><span>0{i+1}</span><strong>{title}</strong><p>{text}</p></li>)}</ol>
+        <div className={ui.deliverables}>{[['Een koppeling','Een afgesproken gegevensstroom tussen systemen, met controles, foutmeldingen en uitleg over herstel.'],['Een dashboard','Een overzicht van afgesproken gegevens en statussen. Bronnen, toegang, actualisering en definities leggen we vooraf vast.'],['AI als ondersteuning','Bijvoorbeeld informatie ordenen of een conceptantwoord voorbereiden. We bepalen wat automatisch mag en waar een mens controleert.']].map(([title,text])=><article key={title}><h3>{title}</h3><p>{text}</p></article>)}</div>
+        <p className={styles.note}>Dit zijn mogelijke opdrachten. We beoordelen haalbaarheid en benodigde expertise vooraf. API’s, licenties, hosting en doorlopend beheer zijn apart; er is geen onbeperkte of foutloze automatisering beloofd.</p>
+        <Link className={styles.primaryLink} href="/services/prijsindicatie?dienst=software">Stel jouw procesvraag samen ↗</Link>
       </section>
       <section
         id="aanpak"

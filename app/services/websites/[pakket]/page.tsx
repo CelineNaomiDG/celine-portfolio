@@ -26,7 +26,7 @@ export default async function PackagePage({ params }: Props) {
       <PackageStars level={detail.level} />
       <p>{item.text}</p><p>{detail.audience}</p>
       <p className={styles.price}><strong>{item.price}</strong><span>excl. btw · op offerte</span></p>
-      <div className={styles.actionRow}><Link className={styles.primaryLink} href="/services/contact">Bespreek dit traject ↗</Link><Link className={styles.textLink} href="/services/prijsindicatie">Vergelijk pakketten</Link></div>
+      <div className={styles.actionRow}><Link className={styles.primaryLink} href={`/services/contact?samenstelling=${encodeURIComponent(JSON.stringify({service:"website",website:item.slug}))}`}>Bespreek dit traject ↗</Link><Link className={styles.textLink} href={`/services/prijsindicatie?pakket=${item.slug}`}>Stel dit traject samen</Link></div>
     </PageIntro>
     <section className={`${styles.section} ${styles.shell}`} aria-labelledby="beeld-title">
       <SectionHeading id="beeld-title">Van idee naar een duidelijke opbouw.</SectionHeading>

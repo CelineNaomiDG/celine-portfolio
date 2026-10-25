@@ -1,5 +1,6 @@
 import PackageComparison from '../package-comparison';
 import PackageStars from '../package-stars';
+import SectorExamples from '../sector-examples';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
@@ -164,6 +165,8 @@ export default function WebsitesPage() {
           </div>
         </div>
       </section>
+      <section className={`${styles.section} ${styles.shell}`}><SectionHeading id="sector-title">Een richting voor jouw bedrijf.</SectionHeading><SectorExamples /></section>
+      <section id="webshop" className={`${styles.section} ${styles.shell}`}><SectionHeading id="webshop-title">Ook online verkopen?</SectionHeading><div className={styles.twoColumns}><p>Een webshop vraagt meer dan een productoverzicht. We verkennen je assortiment, bestelproces, betaalmethoden, levering en het beheer voordat er een bouwvoorstel komt.</p><div><p>Een webshop of betaalfunctie is geen standaard onderdeel van de vijf website-indicaties. De inrichting, transactiekosten, licenties en ondersteuning worden apart begroot.</p><Link className={styles.textLink} href="/services/prijsindicatie?dienst=website">Neem je verkoopwens mee ↗</Link></div></div></section>
       <FAQ
         items={[
           [

@@ -1,4 +1,7 @@
 import ConceptGallery from '../concept-gallery';
+import Link from 'next/link';
+import { designOffers, euro } from '../pricing-data';
+import ui from '../studio.module.css';
 import type { Metadata } from 'next';
 import {
   ContactSection,
@@ -12,39 +15,24 @@ import {
 import styles from '../services.module.css';
 
 export const metadata: Metadata = {
-  title: 'Social media & flyers | Celine de Graaf',
+  title: 'Content, socialmedia-ontwerpen & flyers | Celine de Graaf',
   description:
     'Ontwerpen voor je berichten, stories en flyers. Heldere tarieven voor losse visuals, sets en een A5-flyer, klaar om zelf te publiceren of te laten drukken.',
 };
 
-const offers = [
-  {
-    title: 'Een losse visual',
-    price: 'vanaf €45',
-    text: 'Eén statisch ontwerp voor een bericht of story, in één afgesproken formaat. Inclusief één ronde met gebundelde wijzigingen.',
-  },
-  {
-    title: 'Een set van 6 visuals',
-    price: '€225',
-    text: 'Zes samenhangende statische ontwerpen, elk in één afgesproken formaat. Inclusief één gezamenlijke ronde met gebundelde wijzigingen voor de hele set.',
-  },
-  {
-    title: 'Een A5-flyer',
-    price: 'vanaf €95',
-    text: 'Een ontwerp voor één zijde op A5-formaat, op basis van jouw tekst en beelden. Inclusief een drukklaar PDF-bestand en één ronde met gebundelde wijzigingen. Drukkosten zijn niet inbegrepen.',
-  },
-];
+
 
 export default function SocialDesignPage() {
   return (
     <ServicesShell current="/services/socialmedia-design">
       <PageIntro
-        label="Social media & flyers"
+        label="Content & design"
         title="Jouw boodschap."
         emphasis="Herkenbaar in beeld."
         links={[
           { href: '#ontwerpen', label: 'Wat je ontvangt' },
           { href: '#tarieven', label: 'Tarieven' },
+          { href: '#content', label: 'Tekst & publicatie' },
           { href: '#contact', label: 'Contact' },
         ]}
       >
@@ -102,12 +90,12 @@ export default function SocialDesignPage() {
           </SectionHeading>
           <PriceNote />
           <div className={styles.designOffers}>
-            {offers.map((offer) => (
+            {designOffers.map((offer) => (
               <article key={offer.title} data-reveal>
                 <div>
                   <h3>{offer.title}</h3>
                   <p className={styles.designPrice}>
-                    {offer.price}
+                    {offer.from ? 'vanaf ' : ''}{euro(offer.amount)}
                     <span>eenmalig · excl. btw</span>
                   </p>
                 </div>
@@ -144,6 +132,19 @@ export default function SocialDesignPage() {
             </p>
           </article>
         </div>
+      </section>
+      <section id="content" className={`${styles.section} ${styles.shell}`}>
+        <SectionHeading id="content-title">Van losse visual<br/><em>naar een samenhangend verhaal.</em></SectionHeading>
+        <p>Wil je meer dan ontwerpen? We kunnen een afgebakende opdracht bespreken voor teksten, een contentkalender of planning en publicatie. Die onderdelen zitten niet in de ontwerpprijzen hierboven.</p>
+        <div className={ui.deliverables}>
+          <article><span className={ui.stamp}>Ontwerp</span><h3>Jij deelt het.</h3><p>Jij levert de boodschap en het beeld. Ik ontwerp de afgesproken bestanden, jij plaatst ze zelf.</p><ul><li>Losse visual, set of flyer.</li><li>Afgesproken formaten.</li><li>Eén gebundelde feedbackronde.</li></ul></article>
+          <article><span className={ui.stamp}>Op offerte</span><h3>Content voorbereiden.</h3><p>Een plan voor wat je wilt vertellen, met afgesproken ontwerpen en bijschriften. Jij keurt de inhoud goed en publiceert.</p><ul><li>Aantal unieke berichten vooraf vastleggen.</li><li>Kalender en bijschriften afspreken.</li><li>Beeldmateriaal en eventuele bronbestanden bepalen.</li></ul></article>
+          <article><span className={ui.stamp}>Op offerte · eerst afstemmen</span><h3>Ook laten inplannen.</h3><p>We verkennen planning en publicatie op afgesproken kanalen, na jouw goedkeuring. Beschikbaarheid en benodigde toegang stemmen we vooraf af.</p><ul><li>Unieke ontwerpen en plaatsingen apart benoemen.</li><li>Planning, feedback en evaluatie afbakenen.</li><li>Geen dagelijks reactiebeheer of advertenties inbegrepen.</li></ul></article>
+        </div>
+        <p className={styles.eyebrow}>Voorbeeldplanning · geen inbegrepen maandpakket</p>
+        <div className={ui.calendar}>{['Je verhaal','Een dienst','Een kijkje in het werk','Een duidelijke actie'].map((text,i)=><div key={text}><span>WEEK 0{i+1}</span><strong>{text}</strong></div>)}</div>
+        <p className={styles.note}>Vier unieke posts op twee kanalen zijn acht plaatsingen. Of tekst en ontwerp per kanaal worden aangepast, staat in de offerte. Fotografie, video-opnames, advertentiebudget en dagelijks reageren zijn aparte werkzaamheden; die worden niet automatisch aangeboden.</p>
+        <Link className={styles.primaryLink} href="/services/prijsindicatie?dienst=design">Stel je ontwerpvraag samen ↗</Link>
       </section>
       <FAQ
         items={[

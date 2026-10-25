@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import ThemeButton from '@/components/theme-button';
 import ServicesMotion from './services-motion';
+import ServicesNav from './services-nav';
 import styles from './services.module.css';
 
 export const email = 'celinedegraaf.tech@gmail.com';
@@ -15,15 +16,15 @@ export const serviceLinks = [
   },
   {
     href: '/services/software-apps',
-    label: 'Software & apps',
-    title: 'Software & apps',
+    label: 'Software & automatisering',
+    title: 'Software & automatisering',
     description:
       'Een handig hulpmiddel voor je bedrijf, een app of de eerste versie van je eigen online product.',
   },
   {
     href: '/services/socialmedia-design',
-    label: 'Social media & flyers',
-    title: 'Social media & flyers',
+    label: 'Content & design',
+    title: 'Content & design',
     description:
       'Verzorgde ontwerpen voor je berichten, acties en flyers. Klaar om zelf te delen of te laten drukken.',
   },
@@ -53,7 +54,7 @@ export function ServicesShell({
       </a>
       <header className={`${styles.header} ${styles.shell}`}>
         <Link className={styles.brand} href="/services">
-          Celine de Graaf<span>Websites, Apps & Digital Design</span>
+          Celine de Graaf<span>Web, Design & Automatisering</span>
         </Link>
         <div className={styles.headerActions}>
           <Link href="/" className={styles.portfolioLink}>
@@ -62,30 +63,7 @@ export function ServicesShell({
           <Link href="/en/services" hrefLang="en" lang="en" className={styles.portfolioLink}>English overview</Link>
           <ThemeButton language="nl" className={styles.theme} />
         </div>
-        <nav className={styles.navigation} aria-label="Diensten">
-          <Link
-            href="/services"
-            aria-current={current === '/services' ? 'page' : undefined}
-          >
-            Overzicht
-          </Link>
-          {serviceLinks.map((link) => (
-            <Link
-              href={link.href}
-              key={link.href}
-              aria-current={current === link.href ? 'page' : undefined}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link href="/services/voorbeelden" aria-current={current === '/services/voorbeelden' ? 'page' : undefined}>Voorbeelden</Link>
-          <Link href="/services/contact" aria-current={current === '/services/contact' ? 'page' : undefined}>Project bespreken ↗</Link>
-          <Link href="/services/prijsindicatie"
-            aria-current={current === '/services/prijsindicatie' ? 'page' : undefined}>
-            Prijsindicatie
-          </Link>
-        </nav>
-        <details className={styles.mobileServicesMenu}><summary>Menu · diensten</summary><nav aria-label="Mobiele dienstennavigatie"><Link href="/services">Overzicht</Link>{serviceLinks.map(link=><Link key={link.href} href={link.href} aria-current={current===link.href?'page':undefined}>{link.label}</Link>)}<Link href="/services/voorbeelden">Voorbeelden</Link><Link href="/services/prijsindicatie">Pakketten vergelijken</Link><Link href="/services/contact">Project bespreken ↗</Link></nav></details>
+        <ServicesNav current={current} />
       </header>
       <main id="inhoud" tabIndex={-1}>
         {children}
@@ -97,6 +75,8 @@ export function ServicesShell({
         <nav aria-label="Footer">
           <Link href="/services">Alle diensten</Link>
           <Link href="/services/contact">Contact</Link>
+          <Link href="/services/producten">Digitale producten</Link>
+          <Link href="/services/onderhoud">Onderhoud</Link>
           <Link href="/services/voorwaarden">Voorwaarden (concept)</Link>
           <Link href="/services/privacy">Privacy (concept)</Link>
           <Link href="/">IT-portfolio ↗</Link>
@@ -225,7 +205,7 @@ export function ContactSection({
           <Link className={styles.primaryLink} href="/services/contact">
             Start je projectaanvraag <span aria-hidden="true">↗</span>
           </Link>
-          <Link className={styles.textLink} href="/services/contact#aanvraag">Vraag een kennismaking aan ↗</Link>
+          <Link className={styles.textLink} href="/services/contact?kennismaking=1#aanvraag">Vraag een kennismaking aan ↗</Link>
           <p>Rechtstreeks contact. Gesprekken plannen we in overleg, meestal op een doordeweekse avond.</p>
           <a className={styles.email} href={enquiry(subject)}>
             {email}

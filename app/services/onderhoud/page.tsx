@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex, jsx-a11y/prefer-tag-over-role */
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { maintenancePlans, euro } from '../pricing-data';
 import {
   ContactSection,
   ExtraWorkNote,
@@ -19,29 +20,7 @@ export const metadata: Metadata = {
     'Optionele maandpakketten voor technische websitecontroles, kleine tekst- en beeldwijzigingen en beperkte verbeteringen. Bekijk precies wat inbegrepen is.',
 };
 
-const plans = [
-  {
-    name: 'Basis',
-    price: '€49',
-    allowance: '30 minuten technisch werk per maand',
-    text: 'Een maandelijks moment voor technische updates en controles, passend bij de techniek van je website. Ik controleer de opbouw en publicatie van de site en het afgesproken herstelpunt. Je ontvangt een kort verslag.',
-    note: 'Geen tekst- of beeldwijzigingen inbegrepen.',
-  },
-  {
-    name: 'Beheer',
-    price: '€99',
-    allowance: 'Basis + 45 minuten voor tekst en beeld',
-    text: 'Alles uit Basis, plus 45 minuten per maand voor kleine aanpassingen aan bestaande teksten en afbeeldingen. Bijvoorbeeld een nieuwe foto of aangepaste openingstijden.',
-    note: 'De 30 minuten technisch werk en de 45 minuten inhoudelijke wijzigingen zijn aparte tijdsblokken.',
-  },
-  {
-    name: 'Doorontwikkeling',
-    price: '€179',
-    allowance: 'Basis + 2 uur voor kleine verbeteringen',
-    text: 'Alles uit Basis, plus 2 uur per maand voor wijzigingen en kleine verbeteringen aan je website. Grotere functies of veranderingen worden eerst apart besproken.',
-    note: 'De 30 minuten technisch werk en de 2 uur wijzigingen en verbeteringen zijn aparte tijdsblokken.',
-  },
-];
+
 
 export default function MaintenancePage() {
   return (
@@ -119,12 +98,12 @@ export default function MaintenancePage() {
           ].map(([label,...cells])=><tr key={label}><th scope="row">{label}</th>{cells.map((cell,i)=><td key={i}>{cell}</td>)}</tr>)}</tbody></table></div>
           <p className={styles.note}>Exclusief btw. Voorbeelden moeten binnen de beschikbare tijd passen; ongebruikte tijd vervalt per maand.</p>
           <div className={styles.maintenancePlans}>
-            {plans.map((plan) => (
+            {maintenancePlans.map((plan) => (
               <article key={plan.name} data-reveal>
                 <div>
                   <h3>{plan.name}</h3>
                   <p className={styles.price}>
-                    <strong>{plan.price}</strong>
+                    <strong>{euro(plan.amount)}</strong>
                     <span>per maand · excl. btw</span>
                   </p>
                 </div>

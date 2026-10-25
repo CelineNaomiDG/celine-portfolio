@@ -64,3 +64,21 @@ Before publishing changes, run `pnpm lint`, `pnpm exec tsc --noEmit` and `pnpm b
 - Company identity, definitive legal documents, approved customer work, enquiry delivery and confirmed calendar booking remain launch dependencies. Do not represent these as complete.
 
 Validation for this update: production build and TypeScript pass; targeted lint passes. Browser checks covered 320px, 390px and 1440px layouts, enquiry preparation without transmission, demo controls, theme switching, sticker keyboard movement and persistence, modal Escape, mobile menus, reduced-motion tour and automatic-tour interruption. Physical-device testing and an independent accessibility audit are not claimed.
+
+## Services navigation and project configurator (October 2026)
+
+- Four service categories share one responsive menu, with explicit support, pricing, process and digital collection routes. Existing service URLs remain valid.
+- `/services/prijsindicatie` offers a client-side configurator with no registration, analytics or personal data collection. Known one-off and recurring costs are kept separate. Unpriced additions and external costs remain explicit; the displayed amount is not falsely presented as an all-in price.
+- `app/services/pricing-data.ts` owns numeric website, design and maintenance amounts, validates selection identifiers and builds the enquiry summary. These are the existing public rates; proposed monthly social content packages are **not** published as approved prices.
+- Configurator choices are passed to `/services/contact` in an allowlisted, length-limited URL parameter. Prices are recomputed from local data, never accepted from a URL. The existing email preparation form includes the summary and can preselect an introduction request. No enquiry is sent until the visitor sends their prepared email.
+- `/services/zichtbaarheid` describes bounded website improvements. Marketing/advertising management, on-location photography and complex ERP implementations are not represented as existing staffed services.
+- Industry examples are original code-based visual studies, clearly labelled as fictional concepts, not client work or conversion results.
+- `/services/producten` is a truthful collection announcement. There is no product inventory, checkout, order or payment processing yet. The owner has not selected products or prices.
+
+### Digital-product launch prerequisites
+
+Once the owner chooses a product: define a useful deliverable, preview, format, compatibility, licence, support and updates; set a price and applicable VAT treatment; select a payment provider and configure credentials privately; implement verified checkout, payment webhooks and protected delivery; test failure, duplicate-event, refund and delivery flows; complete the business identity, privacy and applicable sale/withdrawal terms before accepting purchases. No live paid service or subscription has been provisioned by this change.
+
+### Verification
+
+`pnpm test:pricing` checks recurring versus one-off amounts, unpriced extras, approved prices, invalid URL inputs and summary round-trips. Run `pnpm build` and lint after changes. Browser checks cover new navigation, mobile layouts, calculator selections and the enquiry handoff. Direct form delivery and calendar booking still require the owner's chosen provider/account configuration; the current interface continues to describe its email-draft behaviour accurately.

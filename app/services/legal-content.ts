@@ -110,6 +110,7 @@ export const privacyContent: LegalContent = {
   intro: 'Hoe contactgegevens, websitebezoek en je lokale weergavevoorkeuren worden behandeld.',
   notice: 'Concept: nog niet klaar voor publicatie. De verantwoordelijke onderneming, vestigingsgegevens, leveranciersafspraken, daadwerkelijke logbewaring en eventuele internationale doorgifte moeten nog worden bevestigd. De hieronder voorgestelde bewaartermijnen moeten ook daadwerkelijk worden ingericht.',
   sections: [
+    { title: 'Projectkeuzehulp', paragraphs: ['De prijskeuzehulp werkt zonder account of persoonsgegevens. Je samenstelling wordt in het webadres opgenomen wanneer je naar het contactformulier gaat, zodat je keuzes meekomen. Dat adres kan in browsergeschiedenis en hostinglogs voorkomen. Vul in deze keuzehulp geen persoonsgegevens in. De tool geeft een indicatie; er wordt niets besteld of betaald.'] },
     { title: 'Lokale weergavevoorkeuren', paragraphs: ['De thema-instelling en Creative Mode worden alleen in de lokale opslag van je browser bewaard. Creative Mode bewaart of de modus aanstaat en de tekst en posities van decoratieve stickers. Je kunt de stickers resetten via de bediening of de lokale gegevens verwijderen via je browser. De rondleiding verstuurt geen gegevens en onthoudt geen bezoekgeschiedenis.'] },
     {
       title: 'Wie is verantwoordelijk?',
