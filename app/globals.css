@@ -48,7 +48,7 @@ button,input,textarea{font-family:inherit}.shell{width:min(1200px,calc(100% - 40
 .dinoGame{outline:none}.dinoGame:focus-visible{box-shadow:var(--shadow),inset 0 0 0 2px var(--fg)}
 .gameTopActions{display:flex;align-items:center;gap:12px}.pauseButton{width:36px;height:36px;border:0;border-radius:12px;background:var(--soft);color:var(--fg);font-weight:900;cursor:pointer}
 .dinoStage{--ground-y:64px}.ground{bottom:var(--ground-y);height:3px}.dino,.cactus{bottom:calc(var(--ground-y) + 3px)}
-.dino{width:76px;height:76px;transform:none;place-items:stretch;overflow:hidden}.dinoSprite{display:block;width:100%;height:100%;background:url('/trex-sprite-sheet.png') 0 0/200% 200% no-repeat;filter:grayscale(1) contrast(1.15)}
+.dino{width:76px;height:76px;transform:none;place-items:stretch;overflow:hidden}.dinoSprite{display:block;width:100%;height:100%;filter:grayscale(1) contrast(1.15)}
 .isPlaying .dino:not(.isJumping):not(.isDucking) .dinoSprite{animation:trexRun .22s steps(1,end) infinite}.dino.isJumping{animation:dinoJumpPolished .6s cubic-bezier(.3,.02,.22,1)}.dino.isJumping .dinoSprite{background-position:0 100%}.dino.isDucking{width:84px;height:48px}.dino.isDucking .dinoSprite{background-position:100% 100%;background-size:200% 200%}
 .cactus:not(.obstacle-bird){align-items:end;transform:translateY(3px)}
 .obstacle-bird{bottom:112px}.obstacle-rock{bottom:calc(var(--ground-y) + 3px)}

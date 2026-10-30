@@ -5,6 +5,7 @@ import {
   addOns,
   defaultSelection,
   designOffers,
+  designPriceLabel,
   estimate,
   euro,
   maintenancePlans,
@@ -20,14 +21,17 @@ import ui from './price-builder.module.css';
 export default function PriceBuilder({
   initialService,
   initialWebsite,
+  initialDesign,
 }: {
   initialService?: string;
   initialWebsite?: string;
+  initialDesign?: string;
 }) {
   const [selection, setSelection] = useState<Selection>(() =>
     normalizeSelection({
       ...defaultSelection,
       service: initialService,
+      design: initialDesign || defaultSelection.design,
       website: initialWebsite || defaultSelection.website,
     }),
   );
@@ -143,28 +147,33 @@ export default function PriceBuilder({
                 <label
                   key={item.id}
                   className={ui.choice}
-                  aria-label={`${item.title}. ${item.from ? 'Vanaf ' : ''}${euro(item.amount)}, exclusief btw.`}
+                  aria-label={`${item.title}. ${designPriceLabel(item)}. ${item.billing === 'month' ? 'Per maand' : 'Eenmalig'}, exclusief btw.`}
                 >
                   <input
                     type="radio"
                     name="design"
                     checked={selection.design === item.id}
-                    onChange={() => change({ design: item.id })}
+                    onChange={() => change({ design: item.id, extras: [] })}
                   />
                   <span>
                     <strong>
-                      {item.title} · {item.from ? 'vanaf ' : ''}
-                      {euro(item.amount)}
+                      {item.title} · {designPriceLabel(item)}
                     </strong>
-                    <small>{item.text}</small>
+                    <small>
+                      {item.billing === 'month'
+                        ? 'Maandelijkse opdracht'
+                        : 'Eenmalige opdracht'}{' '}
+                      · {item.text}
+                    </small>
                   </span>
                 </label>
               ))}
             </div>
             <p className={ui.note}>
-              Dit zijn unieke ontwerpen, geen aantallen publicaties. Jij levert
-              tekst en beeld aan en publiceert zelf. Zes ontwerpen op twee
-              kanalen plaatsen maakt geen twaalf unieke ontwerpen.
+              Bij losse ontwerpen lever jij tekst en beeld en publiceer je zelf.
+              Bij content en publicatie bespreken we aantallen, kanalen en de
+              bijbehorende offerte. Zes unieke posts op twee kanalen zijn twaalf
+              plaatsingen, geen twaalf ontwerpen.
             </p>
           </fieldset>
         )}
@@ -244,32 +253,42 @@ export default function PriceBuilder({
               begroting.
             </p>
             <div className={ui.choices}>
-              {addOns[selection.service].map((item) => (
-                <label
-                  key={item.id}
-                  className={ui.choice}
-                  aria-label={`${item.label}. Op offerte. ${item.description}`}
-                >
-                  <input
-                    type="checkbox"
-                    checked={selection.extras.includes(item.id)}
-                    onChange={(e) =>
-                      change({
-                        extras: e.target.checked
-                          ? [...selection.extras, item.id]
-                          : selection.extras.filter((id) => id !== item.id),
-                      })
-                    }
-                  />
-                  <span>
-                    <strong>
-                      {item.label}
-                      <em>Op offerte</em>
-                    </strong>
-                    <small>{item.description}</small>
-                  </span>
-                </label>
-              ))}
+              {addOns[selection.service]
+                .filter(
+                  (item) =>
+                    !(
+                      selection.service === 'design' &&
+                      ((selection.design === 'content' && item.id === 'copy') ||
+                        (selection.design === 'monthly' &&
+                          ['copy', 'publish'].includes(item.id)))
+                    ),
+                )
+                .map((item) => (
+                  <label
+                    key={item.id}
+                    className={ui.choice}
+                    aria-label={`${item.label}. Op offerte. ${item.description}`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={selection.extras.includes(item.id)}
+                      onChange={(e) =>
+                        change({
+                          extras: e.target.checked
+                            ? [...selection.extras, item.id]
+                            : selection.extras.filter((id) => id !== item.id),
+                        })
+                      }
+                    />
+                    <span>
+                      <strong>
+                        {item.label}
+                        <em>Op offerte</em>
+                      </strong>
+                      <small>{item.description}</small>
+                    </span>
+                  </label>
+                ))}
             </div>
           </fieldset>
         )}
@@ -319,8 +338,15 @@ export default function PriceBuilder({
                   ]
                 : selection.service === 'design'
                   ? [
-                      'De gekozen ontwerpomvang',
-                      'Eén gebundelde feedbackronde',
+                      selection.design === 'monthly'
+                        ? 'Een afgebakende maandopdracht op offerte'
+                        : selection.design === 'content'
+                          ? 'Een contentreeks met tekst en kalender op offerte'
+                          : 'De gekozen ontwerpomvang',
+                      selection.design === 'monthly' ||
+                      selection.design === 'content'
+                        ? 'Feedback en accordering vooraf afspreken'
+                        : 'Eén gebundelde feedbackronde',
                       'Afgesproken eindbestanden',
                     ]
                   : selection.service === 'maintenance'

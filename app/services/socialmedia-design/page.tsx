@@ -1,213 +1,501 @@
-import ui from '../studio.module.css';
-import DeliveryGuide from '../delivery-guide';
-import ConceptGallery from '../concept-gallery';
-import Link from 'next/link';
-import { designOffers, euro } from '../pricing-data';
-
+/* oxlint-disable jsx-a11y/no-noninteractive-tabindex, jsx-a11y/prefer-tag-over-role -- The labelled comparison region must be focusable for keyboard scrolling on small screens. */
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import ConceptGallery from '../concept-gallery';
 import {
   ContactSection,
-  ExtraWorkNote,
   FAQ,
   PageIntro,
-  PriceNote,
   SectionHeading,
   ServicesShell,
 } from '../services-shared';
+import {
+  designOffers,
+  designPriceLabel,
+  euro,
+  extraWorkHourlyRate,
+  socialBudgetExample,
+  socialBudgetTotal,
+} from '../pricing-data';
 import styles from '../services.module.css';
-
+import ui from './social.module.css';
 export const metadata: Metadata = {
-  title: 'Content, socialmedia-ontwerpen & flyers | Celine de Graaf',
+  title: 'Social media: ontwerpen, content & publicatie | Celine de Graaf',
   description:
-    'Ontwerpen voor je berichten, stories en flyers. Heldere tarieven voor losse visuals, sets en een A5-flyer, klaar om zelf te publiceren of te laten drukken.',
+    'Vergelijk losse ontwerpen, posts met tekst en maandelijkse content met publicatie. Zes ontwerpen €225 excl. btw. Heldere scope, prijsopbouw en werkwijze.',
 };
-
+const choose = (id: string) =>
+  `/services/prijsindicatie?dienst=design&ontwerp=${id}#samenstellen`;
+const routes = [
+  {
+    id: 'set',
+    number: '01',
+    name: 'Alleen ontwerp',
+    lead: 'Jij hebt de inhoud. Ik maak er beeld van.',
+    price: '€225',
+    period: 'eenmalig · set van 6 · excl. btw',
+    included: [
+      '6 statische ontwerpen',
+      '1 afgesproken formaat per ontwerp',
+      '1 gezamenlijke feedbackronde',
+      'PNG/JPG-bestanden om te plaatsen',
+    ],
+    customer:
+      'Jij levert definitieve tekst, logo en beeld. Jij schrijft eventuele bijschriften en publiceert.',
+    cta: 'Kies de ontwerp-set',
+  },
+  {
+    id: 'content',
+    number: '02',
+    name: 'Posts + teksten',
+    lead: 'Een reeks die klaarstaat om te delen.',
+    price: 'Op offerte',
+    period: 'eenmalig · aantal berichten op afspraak',
+    included: [
+      'Ontwerpen én bijschriften',
+      'Onderwerpen op basis van jouw bedrijf',
+      'Contentkalender met publicatievoorstel',
+      'Concepten ter goedkeuring',
+    ],
+    customer:
+      'Jij levert bedrijfsinformatie en bruikbaar beeld. Jij keurt goed en publiceert zelf.',
+    cta: 'Bespreek een contentreeks',
+  },
+  {
+    id: 'monthly',
+    number: '03',
+    name: 'Content + publicatie',
+    lead: 'Een afgesproken ritme, vooraf geregeld.',
+    price: 'Op offerte',
+    period: 'per kalendermaand · opstart apart benoemd',
+    included: [
+      'Ontwerpen, bijschriften en kalender',
+      'Inplannen na jouw goedkeuring',
+      'Afgesproken kanalen en aantallen',
+      'Publicatiecontrole en korte terugblik',
+    ],
+    customer:
+      'Jij levert input en beeld, geeft akkoord en beantwoordt reacties en privéberichten.',
+    cta: 'Bespreek maandelijkse content',
+  },
+];
+const comparison = [
+  [
+    'Ontwerpen',
+    '6 statische beelden',
+    'Aantal op afspraak',
+    'Aantal per kalendermaand',
+  ],
+  [
+    'Bijschriften schrijven',
+    'Niet inbegrepen',
+    'Onderdeel van de offerte',
+    'Onderdeel van de offerte',
+  ],
+  [
+    'Contentkalender',
+    'Niet inbegrepen',
+    'Onderdeel van de offerte',
+    'Onderdeel van de offerte',
+  ],
+  ['Inplannen & publiceren', 'Doe je zelf', 'Doe je zelf', 'Na jouw akkoord'],
+  [
+    'Kanalen',
+    'Je kiest het exportformaat',
+    'Je kiest waar je zelf publiceert',
+    'Kanalen en plaatsingen vooraf vastleggen',
+  ],
+  ['Reacties & privéberichten', 'Doe je zelf', 'Doe je zelf', 'Doe je zelf'],
+  [
+    'Fotoshoot, Reels & advertenties',
+    'Niet inbegrepen',
+    'Niet inbegrepen',
+    'Niet inbegrepen',
+  ],
+];
 export default function SocialDesignPage() {
   return (
     <ServicesShell current="/services/socialmedia-design">
       <PageIntro
-        label="Content & design"
-        title="Jouw boodschap."
-        emphasis="Herkenbaar in beeld."
+        label="Social media & grafisch ontwerp"
+        title="Wat wil jij"
+        emphasis="uit handen geven?"
         links={[
-          { href: '#ontwerpen', label: 'Wat je ontvangt' },
-          { href: '#tarieven', label: 'Tarieven' },
-          { href: '#content', label: 'Tekst & publicatie' },
-          { href: '#contact', label: 'Contact' },
+          { href: '#diensten', label: 'Vergelijk de diensten' },
+          { href: '#tarieven', label: 'Prijzen' },
+          { href: '#prijsopbouw', label: 'Zo bereken ik de kosten' },
+          { href: '#uitvoering', label: 'Werkwijze & tools' },
         ]}
       >
         <p>
-          Een verzorgde post, een duidelijke story of een flyer voor je actie.
-          Ik maak de ontwerpen; jij plaatst ze op je kanalen of laat ze drukken.
-          Beheer van je accounts en advertenties zijn niet automatisch
-          inbegrepen.
+          Alleen een mooi ontwerp? Ook hulp met de tekst? Of de goedgekeurde
+          berichten laten inplannen? Kies hoeveel je zelf doet. Hieronder zie je
+          de taakverdeling, de oplevering en de kosten.
         </p>
       </PageIntro>
-      <section
-        className={`${styles.section} ${styles.shell}`}
-        aria-labelledby="voorbeelden-title"
-      >
-        <SectionHeading id="voorbeelden-title">
-          Zo wordt je boodschap zichtbaar.
+      <section id="diensten" className={`${styles.shell} ${styles.section}`}>
+        <SectionHeading id="diensten-title">
+          Drie manieren om samen te werken.
         </SectionHeading>
-        <ConceptGallery kind="design" />
-      </section>
-      <section
-        id="ontwerpen"
-        className={`${styles.section} ${styles.shell}`}
-        aria-labelledby="ontwerpen-title"
-      >
-        <SectionHeading id="ontwerpen-title">
-          Een ontwerp dat je kunt gebruiken.
-        </SectionHeading>
-        <div className={styles.twoColumns}>
-          <article data-reveal>
-            <h3>Voor je sociale kanalen</h3>
-            <p>
-              Je ontvangt een stilstaand beeldbestand in het vooraf afgesproken
-              formaat. Bijvoorbeeld een vierkant bericht of een staande story.
-              Je kiest welk formaat je nodig hebt.
-            </p>
-            <p>
-              Een samenhangende set helpt om verschillende berichten dezelfde
-              uitstraling te geven. Je levert de boodschap, het logo en de
-              beelden aan.
-            </p>
-          </article>
-          <article data-reveal data-reveal-delay="100">
-            <h3>Voor je flyer</h3>
-            <p>
-              Ik maak een overzichtelijke indeling voor je aangeleverde tekst en
-              afbeeldingen. Het resultaat is een PDF-bestand voor de drukker.
-            </p>
-            <p>
-              De aanlevereisen van je drukker bespreken we vooraf. Jij regelt
-              het drukken en betaalt de drukkosten apart.
-            </p>
-          </article>
-        </div>
-      </section>
-      <section
-        id="tarieven"
-        className={styles.softBand}
-        aria-labelledby="tarieven-title"
-      >
-        <div className={`${styles.section} ${styles.shell}`}>
-          <SectionHeading id="tarieven-title">
-            Los ontwerp of een complete set?
-          </SectionHeading>
-          <PriceNote />
-          <div className={styles.designOffers}>
-            {designOffers.map((offer) => (
-              <article key={offer.title} data-reveal>
-                <div>
-                  <h3>{offer.title}</h3>
-                  <p className={styles.designPrice}>
-                    {offer.from ? 'vanaf ' : ''}
-                    {euro(offer.amount)}
-                    <span>eenmalig · excl. btw</span>
-                  </p>
-                </div>
-                <p>{offer.text}</p>
-              </article>
-            ))}
-          </div>
-          <ExtraWorkNote />
-        </div>
-      </section>
-      <section
-        className={`${styles.section} ${styles.shell}`}
-        aria-labelledby="afspraken-title"
-      >
-        <SectionHeading id="afspraken-title">
-          Vooraf even afstemmen.
-        </SectionHeading>
-        <div className={styles.twoColumns}>
-          <article data-reveal>
-            <h3>Wat jij aanlevert</h3>
-            <p>
-              De definitieve tekst, je logo, foto’s of andere beelden die je mag
-              gebruiken. Vertel ook waar het ontwerp komt te staan, welk formaat
-              je nodig hebt en welke uitstraling je zoekt.
-            </p>
-          </article>
-          <article data-reveal data-reveal-delay="100">
-            <h3>Wat we apart afspreken</h3>
-            <p>
-              Extra formaten, meer zijden, bewegende beelden, bewerkbare
-              templates en bronbestanden vallen buiten de genoemde pakketten.
-              Ook teksten schrijven, beeldinkoop, publiceren en accountbeheer
-              zijn niet inbegrepen.
-            </p>
-          </article>
-        </div>
-      </section>
-      <section id="content" className={`${styles.section} ${styles.shell}`}>
-        <SectionHeading id="content-title">
-          Van losse visual
-          <br />
-          <em>naar een samenhangend verhaal.</em>
-        </SectionHeading>
-        <p>
-          Wil je meer dan ontwerpen? We kunnen een afgebakende opdracht
-          bespreken voor teksten, een contentkalender of planning en publicatie.
-          Die onderdelen zitten niet in de ontwerpprijzen hierboven.
-        </p>
-
-        <p className={styles.eyebrow}>
-          Voorbeeldplanning · geen inbegrepen maandpakket
-        </p>
-        <div className={ui.calendar}>
-          {[
-            'Je verhaal',
-            'Een dienst',
-            'Een kijkje in het werk',
-            'Een duidelijke actie',
-          ].map((text, i) => (
-            <div key={text}>
-              <span>WEEK 0{i + 1}</span>
-              <strong>{text}</strong>
-            </div>
+        <div className={ui.cards}>
+          {routes.map((r) => (
+            <article key={r.id} className={ui.card}>
+              <span className={ui.number}>{r.number} / JOUW KEUZE</span>
+              <h3>{r.name}</h3>
+              <p>{r.lead}</p>
+              <div className={ui.price}>
+                {r.price}
+                <small>{r.period}</small>
+              </div>
+              <ul>
+                {r.included.map((x) => (
+                  <li key={x}>
+                    <span aria-hidden="true">✓</span>
+                    {x}
+                  </li>
+                ))}
+              </ul>
+              <p className={ui.customer}>
+                <strong>Jouw rol</strong>
+                {r.customer}
+              </p>
+              <Link href={choose(r.id)} className={styles.primaryLink}>
+                {r.cta} ↗
+              </Link>
+            </article>
           ))}
         </div>
         <p className={styles.note}>
-          Vier unieke posts op twee kanalen zijn acht plaatsingen. Of tekst en
-          ontwerp per kanaal worden aangepast, staat in de offerte. Fotografie,
-          video-opnames, advertentiebudget en dagelijks reageren zijn aparte
-          werkzaamheden; die worden niet automatisch aangeboden.
+          Een aanvraag is vrijblijvend. Bij contentopdrachten bevestigen we
+          eerst omvang, feedback, beschikbaarheid en prijs. Er start geen
+          abonnement via deze website.
         </p>
-        <Link
-          className={styles.primaryLink}
-          href="/services/prijsindicatie?dienst=design"
-        >
-          Stel je ontwerpvraag samen ↗
-        </Link>
+      </section>
+      <section id="ontwerpen" className={styles.softBand}>
+        <div className={`${styles.shell} ${styles.section}`}>
+          <SectionHeading id="verschil-title">
+            Een ontwerp is geen compleet beheerpakket.
+          </SectionHeading>
+          <p className={ui.intro}>
+            Zo lees je de aantallen: één uniek bericht is één onderwerp met een
+            eigen uitwerking. Hetzelfde bericht op Instagram én Facebook zijn
+            twee plaatsingen. Een extra storyformaat, carousel of video vraagt
+            extra werk.
+          </p>
+          <div className={ui.counts}>
+            <div>
+              <strong>6</strong>
+              <span>unieke berichten</span>
+            </div>
+            <b aria-hidden="true">×</b>
+            <div>
+              <strong>2</strong>
+              <span>kanalen</span>
+            </div>
+            <b aria-hidden="true">=</b>
+            <div>
+              <strong>12</strong>
+              <span>plaatsingen</span>
+            </div>
+          </div>
+          <p className={styles.note}>
+            Dit is een telvoorbeeld, geen inbegrepen pakket. Een post per week
+            is ook niet hetzelfde als vier posts in iedere kalendermaand.
+          </p>
+          <div
+            className={ui.tableWrap}
+            tabIndex={0}
+            role="region"
+            aria-label="Vergelijking socialmediadiensten, horizontaal scrollbaar"
+          >
+            <table>
+              <caption>Wat hoort bij welke dienst?</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Onderdeel</th>
+                  <th scope="col">Alleen ontwerp</th>
+                  <th scope="col">Posts + teksten</th>
+                  <th scope="col">Content + publicatie</th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparison.map(([label, ...values]) => (
+                  <tr key={label}>
+                    <th scope="row">{label}</th>
+                    {values.map((v, i) => (
+                      <td key={i}>{v}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section id="tarieven" className={`${styles.shell} ${styles.section}`}>
+        <SectionHeading id="prijzen-title">
+          Liever één ontwerp of een flyer?
+        </SectionHeading>
+        <p>
+          Dit zijn eenmalige ontwerpopdrachten met jouw aangeleverde tekst, logo
+          en beeld. Alle bedragen zijn exclusief btw.
+        </p>
+        <div className={ui.smallCards}>
+          {designOffers
+            .filter((o) => o.amount !== null)
+            .map((o) => (
+              <article key={o.id}>
+                <h3>{o.title}</h3>
+                <strong className={ui.smallPrice}>{designPriceLabel(o)}</strong>
+                <p>{o.text}</p>
+                <p className={styles.note}>
+                  {o.id === 'flyer'
+                    ? 'Drukklaar PDF. Drukken en bezorgen betaal je apart.'
+                    : 'PNG/JPG. Bijschriften, publiceren en bewerkbare templates zijn niet inbegrepen.'}
+                </p>
+                <Link href={choose(o.id)} className={styles.textLink}>
+                  Bespreek dit ontwerp ↗
+                </Link>
+              </article>
+            ))}
+        </div>
+        <p className={styles.note}>
+          Bij vanafprijzen bevestigt de offerte de prijs voor jouw inhoud en
+          uitwerking. De set van zes kost €225 binnen de hierboven beschreven
+          omvang. Een nieuwe huisstijl, extra formaten of extra feedback horen
+          daar niet automatisch bij.
+        </p>
+      </section>
+      <section id="prijsopbouw" className={styles.softBand}>
+        <div className={`${styles.shell} ${styles.section} ${ui.budget}`}>
+          <div>
+            <span className={styles.eyebrow}>Kosten zonder verrassingen</span>
+            <h2>
+              Waar betaal je
+              <br />
+              <em>precies voor?</em>
+            </h2>
+            <ol className={ui.costSteps}>
+              <li>
+                <strong>Creatie</strong>Het aantal unieke ontwerpen, teksten en
+                formaten.
+              </li>
+              <li>
+                <strong>Voorbereiding & publicatie</strong>Onderwerpen,
+                kalender, accordering, kanalen en plaatsingen.
+              </li>
+              <li>
+                <strong>Eenmalige opstart</strong>Bijvoorbeeld toegang instellen
+                of een bestaande huisstijl vertalen naar vaste formats. Alleen
+                indien nodig en vooraf begroot.
+              </li>
+              <li>
+                <strong>Externe kosten</strong>Klantgebonden software,
+                beeldlicenties, drukwerk of advertentiebudget. Vooraf apart
+                benoemd.
+              </li>
+            </ol>
+            <p>
+              Extra werk kost {euro(extraWorkHourlyRate)} per uur excl. btw, na
+              akkoord. Voor een reeks of maandopdracht ontvang je vooraf een
+              voorstel; aantallen en tijd worden niet stilzwijgend uitgebreid.
+            </p>
+          </div>
+          <aside
+            className={ui.receipt}
+            aria-label="Rekenvoorbeeld socialmediakosten"
+          >
+            <span className={styles.eyebrow}>
+              Rekenvoorbeeld · geen pakketprijs
+            </span>
+            <h3>Van ontwerp naar publicatie</h3>
+            <dl>
+              <div>
+                <dt>6 statische ontwerpen</dt>
+                <dd>{euro(socialBudgetExample.design)}</dd>
+              </div>
+              <div>
+                <dt>
+                  Stel: 2 uur bijschriften schrijven
+                  <small>2 × {euro(extraWorkHourlyRate)}</small>
+                </dt>
+                <dd>{euro(2 * extraWorkHourlyRate)}</dd>
+              </div>
+              <div>
+                <dt>
+                  Stel: 1 uur kalender & inplannen
+                  <small>1 × {euro(extraWorkHourlyRate)}</small>
+                </dt>
+                <dd>{euro(extraWorkHourlyRate)}</dd>
+              </div>
+              <div className={ui.total}>
+                <dt>
+                  Voorbeeld subtotaal<small>exclusief btw</small>
+                </dt>
+                <dd>{euro(socialBudgetTotal)}</dd>
+              </div>
+            </dl>
+            <p>
+              De extra uren zijn een aanname, geen gegarandeerde
+              uitvoeringstijd. Opstart, extra formaten, rapportage en
+              klantgebonden software zitten niet in dit voorbeeld. De offerte
+              vermeldt wat jouw opdracht werkelijk kost, eenmalig en/of per
+              maand.
+            </p>
+            <Link href={choose('monthly')} className={styles.textLink}>
+              Laat mijn eigen wensen begroten ↗
+            </Link>
+          </aside>
+        </div>
+      </section>
+      <section id="content" className={`${styles.shell} ${styles.section}`}>
+        <SectionHeading id="maand-title">
+          Wat spreken we af voor een maand?
+        </SectionHeading>
+        <div className={ui.monthBrief}>
+          {[
+            [
+              'Omvang',
+              'Bijvoorbeeld zes unieke statische posts, met zes bijschriften. We leggen ook taal en formaten vast.',
+            ],
+            [
+              'Publicatie',
+              'Bijvoorbeeld dezelfde zes posts op twee geschikte kanalen: twaalf plaatsingen. Kanaalspecifieke varianten tellen apart.',
+            ],
+            [
+              'Afstemming',
+              'Eén gezamenlijk akkoordmoment en een afgesproken feedbackronde. Geen publicatie zonder jouw akkoord.',
+            ],
+            [
+              'Terugblik',
+              'Een kort overzicht van de geplaatste berichten en beschikbare basisstatistieken. Een uitgebreid dashboard vraagt een aparte afspraak.',
+            ],
+          ].map(([t, d]) => (
+            <article key={t}>
+              <h3>{t}</h3>
+              <p>{d}</p>
+            </article>
+          ))}
+        </div>
+        <p className={styles.note}>
+          Dit is een voorbeeldbriefing. Je offerte bevat de definitieve
+          aantallen, maandprijs, eventuele opstart, looptijd en opzegafspraak.
+          Dagelijkse webcare, spoedpublicaties en betaalde campagnes horen niet
+          bij dit aanbod. Gesprekken plannen we op afspraak, doorgaans op een
+          doordeweekse avond.
+        </p>
+      </section>
+      <section id="uitvoering" className={styles.softBand}>
+        <div className={`${styles.shell} ${styles.section}`}>
+          <SectionHeading id="werkwijze-title">
+            Van jouw input naar klaar om te delen.
+          </SectionHeading>
+          <div className={ui.workflow}>
+            {[
+              [
+                '01',
+                'Brief & materialen',
+                'We bepalen doelgroep, boodschap, kanalen en aantallen. Jij deelt je logo, huisstijl, bedrijfsinformatie en beelden die je mag gebruiken.',
+              ],
+              [
+                '02',
+                'Voorstel & ontwerp',
+                'Je ontvangt de scope, prijs en planning. Daarna werk ik de afgesproken ontwerpen en eventuele bijschriften uit.',
+              ],
+              [
+                '03',
+                'Bekijken & bijstellen',
+                'Je ziet de concepten samen in één overzicht. Je controleert inhoud en feiten en geeft gebundeld feedback.',
+              ],
+              [
+                '04',
+                'Opleveren of inplannen',
+                'Je ontvangt de bestanden of ik plan goedgekeurde berichten in. We controleren de publicatie en ronden af met de afgesproken terugblik.',
+              ],
+            ].map(([n, t, d]) => (
+              <article key={n}>
+                <span>{n}</span>
+                <h3>{t}</h3>
+                <p>{d}</p>
+              </article>
+            ))}
+          </div>
+          <details className={styles.detailDisclosure}>
+            <summary>
+              Welke tools gebruik je en moet ik die zelf betalen?
+            </summary>
+            <p>
+              Voor ontwerpen werk ik met Canva of Affinity, passend bij het
+              resultaat. We verzamelen teksten en feedback in een gedeeld
+              overzicht. Voor het inplannen kiezen we een passende tool,
+              bijvoorbeeld Buffer; het kanaal, accounttype en formaat bepalen
+              wat mogelijk is.
+            </p>
+            <p>
+              Mijn gewone ontwerptools zitten in de projectprijs. Een specifiek
+              abonnement voor jouw kanalen wordt alleen na overleg apart
+              gerekend. Je hoeft dus niet iedere genoemde tool aan te schaffen.
+              Bewerkbare bestanden en eventuele licentievereisten spreken we
+              vooraf af.
+            </p>
+          </details>
+          <details className={styles.detailDisclosure}>
+            <summary>Hoe regelen we toegang en goedkeuring?</summary>
+            <p>
+              Jij blijft eigenaar van je accounts. Je geeft toegang via rollen
+              of uitnodigingen; stuur geen wachtwoorden per e-mail. We plannen
+              pas na akkoord. Komt materiaal of feedback later, dan stemmen we
+              de planning opnieuw af. Een planningstool vervangt de inhoudelijke
+              controle niet.
+            </p>
+          </details>
+        </div>
+      </section>
+      <section className={`${styles.shell} ${styles.section}`}>
+        <SectionHeading id="beeld-title">
+          Zo kan een samenhangende set eruitzien.
+        </SectionHeading>
+        <ConceptGallery kind="design" />
       </section>
       <FAQ
         items={[
           [
-            'Wat betekent één formaat?',
-            'Dat is één afgesproken afmeting, bijvoorbeeld een vierkant bericht of een staande story. Hetzelfde ontwerp aanpassen voor een tweede afmeting is een extra versie en wordt apart afgesproken.',
+            'Kan ik alleen ontwerpen bestellen?',
+            'Ja. Kies een losse visual, de set van zes of een flyer. Je levert definitieve tekst en beeld aan en publiceert zelf. Bijschriften schrijven en inplannen zitten niet in die ontwerpprijzen.',
           ],
           [
-            'Hoe werkt de ronde met wijzigingen?',
-            'Je bekijkt het ontwerp en geeft je opmerkingen gebundeld door. Die werk ik binnen de afgesproken richting uit. Bij een set stuur je één gezamenlijke feedbackronde voor alle zes ontwerpen. Een nieuwe richting of extra ontwerp bespreken we apart.',
+            'Kun je mijn berichten ook schrijven en plaatsen?',
+            'Ja, als afgebakende contentopdracht. Kies Posts + teksten wanneer je zelf wilt publiceren, of Content + publicatie voor een maandopdracht met inplannen. Aantallen, kanalen, feedback, beschikbaarheid en prijs bevestigen we in de offerte.',
           ],
           [
-            'Kan ik het ontwerp later zelf bewerken?',
-            'Je ontvangt de afgesproken eindbestanden om te gebruiken. Een bewerkbare template of het bronbestand is niet standaard inbegrepen. Als je dat nodig hebt, bespreken we het vóór de offerte.',
+            'Zijn €225 en €405 maandabonnementen?',
+            'Nee. €225 is de eenmalige ontwerp-set van zes. €405 is uitsluitend een rekenvoorbeeld met aangenomen extra uren. Een maandopdracht heeft een eigen offerte; er wordt niets automatisch besteld of afgeschreven.',
           ],
           [
-            'Plaats je de berichten ook voor mij?',
-            'Deze dienst gaat om het ontwerp. Je publiceert de bestanden zelf. Het plannen van berichten, beheren van reacties, inkopen van advertenties en meten van resultaten zijn niet inbegrepen.',
+            'Zijn stories, carousels en Reels inbegrepen?',
+            'De ontwerpprijzen gelden voor statische beelden in één afgesproken formaat. Een storyvariant is een extra formaat; een carousel bestaat uit meerdere slides. Video, Reels, opnames en extra varianten vragen een aparte scope en prijs.',
+          ],
+          [
+            'Beantwoord je reacties of privéberichten?',
+            'Nee, dagelijkse webcare is niet inbegrepen. Jij blijft verantwoordelijk voor reacties, berichten en klantvragen. Dit staat los van het ontwerpen en inplannen van content.',
+          ],
+          [
+            'Wat als ik nog geen foto’s of huisstijl heb?',
+            'Meld dat bij de aanvraag. Beeldinkoop, fotografie en een nieuwe visuele identiteit zijn geen onderdeel van de basisprijzen. We bepalen eerst wat je nodig hebt en welke onderdelen ik kan uitvoeren.',
+          ],
+          [
+            'Kan ik zelf verder met de bestanden?',
+            'PNG/JPG en drukklare PDF zijn eindbestanden. Een bewerkbare Canva-template of bronbestand spreken we apart af, inclusief eventuele licentievereisten.',
+          ],
+          [
+            'Garandeer je meer volgers of aanvragen?',
+            'Nee. Je koopt de afgesproken creatie, planning en uitvoering. Bereik, volgers en aanvragen hangen ook af van je aanbod, publiek en platformen.',
           ],
         ]}
       />
-      <DeliveryGuide kind="content" />
       <ContactSection
-        title="Wat wil je onder de aandacht brengen?"
-        text="Vertel wat je boodschap is, waar je het ontwerp wilt gebruiken en of je één ontwerp of een samenhangende set nodig hebt."
-        subject="Voorstel voor socialmedia-ontwerpen of een flyer"
+        title="Wat wil jij zelf blijven doen?"
+        text="Vertel hoeveel berichten je nodig hebt, op welke kanalen en of je hulp wilt met ontwerp, tekst of publicatie. Dan ontvang je een voorstel met een duidelijke taakverdeling en prijs."
       />
     </ServicesShell>
   );

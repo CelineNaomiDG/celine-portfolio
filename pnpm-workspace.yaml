@@ -1,8 +1,6 @@
 allowBuilds:
-  esbuild: true
   sharp: true
-  workerd: true
-onlyBuiltDependencies:
-  - esbuild
-  - sharp
-  - workerd
+# Security fixes for indirect dependencies until upstream packages adopt them.
+overrides:
+  source-map-js: 1.2.2
+  tinypool: 2.1.2

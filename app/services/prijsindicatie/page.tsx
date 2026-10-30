@@ -18,9 +18,9 @@ export const metadata: Metadata = {
 export default async function PriceIndicationPage({
   searchParams,
 }: {
-  searchParams: Promise<{ dienst?: string; pakket?: string }>;
+  searchParams: Promise<{ dienst?: string; pakket?: string; ontwerp?: string }>;
 }) {
-  const { dienst, pakket } = await searchParams;
+  const { dienst, pakket, ontwerp } = await searchParams;
   return (
     <ServicesShell current="/services/prijsindicatie">
       <PageIntro
@@ -47,9 +47,10 @@ export default async function PriceIndicationPage({
         aria-label="Project samenstellen"
       >
         <PriceBuilder
-          key={`${dienst}-${pakket}`}
+          key={`${dienst}-${pakket}-${ontwerp}`}
           initialService={dienst}
           initialWebsite={pakket}
+          initialDesign={ontwerp}
         />
       </section>
       <section

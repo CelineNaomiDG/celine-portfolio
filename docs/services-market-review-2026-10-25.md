@@ -14,10 +14,9 @@ Gericht bureau- en toolonderzoek, 25 oktober 2026. Geen representatieve marktpri
 ## Gekozen aanbod
 Ontwerp / tekst en kalender / publicatie apart specificeren. Geen nieuwe abonnementstarieven gepubliceerd. Bestaande ontwerpprijzen blijven €45 vanaf, €225 per set van zes, €95 vanaf voor éénzijdige flyer, exclusief btw. Zichtbaarheid blijft een begrensde opdracht op offerte met analyse, uitvoering en nacontrole afzonderlijk benoemd.
 
-## Interne prijsberekening (geen publieke offerte)
-Begroot briefing, materiaalcontrole, concept, uitwerking, één feedbackronde, export, planning, communicatie en nacontrole. Tel klantgebonden licenties apart. Controleer marge inclusief acquisitie en administratie. €225 / €60 referentietarief = 3,75 uur totale werktijd vóór externe kosten: als zes visuals meer tijd vragen, moet de scope of toekomstige prijs worden aangepast. Dit is een capaciteitscontrole, geen claim dat iedere set 3,75 uur duurt.
+## Vervolgonderzoek
 
-Een terugkerende opdracht pas offreren wanneer aantal unieke berichten, formaten, kanalen, captions, accordering, plaatsingen en evaluatiemomenten vaststaan. Geen dagelijkse moderatie of bereikbaarheid overdag beloven naast een 40-urige baan. Publiceer pas maandpakketten na een proefopdracht met gemeten uren.
+De concrete socialmediavergelijking en actuele afbakening staan in `social-media-market-review.md`.
 
 ## Praktische uitvoering
 1. Brief: doel, klant, kanalen/pagina's, materialen, toegang en deadline.

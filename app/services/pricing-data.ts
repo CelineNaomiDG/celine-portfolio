@@ -43,8 +43,19 @@ export const websiteChoices = [
     text: 'Eerst een apart geoffreerde verkenning. Daarna een mogelijk ontwikkeltraject.',
   },
 ] as const;
+export const extraWorkHourlyRate = 60;
+export const socialBudgetExample = {
+  design: 225,
+  captionsHours: 2,
+  planningHours: 1,
+};
+export const socialBudgetTotal =
+  socialBudgetExample.design +
+  (socialBudgetExample.captionsHours + socialBudgetExample.planningHours) *
+    extraWorkHourlyRate;
 export const designOffers = [
   {
+    billing: 'once',
     id: 'single',
     title: 'Een losse visual',
     amount: 45,
@@ -53,6 +64,7 @@ export const designOffers = [
     text: 'Eén statisch ontwerp in één afgesproken formaat. Eén gebundelde feedbackronde.',
   },
   {
+    billing: 'once',
     id: 'set',
     title: 'Een set van 6 visuals',
     amount: 225,
@@ -61,6 +73,7 @@ export const designOffers = [
     text: 'Zes samenhangende statische ontwerpen, één formaat per ontwerp. Eén gezamenlijke feedbackronde.',
   },
   {
+    billing: 'once',
     id: 'flyer',
     title: 'Een A5-flyer',
     amount: 95,
@@ -68,7 +81,29 @@ export const designOffers = [
     units: 1,
     text: 'Eén zijde, gebaseerd op jouw tekst en beeld. Drukklaar PDF-bestand en één feedbackronde. Drukken apart.',
   },
+  {
+    id: 'content',
+    title: 'Posts met tekst & kalender',
+    amount: null,
+    from: false,
+    units: null,
+    billing: 'once',
+    text: 'Ontwerp, bijschriften en kalender voor een afgesproken reeks. Jij publiceert. Aantal berichten en formaten bepalen samen de offerte.',
+  },
+  {
+    id: 'monthly',
+    title: 'Maandelijkse content & publicatie',
+    amount: null,
+    from: false,
+    units: null,
+    billing: 'month',
+    text: 'Ontwerp, bijschriften, kalender, goedkeuring en inplannen op afgesproken kanalen. Aantal unieke berichten, plaatsingen en evaluatie vooraf vastleggen.',
+  },
 ] as const;
+export const designPriceLabel = (offer: (typeof designOffers)[number]) =>
+  offer.amount === null
+    ? 'Op offerte'
+    : `${offer.from ? 'Vanaf ' : ''}${euro(offer.amount)}`;
 export const maintenancePlans = [
   {
     id: 'basis',
@@ -100,7 +135,7 @@ export const serviceChoices = [
   {
     id: 'design',
     label: 'Content & design',
-    description: 'Visuals, een set of flyer',
+    description: 'Ontwerp, content of publicatie',
   },
   {
     id: 'maintenance',
@@ -305,6 +340,12 @@ export function estimate(input: Selection) {
     pending.push('Verkenning, bouw, gebruikskosten en beheer');
   if (selection.service === 'visibility')
     pending.push('Analyse, uitvoering en eventuele toolkosten');
+  if (selection.service === 'design' && design.amount === null)
+    pending.push(
+      design.billing === 'month'
+        ? 'Maandprijs, eventuele eenmalige opstart en klantgebonden toolkosten'
+        : 'Prijs voor ontwerpen, bijschriften en contentkalender',
+    );
   if (selection.service === 'design' && selection.design === 'flyer')
     pending.push('Drukkosten bij je drukker');
   const amountLabel =
@@ -316,6 +357,11 @@ export function estimate(input: Selection) {
   const lines = [
     `Dienst: ${serviceChoices.find((s) => s.id === selection.service)!.label}`,
     `Keuze: ${title}`,
+    selection.service === 'design' && design.amount === null
+      ? design.billing === 'month'
+        ? 'Maandelijkse opdracht: prijs op offerte; opstart apart benoemen'
+        : 'Eenmalige contentopdracht: prijs op offerte'
+      : '',
     oneOff !== null ? `Eenmalig: ${amountLabel} excl. btw` : '',
     monthly !== null
       ? `Onderhoud: ${maintenance!.name}, ${euro(monthly)} per maand excl. btw`

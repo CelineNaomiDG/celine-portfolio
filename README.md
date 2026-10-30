@@ -32,7 +32,7 @@ pnpm run build
 
 The portfolio and the projects described in it continue to evolve. Project labels distinguish active development, coursework and learning projects.
 
-The Dino game uses shared logical physics and collision bounds, independent of screen width and emoji rendering. Run `pnpm test:dino` for jump, collision, duck, pause and frame-rate regression checks. Keyboard input is scoped to the game; leaving its playground tab pauses it.
+The Dino game uses shared logical physics and collision bounds, independent of screen width and rendering. Run `pnpm test:dino` for jump, collision, duck, pause and frame-rate regression checks. Keyboard input is scoped to the game; leaving its playground tab pauses it.
 
 Project cards 02–05 open an animated learning note with keyboard and touch controls. FamilyOS keeps its documented case-study link. The dialogs respect reduced motion and restore focus when closed.
 
@@ -49,7 +49,7 @@ The overview serves business clients in the Netherlands and Belgium and leads to
 
 Prices and monthly packages are proposals with explicit scope; a quote establishes the final agreement. Software/SaaS hosting and support are scoped separately from website maintenance. The contact action opens an email draft; it does not submit or store an enquiry.
 
-Commercial assumptions, pricing rationale and remaining publication requirements are in [docs/dienstverlening-en-tarieven.md](docs/dienstverlening-en-tarieven.md). `/services/voorwaarden` and `/services/privacy` are clearly labeled, non-indexable drafts pending business details and legal/privacy review. The owner's three completed websites will be showcased later; no sample client projects are included now.
+Commercial assumptions, pricing rationale and remaining publication requirements are in [docs/dienstverlening-en-tarieven.md](docs/dienstverlening-en-tarieven.md). `/services/voorwaarden` and `/services/privacy` are clearly labeled, non-indexable drafts pending business details and legal/privacy review. Published visual studies are labelled concepts; customer work requires permission before publication.
 
 Before publishing changes, run `pnpm lint`, `pnpm exec tsc --noEmit` and `pnpm build`, and inspect `/`, `/services` and the four detail routes on desktop and mobile. Root fonts currently use Google Fonts during the build, which requires network access.
 
@@ -82,3 +82,13 @@ Once the owner chooses a product: define a useful deliverable, preview, format, 
 ### Verification
 
 `pnpm test:pricing` checks recurring versus one-off amounts, unpriced extras, approved prices, invalid URL inputs and summary round-trips. Run `pnpm build` and lint after changes. Browser checks cover new navigation, mobile layouts, calculator selections and the enquiry handoff. Direct form delivery and calendar booking still require the owner's chosen provider/account configuration; the current interface continues to describe its email-draft behaviour accurately.
+
+## Social media clarification
+
+The content page separates design-only delivery, posts with copy, and recurring content/publication. Existing design rates remain unchanged. Content and recurring work are quoted, never incorrectly totalled as the €225 design set. The visible €405 calculation is an explicitly illustrative budget, not a subscription. See `docs/social-media-market-review.md` for the source comparison.
+
+## Release checks — 30 October 2026
+
+The runtime is pinned to Next.js 16.4.3 and React 19.2.9. Unused deployment/build scaffolding and a superseded dinosaur sprite were removed. Patched indirect packages are pinned in `pnpm-workspace.yaml`; install with the declared pnpm version and frozen lockfile.
+
+Validation: production build, seven pricing tests and 21 Dino tests pass. Browser checks cover 320/390/1440px layouts, the portfolio-to-services route, content presets, the quote summary, links/anchors and production robots. The dependency audit reported zero known vulnerabilities after updates, including development dependencies. Pattern-based credential checks of current tracked files and 200 historical blobs found no matching credentials. This is a bounded automated check, not a penetration test or assurance that no unknown vulnerabilities exist. Repository history was preserved.

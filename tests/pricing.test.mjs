@@ -39,3 +39,14 @@ test('a maintenance enquiry always has a valid plan, and selection survives a UR
  assert.deepEqual(readSelection(new URLSearchParams(param.toString()).get('samenstelling')),initial);
  assert.equal(estimate(initial).monthly,49);
 });
+
+test('content and monthly social work cannot inherit the fixed design-set price',()=>{
+ for(const design of ['content','monthly']){
+  const result=estimate({...defaultSelection,service:'design',design,maintenance:'beheer'});
+  assert.equal(result.oneOff,null);assert.equal(result.monthly,null);
+  assert.equal(result.amountLabel,'Op offerte');assert.ok(result.pending.length>0);
+  assert.doesNotMatch(result.summary,/225|Onderhoud:/);
+ }
+ assert.match(estimate({...defaultSelection,service:'design',design:'monthly'}).summary,/Maandelijkse opdracht/);
+ assert.equal(normalizeSelection({service:'design',design:'free'}).design,'set');
+});
