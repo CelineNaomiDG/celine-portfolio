@@ -61,3 +61,14 @@ test('UGC enquiries preserve selected usage without inheriting website or design
  assert.match(result.summary,/betaalde advertenties/);
  assert.doesNotMatch(result.summary,/225|Onderhoud:/);
 });
+
+test('webshop scope is quoted separately and cannot inherit an informational website price',()=>{
+ const selection=readSelection(JSON.stringify({...defaultSelection,service:'webshop',maintenance:'doorontwikkeling',extras:['3d','payments','unknown','3d']}));
+ const result=estimate(selection);
+ assert.equal(result.oneOff,null);assert.equal(result.monthly,null);
+ assert.equal(result.amountLabel,'Op offerte');
+ assert.deepEqual(selection.extras,['payments','3d']);
+ assert.match(result.summary,/Dienst: Webshop/);
+ assert.match(result.summary,/betaaltransacties/);
+ assert.doesNotMatch(result.summary,/1.950|Onderhoud:/);
+});

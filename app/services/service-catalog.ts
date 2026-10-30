@@ -8,7 +8,7 @@ export const serviceCategories = [
     links: [
       ['Bedrijfs- & projectwebsites', '/services/websites'],
       ['Ontwerp & vernieuwing', '/services/websites#mogelijkheden'],
-      ['Webshop verkennen', '/services/websites#webshop'],
+      ['Webshops: Shopify, WooCommerce & maatwerk', '/services/webshops'],
     ],
   },
   {
