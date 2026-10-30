@@ -137,7 +137,7 @@ export default function DinoGame({ active }: { active: boolean }) {
                 run.status === 'paused' ? 'Resume game' : 'Pause game'
               }
             >
-              {run.status === 'paused' ? '▶' : 'Ⅱ'}
+              {run.status === 'paused' ? '▶︎' : 'Ⅱ'}
             </button>
           )}
         </div>

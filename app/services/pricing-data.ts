@@ -131,6 +131,11 @@ export const maintenancePlans = [
   },
 ] as const;
 export const serviceChoices = [
+  {
+    id: 'ugc',
+    label: 'UGC & productcontent',
+    description: 'Video’s en demo’s op aanvraag',
+  },
   { id: 'website', label: 'Website', description: 'Een passende websitebasis' },
   {
     id: 'design',
@@ -225,6 +230,28 @@ export const addOns: Record<
       id: 'ai',
       label: 'AI-ondersteuning',
       description: 'Bijvoorbeeld conceptteksten of ordenen, met controle.',
+    },
+  ],
+  ugc: [
+    {
+      id: 'product-demo',
+      label: 'Productdemo',
+      description: 'Korte video met je product in gebruik.',
+    },
+    {
+      id: 'screen-demo',
+      label: 'App- of schermdemo',
+      description: 'Uitleg via een gemonteerde schermopname.',
+    },
+    {
+      id: 'video-series',
+      label: 'Meerdere video’s of varianten',
+      description: 'Aantal, lengte en varianten vooraf afspreken.',
+    },
+    {
+      id: 'paid-usage',
+      label: 'Gebruik in betaalde advertenties',
+      description: 'Kanalen, looptijd en vergoeding afzonderlijk afspreken.',
     },
   ],
   visibility: [
@@ -338,6 +365,10 @@ export function estimate(input: Selection) {
     pending.push('Eventuele startcontrole; hosting en licenties');
   if (selection.service === 'software')
     pending.push('Verkenning, bouw, gebruikskosten en beheer');
+  if (selection.service === 'ugc')
+    pending.push(
+      'Briefing, opname, montage, correcties en gebruiksafspraken; eventuele verzending, reis- en licentiekosten',
+    );
   if (selection.service === 'visibility')
     pending.push('Analyse, uitvoering en eventuele toolkosten');
   if (selection.service === 'design' && design.amount === null)

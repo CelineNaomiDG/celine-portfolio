@@ -61,7 +61,7 @@ export default function LegalDocument({ content }: { content: LegalContent }) {
                 <li key={source.url}>
                   <a href={source.url}>
                     {source.label}
-                    <span aria-hidden="true"> ↗</span>
+                    <span aria-hidden="true"> ↗︎</span>
                   </a>
                 </li>
               ))}

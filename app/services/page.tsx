@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Asterisk } from 'lucide-react';
 import {
   ContactSection,
   SectionHeading,
@@ -37,7 +38,7 @@ export default function ServicesPage() {
               className={styles.primaryLink}
               href="/services/prijsindicatie"
             >
-              Stel je project samen ↗
+              Stel je project samen ↗︎
             </Link>
             <Link className={styles.textLink} href="/services/voorbeelden">
               Bekijk mijn werk
@@ -50,7 +51,7 @@ export default function ServicesPage() {
         >
           <div className={ui.artHead}>
             <span>VAN IDEE NAAR IETS BRUIKBAARS</span>
-            <span>↗</span>
+            <span>↗︎</span>
           </div>
           <p className={ui.artTitle}>
             Jouw verhaal.
@@ -65,7 +66,7 @@ export default function ServicesPage() {
           </div>
           <div className={ui.artFooter}>
             <span>Rechtstreeks met de maker</span>
-            <b aria-hidden="true">✳</b>
+            <Asterisk size={38} strokeWidth={1.2} aria-hidden="true" />
           </div>
         </div>
       </section>
@@ -105,7 +106,7 @@ export default function ServicesPage() {
               </ul>
               <Link className={ui.cardLink} href={item.href}>
                 <span>{item.outcome}</span>
-                <span aria-hidden="true">↗</span>
+                <span aria-hidden="true">↗︎</span>
               </Link>
             </article>
           ))}
@@ -119,7 +120,7 @@ export default function ServicesPage() {
             </p>
           </div>
           <Link className={styles.textLink} href="/services/onderhoud">
-            Onderhoud vanaf €49 / maand ↗
+            Onderhoud vanaf €49 / maand ↗︎
           </Link>
         </div>
         <p className={styles.note}>
@@ -135,7 +136,7 @@ export default function ServicesPage() {
             </p>
           </div>
           <Link href="/services/prijsindicatie">
-            Ontdek je prijsindicatie ↗
+            Ontdek je prijsindicatie ↗︎
           </Link>
         </div>
       </section>
@@ -169,7 +170,7 @@ export default function ServicesPage() {
             ))}
           </ol>
           <Link className={styles.textLink} href="/services/werkwijze">
-            Zo werken we samen ↗
+            Zo werken we samen ↗︎
           </Link>
         </div>
       </section>
@@ -196,7 +197,7 @@ export default function ServicesPage() {
               kunt gebruiken. Het eerste aanbod wordt nog samengesteld.
             </p>
             <Link className={styles.textLink} href="/services/producten">
-              Over de digitale collectie ↗
+              Over de digitale collectie ↗︎
             </Link>
           </div>
         </div>

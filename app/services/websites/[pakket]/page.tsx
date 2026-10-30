@@ -26,12 +26,12 @@ export default async function PackagePage({ params }: Props) {
       <PackageStars level={detail.level} />
       <p>{item.text}</p><p>{detail.audience}</p>
       <p className={styles.price}><strong>{item.price}</strong><span>excl. btw · op offerte</span></p>
-      <div className={styles.actionRow}><Link className={styles.primaryLink} href={`/services/contact?samenstelling=${encodeURIComponent(JSON.stringify({service:"website",website:item.slug}))}`}>Bespreek dit traject ↗</Link><Link className={styles.textLink} href={`/services/prijsindicatie?pakket=${item.slug}`}>Stel dit traject samen</Link></div>
+      <div className={styles.actionRow}><Link className={styles.primaryLink} href={`/services/contact?samenstelling=${encodeURIComponent(JSON.stringify({service:"website",website:item.slug}))}`}>Bespreek dit traject ↗︎</Link><Link className={styles.textLink} href={`/services/prijsindicatie?pakket=${item.slug}`}>Stel dit traject samen</Link></div>
     </PageIntro>
     <section className={`${styles.section} ${styles.shell}`} aria-labelledby="beeld-title">
       <SectionHeading id="beeld-title">Van idee naar een duidelijke opbouw.</SectionHeading>
       <div className={styles.packageIllustration}>
-        <div className={styles.browserSketch} aria-hidden="true"><div className={styles.browserBar}>● ● ●</div><div className={styles.sketchHero}><span>{item.name}</span><strong>{detail.outcome}</strong><span className={styles.sketchButton}>{detail.level === 5 ? 'Bekijk het plan' : 'Neem contact op'} ↗</span></div><div className={styles.sketchTiles}>{detail.structure.slice(1,4).map(s => <span key={s}>{s}</span>)}</div></div>
+        <div className={styles.browserSketch} aria-hidden="true"><div className={styles.browserBar}>● ● ●</div><div className={styles.sketchHero}><span>{item.name}</span><strong>{detail.outcome}</strong><span className={styles.sketchButton}>{detail.level === 5 ? 'Bekijk het plan' : 'Neem contact op'} ↗︎</span></div><div className={styles.sketchTiles}>{detail.structure.slice(1,4).map(s => <span key={s}>{s}</span>)}</div></div>
         <div><p className={styles.eyebrow}>Voorbeeld van de opbouw</p><h3>{detail.outcome}</h3><ol className={styles.structureList}>{detail.structure.map(s => <li key={s}>{s}</li>)}</ol><p className={styles.note}>Schematisch voorbeeld; geen vast ontwerp, klantproject of definitieve pagina- of functielijst.</p></div>
       </div>
     </section>
@@ -41,7 +41,7 @@ export default async function PackagePage({ params }: Props) {
       <div className={styles.scopeCards}>
         <article><p className={styles.eyebrow}>✓ Basis van dit traject</p><h3>Dit werken we uit</h3><ul>{detail.included.map(s => <li key={s}>{s}</li>)}</ul></article>
         <article><p className={styles.eyebrow}>＋ Alleen na afspraak</p><h3>Mogelijke uitbreidingen</h3><ul>{detail.optional.map(s => <li key={s}>{s}</li>)}</ul><p className={styles.note}>Niet automatisch inbegrepen. Eventuele meerprijs staat vooraf in de offerte.</p></article>
-        <article><p className={styles.eyebrow}>↗ Afzonderlijke scope</p><h3>Waar de grens ligt</h3><p>{detail.boundary}</p></article>
+        <article><p className={styles.eyebrow}>↗︎ Afzonderlijke scope</p><h3>Waar de grens ligt</h3><p>{detail.boundary}</p></article>
       </div>
       <details className={styles.detailDisclosure}><summary>De kwaliteitsbasis bij elke bouwopdracht</summary><p>Ontwerp voor mobiel en desktop, implementatie, controle van navigatie en afgesproken contactfuncties, paginatitels en beschrijvingen, toetsenbordbediening, labels en overdracht. Technische SEO is geen garantie op zoekposities. Bij Enterprise volgt een bouwopdracht pas na de verkenning.</p></details>
     </div></section>
@@ -56,7 +56,7 @@ export default async function PackagePage({ params }: Props) {
     </section>
     <section id="investering" className={styles.paperBand} aria-labelledby="investering-title"><div className={`${styles.section} ${styles.shell}`}>
       <SectionHeading id="investering-title">Je investering, zonder verborgen verwachtingen.</SectionHeading>
-      <div className={styles.scopeCards}><article><h3>Eenmalig project</h3><p className={styles.price}><strong>{item.price}</strong><span>exclusief btw</span></p><p>{item.basis}</p><p>De offerte bevat één vaste totaalprijs voor één afgesproken omvang.</p></article><article><h3>Externe kosten</h3><p>Hosting, domeinnaam, licenties en betaalde tools staan apart vermeld, inclusief of ze eenmalig of terugkerend zijn. Teksten, fotografie, video en merkontwikkeling zijn aparte opdrachten tenzij uitdrukkelijk opgenomen.</p></article><article><h3>Na oplevering</h3><p>Onderhoud en nieuwe functionaliteit spreken we apart af. Een abonnement is niet verplicht. Herstel van werk dat afwijkt van de gemaakte afspraken is iets anders dan een nieuwe wens.</p><Link className={styles.textLink} href="/services/onderhoud">Bekijk onderhoud ↗</Link></article></div>
+      <div className={styles.scopeCards}><article><h3>Eenmalig project</h3><p className={styles.price}><strong>{item.price}</strong><span>exclusief btw</span></p><p>{item.basis}</p><p>De offerte bevat één vaste totaalprijs voor één afgesproken omvang.</p></article><article><h3>Externe kosten</h3><p>Hosting, domeinnaam, licenties en betaalde tools staan apart vermeld, inclusief of ze eenmalig of terugkerend zijn. Teksten, fotografie, video en merkontwikkeling zijn aparte opdrachten tenzij uitdrukkelijk opgenomen.</p></article><article><h3>Na oplevering</h3><p>Onderhoud en nieuwe functionaliteit spreken we apart af. Een abonnement is niet verplicht. Herstel van werk dat afwijkt van de gemaakte afspraken is iets anders dan een nieuwe wens.</p><Link className={styles.textLink} href="/services/onderhoud">Bekijk onderhoud ↗︎</Link></article></div>
       <details className={styles.detailDisclosure}><summary>Factuur, betaalmomenten & termijnen</summary><p>Je ontvangt een factuur. Het huidige conceptvoorstel is 40% bij opdracht en 60% na afgesproken oplevering. Bij grotere trajecten kunnen we andere mijlpalen afspreken. De offerte bepaalt betaalwijze, termijnen en totale prijs. Betalen in maandelijkse financiering is geen standaardaanbod.</p></details>
     </div></section>
     <FAQ items={[

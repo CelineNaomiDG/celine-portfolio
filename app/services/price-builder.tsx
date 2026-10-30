@@ -229,7 +229,7 @@ export default function PriceBuilder({
               maandelijks. Hosting, licenties, grote reparaties en nieuwe
               functies zijn apart.{' '}
               <Link href="/services/onderhoud">
-                Bekijk alle onderhoudsafspraken ↗
+                Bekijk alle onderhoudsafspraken ↗︎
               </Link>
             </p>
           </fieldset>
@@ -308,7 +308,7 @@ export default function PriceBuilder({
       >
         <div className={ui.summaryHead}>
           <span>JOUW SAMENSTELLING</span>
-          <span aria-hidden="true">↗</span>
+          <span aria-hidden="true">↗︎</span>
         </div>
         <div className={ui.summaryBody} aria-live="polite" aria-atomic="true">
           <h3>{result.title}</h3>
@@ -385,7 +385,7 @@ export default function PriceBuilder({
             className={styles.primaryLink}
             href={`/services/contact?${contactQuery}`}
           >
-            Bespreek deze samenstelling ↗
+            Bespreek deze samenstelling ↗︎
           </Link>
           <Link
             className={styles.textLink}

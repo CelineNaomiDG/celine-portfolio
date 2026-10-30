@@ -131,7 +131,7 @@ export default function DeliveryGuide({
             geen los “AI-trucje” als gegarandeerd resultaat verkocht.
           </p>
           <a href="https://developers.google.com/search/docs/appearance/ai-features">
-            Lees de uitleg van Google ↗
+            Lees de uitleg van Google ↗︎
           </a>
         </details>
       )}
@@ -139,7 +139,7 @@ export default function DeliveryGuide({
         className={styles.textLink}
         href={`/services/prijsindicatie?dienst=${content ? 'design' : 'visibility'}`}
       >
-        Stel je opdracht samen ↗
+        Stel je opdracht samen ↗︎
       </Link>
     </section>
   );
