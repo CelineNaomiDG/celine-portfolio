@@ -87,7 +87,7 @@ export default function SectorExamples() {
         className={styles.textLink}
         href="/services/prijsindicatie?dienst=website"
       >
-        Welke website past bij jouw bedrijf? ↗
+        Welke website past bij jouw bedrijf? ↗︎
       </Link>
     </div>
   );

@@ -43,7 +43,7 @@ export default function ServicesNav({ current }: { current: string }) {
         <div className={ui.menuPanel}>
           <div className={ui.menuIntro}>
             <Link href="/services" onClick={close}>
-              Alle diensten ↗
+              Alle diensten ↗︎
             </Link>
             <span>Wat wil je verbeteren?</span>
           </div>
@@ -56,7 +56,7 @@ export default function ServicesNav({ current }: { current: string }) {
                   href={category.href}
                   aria-current={current === category.href ? 'page' : undefined}
                 >
-                  {category.title} ↗
+                  {category.title} ↗︎
                 </Link>
                 <p>{category.description}</p>
                 <ul>
@@ -73,10 +73,10 @@ export default function ServicesNav({ current }: { current: string }) {
           </div>
           <div className={ui.menuFoot}>
             <Link href="/services/onderhoud" onClick={close}>
-              Onderhoud & ondersteuning ↗
+              Onderhoud & ondersteuning ↗︎
             </Link>
             <Link href="/services/prijsindicatie" onClick={close}>
-              Stel je project samen ↗
+              Stel je project samen ↗︎
             </Link>
           </div>
           <div className={ui.mobileLinks}>
@@ -109,7 +109,7 @@ export default function ServicesNav({ current }: { current: string }) {
         className={ui.navContact}
         aria-current={current === '/services/contact' ? 'page' : undefined}
       >
-        Project bespreken ↗
+        Project bespreken ↗︎
       </Link>
     </nav>
   );

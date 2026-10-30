@@ -55,7 +55,7 @@ export default function ProductsPage() {
                 className={styles.primaryLink}
                 href="/services/contact?interesse=product"
               >
-                Deel je productidee ↗
+                Deel je productidee ↗︎
               </Link>
               <Link className={styles.textLink} href="/services">
                 Bekijk werk op maat

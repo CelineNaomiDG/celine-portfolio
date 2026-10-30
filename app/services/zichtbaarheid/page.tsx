@@ -132,7 +132,7 @@ export default function VisibilityPage() {
             className={styles.textLink}
             href="/services/prijsindicatie?dienst=visibility"
           >
-            Stel je vraag samen ↗
+            Stel je vraag samen ↗︎
           </Link>
         </div>
       </section>

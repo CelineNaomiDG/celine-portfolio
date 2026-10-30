@@ -23,6 +23,7 @@ export default async function ContactPage({
   );
   const names = {
     website: 'Website',
+    ugc: 'UGC & productcontent',
     design: 'Content & design',
     maintenance: 'Onderhoud',
     software: 'Software & automatisering',
@@ -65,7 +66,9 @@ export default async function ContactPage({
                 ? names[selection.service]
                 : productIdea
                   ? 'Digitaal product'
-                  : ''
+                  : query.interesse === 'ugc'
+                    ? 'UGC & productcontent'
+                    : ''
             }
             requestMeeting={query.kennismaking === '1'}
             productIdea={productIdea}

@@ -50,3 +50,14 @@ test('content and monthly social work cannot inherit the fixed design-set price'
  assert.match(estimate({...defaultSelection,service:'design',design:'monthly'}).summary,/Maandelijkse opdracht/);
  assert.equal(normalizeSelection({service:'design',design:'free'}).design,'set');
 });
+
+test('UGC enquiries preserve selected usage without inheriting website or design prices',()=>{
+ const selection=readSelection(JSON.stringify({...defaultSelection,service:'ugc',maintenance:'beheer',extras:['product-demo','paid-usage','publish','paid-usage']}));
+ const result=estimate(selection);
+ assert.equal(result.oneOff,null);assert.equal(result.monthly,null);
+ assert.equal(result.amountLabel,'Op offerte');
+ assert.deepEqual(selection.extras,['product-demo','paid-usage']);
+ assert.match(result.summary,/UGC & productcontent/);
+ assert.match(result.summary,/betaalde advertenties/);
+ assert.doesNotMatch(result.summary,/225|Onderhoud:/);
+});

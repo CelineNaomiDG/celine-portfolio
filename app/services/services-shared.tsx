@@ -58,7 +58,7 @@ export function ServicesShell({
         </Link>
         <div className={styles.headerActions}>
           <Link href="/" className={styles.portfolioLink}>
-            IT-portfolio ↗
+            IT-portfolio ↗︎
           </Link>
           <Link href="/en/services" hrefLang="en" lang="en" className={styles.portfolioLink}>English overview</Link>
           <ThemeButton language="nl" className={styles.theme} />
@@ -79,7 +79,7 @@ export function ServicesShell({
           <Link href="/services/onderhoud">Onderhoud</Link>
           <Link href="/services/voorwaarden">Voorwaarden (concept)</Link>
           <Link href="/services/privacy">Privacy (concept)</Link>
-          <Link href="/">IT-portfolio ↗</Link>
+          <Link href="/">IT-portfolio ↗︎</Link>
         </nav>
       </footer>
     </ServicesMotion>
@@ -203,9 +203,9 @@ export function ContactSection({
         </div>
         <div className={styles.contactAction} data-reveal>
           <Link className={styles.primaryLink} href="/services/contact">
-            Start je projectaanvraag <span aria-hidden="true">↗</span>
+            Start je projectaanvraag <span aria-hidden="true">↗︎</span>
           </Link>
-          <Link className={styles.textLink} href="/services/contact?kennismaking=1#aanvraag">Vraag een kennismaking aan ↗</Link>
+          <Link className={styles.textLink} href="/services/contact?kennismaking=1#aanvraag">Vraag een kennismaking aan ↗︎</Link>
           <p>Rechtstreeks contact. Gesprekken plannen we in overleg, meestal op een doordeweekse avond.</p>
           <a className={styles.email} href={enquiry(subject)}>
             {email}

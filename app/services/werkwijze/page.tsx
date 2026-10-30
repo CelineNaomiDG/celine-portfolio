@@ -93,7 +93,7 @@ export default function ProcessPage() {
             </p>
           </details>
           <Link className={styles.textLink} href="/services/prijsindicatie">
-            Bekijk je mogelijkheden & kosten ↗
+            Bekijk je mogelijkheden & kosten ↗︎
           </Link>
         </div>
       </section>

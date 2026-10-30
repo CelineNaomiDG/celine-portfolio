@@ -67,7 +67,7 @@ Validation for this update: production build and TypeScript pass; targeted lint 
 
 ## Services navigation and project configurator (October 2026)
 
-- Four service categories share one responsive menu, with explicit support, pricing, process and digital collection routes. Existing service URLs remain valid.
+- Service categories share one responsive menu, with explicit support, pricing, process and digital collection routes. Existing service URLs remain valid.
 - `/services/prijsindicatie` offers a client-side configurator with no registration, analytics or personal data collection. Known one-off and recurring costs are kept separate. Unpriced additions and external costs remain explicit; the displayed amount is not falsely presented as an all-in price.
 - `app/services/pricing-data.ts` owns numeric website, design and maintenance amounts, validates selection identifiers and builds the enquiry summary. These are the existing public rates; proposed monthly social content packages are **not** published as approved prices.
 - Configurator choices are passed to `/services/contact` in an allowlisted, length-limited URL parameter. Prices are recomputed from local data, never accepted from a URL. The existing email preparation form includes the summary and can preselect an introduction request. No enquiry is sent until the visitor sends their prepared email.
@@ -92,3 +92,11 @@ The content page separates design-only delivery, posts with copy, and recurring 
 The runtime is pinned to Next.js 16.4.3 and React 19.2.9. Unused deployment/build scaffolding and a superseded dinosaur sprite were removed. Patched indirect packages are pinned in `pnpm-workspace.yaml`; install with the declared pnpm version and frozen lockfile.
 
 Validation: production build, seven pricing tests and 21 Dino tests pass. Browser checks cover 320/390/1440px layouts, the portfolio-to-services route, content presets, the quote summary, links/anchors and production robots. The dependency audit reported zero known vulnerabilities after updates, including development dependencies. Pattern-based credential checks of current tracked files and 200 historical blobs found no matching credentials. This is a bounded automated check, not a penetration test or assurance that no unknown vulnerabilities exist. Repository history was preserved.
+
+## Creative controls and UGC — 30 October 2026
+
+Creative Mode starts without stock stickers. Visitors can add their own text/emoji or local PNG, JPG, WebP, SVG and GIF images, then move, resize, rotate and delete them. Stickers are a viewport overlay and follow scrolling. A colour/black-and-white control is separate from the light/dark theme. Disabling Creative Mode hides stickers; service pages never render the sticker editor.
+
+SVG input is restricted to static shapes and rasterised without embedding its document. GIF data remains animated. Image size, sticker count and local-storage budget are bounded. Files stay in the visitor’s browser. Existing custom stickers migrate, while the three former preset labels are removed. The mobile portfolio menu follows the theme button on the right and supports Escape and outside dismissal. Interface symbols use SVG or explicit text presentation.
+
+`/services/ugc` describes product content and app demos on enquiry. It is linked from the shared catalogue, content page and English overview, and included in the sitemap. The configurator and form preserve the selected UGC requirements without inventing a price. See `docs/ugc-aanbod.md` for scope and research. No new tracking, booking, messaging or payment integration was installed.

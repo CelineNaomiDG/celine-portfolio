@@ -93,6 +93,7 @@ export default function ProjectForm({
             ['Website', 'Website'],
             ['Software & automatisering', 'Software & automation'],
             ['Content & design', 'Content & design'],
+            ['UGC & productcontent', 'UGC & product content'],
             ['Online zichtbaarheid', 'Online visibility'],
             ['Digitaal product', 'Digital product'],
             ['Onderhoud', 'Maintenance'],
@@ -170,7 +171,7 @@ export default function ProjectForm({
         )}
       </p>
       <button className={styles.primaryLink} type="submit">
-        {t('Maak mijn aanvraag klaar', 'Prepare my enquiry')} ↗
+        {t('Maak mijn aanvraag klaar', 'Prepare my enquiry')} ↗︎
       </button>
       <div aria-live="polite">
         {draft && (
@@ -187,7 +188,7 @@ export default function ProjectForm({
                 className={styles.primaryLink}
                 href={`mailto:celinedegraaf.tech@gmail.com?subject=${encodeURIComponent(meeting ? 'Kennismaking / Introduction' : 'Project enquiry')}&body=${encodeURIComponent(draft)}`}
               >
-                {t('Open in mijn e-mailapp', 'Open in my email app')} ↗
+                {t('Open in mijn e-mailapp', 'Open in my email app')} ↗︎
               </a>
               <button
                 className={styles.textLink}

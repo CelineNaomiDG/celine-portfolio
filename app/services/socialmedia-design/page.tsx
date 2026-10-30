@@ -160,7 +160,7 @@ export default function SocialDesignPage() {
                 {r.customer}
               </p>
               <Link href={choose(r.id)} className={styles.primaryLink}>
-                {r.cta} ↗
+                {r.cta} ↗︎
               </Link>
             </article>
           ))}
@@ -254,7 +254,7 @@ export default function SocialDesignPage() {
                     : 'PNG/JPG. Bijschriften, publiceren en bewerkbare templates zijn niet inbegrepen.'}
                 </p>
                 <Link href={choose(o.id)} className={styles.textLink}>
-                  Bespreek dit ontwerp ↗
+                  Bespreek dit ontwerp ↗︎
                 </Link>
               </article>
             ))}
@@ -343,7 +343,7 @@ export default function SocialDesignPage() {
               maand.
             </p>
             <Link href={choose('monthly')} className={styles.textLink}>
-              Laat mijn eigen wensen begroten ↗
+              Laat mijn eigen wensen begroten ↗︎
             </Link>
           </aside>
         </div>
@@ -493,6 +493,26 @@ export default function SocialDesignPage() {
           ],
         ]}
       />
+      <section className={`${styles.section} ${styles.shell}`}>
+        <SectionHeading id="ugc-title">
+          Je product ook in beweging?
+        </SectionHeading>
+        <div className={styles.twoColumns}>
+          <p>
+            Een productdemonstratie of appvideo vraagt om een eigen briefing,
+            opname en montage. UGC is een aparte opdracht en valt niet onder de
+            set van zes statische ontwerpen.
+          </p>
+          <div>
+            <Link className={styles.primaryLink} href="/services/ugc">
+              Bekijk UGC & productcontent ↗︎
+            </Link>
+            <p className={styles.note}>
+              Op aanvraag. Prijs, bestanden en gebruik vooraf afgesproken.
+            </p>
+          </div>
+        </div>
+      </section>
       <ContactSection
         title="Wat wil jij zelf blijven doen?"
         text="Vertel hoeveel berichten je nodig hebt, op welke kanalen en of je hulp wilt met ontwerp, tekst of publicatie. Dan ontvang je een voorstel met een duidelijke taakverdeling en prijs."

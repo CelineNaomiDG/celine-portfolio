@@ -1,6 +1,8 @@
 'use client';
 /* oxlint-disable next/no-img-element -- Local, resized data URLs must stay client-side; these are user-created decorative stickers, not remotely optimized assets. */
 import { useEffect, useRef, useState } from 'react';
+import { Asterisk, Upload, Palette, Trash2 } from 'lucide-react';
+import { prepareSticker } from './sticker-image';
 type Sticker = {
   id: number;
   text: string;
@@ -10,11 +12,6 @@ type Sticker = {
   rotation?: number;
   scale?: number;
 };
-const initial: Sticker[] = [
-  { id: 1, text: 'Made with care ↗', x: 70, y: 8 },
-  { id: 2, text: 'Ideas into interfaces', x: 62, y: 31 },
-  { id: 3, text: 'Keep exploring ✳', x: 8, y: 64 },
-];
 const stops = [
   { id: 'home', name: 'Introduction' },
   { id: 'projects', name: 'Selected work' },
@@ -23,17 +20,26 @@ const stops = [
   { id: 'about', name: 'About me' },
   { id: 'contact', name: 'Contact' },
 ];
-const key = 'celine-creative-v2';
+const key = 'celine-creative-v3';
+const legacyDefaults = new Set([
+  'Made with care ↗',
+  'Ideas into interfaces',
+  'Keep exploring ✳',
+]);
 export default function CreativeTools() {
   const [creative, setCreative] = useState(true),
     [editing, setEditing] = useState(false),
-    [stickers, setStickers] = useState<Sticker[]>(initial),
+    [stickers, setStickers] = useState<Sticker[]>([]),
     [selected, setSelected] = useState<number | null>(null);
   const [ready, setReady] = useState(false),
     [tour, setTour] = useState<number | null>(null),
     [auto, setAuto] = useState(false),
     [reduced, setReduced] = useState(true);
   const [notice, setNotice] = useState('');
+  const [colour, setColour] = useState(false);
+  const [text, setText] = useState('');
+  const [busy, setBusy] = useState(false);
+  const layer = useRef<HTMLDivElement>(null);
   const upload = useRef<HTMLInputElement>(null);
   const toolbar = useRef<HTMLDivElement>(null),
     drag = useRef<{
@@ -46,11 +52,15 @@ export default function CreativeTools() {
   useEffect(() => {
     const init = setTimeout(() => {
       try {
-        const stored = JSON.parse(localStorage.getItem(key) || 'null');
+        const stored = JSON.parse(
+          localStorage.getItem(key) ||
+            localStorage.getItem('celine-creative-v2') ||
+            'null',
+        );
         if (
           stored &&
           Array.isArray(stored.stickers) &&
-          stored.stickers.length <= 8 &&
+          stored.stickers.length <= 12 &&
           stored.stickers.every(
             (s: Sticker) =>
               Number.isFinite(s.id) &&
@@ -58,8 +68,8 @@ export default function CreativeTools() {
               s.text.length < 50 &&
               (!s.image ||
                 (typeof s.image === 'string' &&
-                  /^data:image\/(png|jpeg|webp);base64,/.test(s.image) &&
-                  s.image.length < 500000)) &&
+                  /^data:image\/(png|jpeg|webp|gif);base64,/.test(s.image) &&
+                  s.image.length < 1500000)) &&
               (!s.scale || (s.scale >= 0.5 && s.scale <= 2)) &&
               (!s.rotation || Math.abs(s.rotation) <= 180) &&
               Number.isFinite(s.x) &&
@@ -72,7 +82,13 @@ export default function CreativeTools() {
           new Set(stored.stickers.map((s: Sticker) => s.id)).size ===
             stored.stickers.length
         ) {
-          setStickers(stored.stickers);
+          setStickers(
+            stored.stickers.filter(
+              (s: Sticker) =>
+                s.image || !legacyDefaults.has(s.text.replace(/\uFE0E/g, '')),
+            ),
+          );
+          setColour(stored.colour === true);
           setCreative(stored.enabled === true);
         }
       } catch {}
@@ -97,7 +113,7 @@ export default function CreativeTools() {
       try {
         localStorage.setItem(
           key,
-          JSON.stringify({ enabled: creative, stickers }),
+          JSON.stringify({ enabled: creative, colour, stickers }),
         );
       } catch {
         setNotice(
@@ -106,7 +122,7 @@ export default function CreativeTools() {
       }
     }, 200);
     return () => clearTimeout(timer);
-  }, [creative, stickers, ready]);
+  }, [creative, colour, stickers, ready]);
   function go(index: number) {
     setTour(index);
     document.getElementById(stops[index].id)?.scrollIntoView({
@@ -166,49 +182,78 @@ export default function CreativeTools() {
       window.removeEventListener('pointerdown', pointer);
     };
   }, [tour]);
+  useEffect(() => {
+    const root = document.getElementById('portfolio-page');
+    if (!root) return;
+    root.dataset.creativeColour = creative && colour ? 'colour' : 'monochrome';
+    return () => {
+      delete root.dataset.creativeColour;
+    };
+  }, [creative, colour]);
+  useEffect(() => {
+    if (!editing) return;
+    const stopEditing = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setEditing(false);
+        toolbar.current
+          ?.querySelector<HTMLButtonElement>(
+            '.creativeControls button:nth-child(2)',
+          )
+          ?.focus();
+      }
+    };
+    document.addEventListener('keydown', stopEditing);
+    return () => document.removeEventListener('keydown', stopEditing);
+  }, [editing]);
   async function addImage(file?: File) {
-    if (!file) return;
-    if (
-      !['image/png', 'image/jpeg', 'image/webp'].includes(file.type) ||
-      file.size > 8 * 1024 * 1024
-    ) {
-      setNotice('Choose a PNG, JPG or WebP up to 8 MB.');
-      return;
-    }
+    if (!file || busy || stickers.length >= 12) return;
+    setBusy(true);
     try {
-      const bitmap = await createImageBitmap(file);
-      const canvas = document.createElement('canvas');
-      const ratio = Math.min(1, 480 / Math.max(bitmap.width, bitmap.height));
-      canvas.width = Math.max(1, Math.round(bitmap.width * ratio));
-      canvas.height = Math.max(1, Math.round(bitmap.height * ratio));
-      canvas
-        .getContext('2d')!
-        .drawImage(bitmap, 0, 0, canvas.width, canvas.height);
-      bitmap.close();
-      const image = canvas.toDataURL('image/webp', 0.8);
-      if (image.length >= 500000) throw new Error();
+      const image = await prepareSticker(file);
+      if (
+        stickers.reduce((total, s) => total + (s.image?.length ?? 0), 0) +
+          image.length >
+        3500000
+      )
+        throw new Error(
+          'Your sticker storage is full. Remove an image before adding another.',
+        );
       const id = Date.now();
-      setStickers((items) =>
-        items.length < 8
-          ? [
-              ...items,
-              {
-                id,
-                text: 'Uploaded sticker',
-                image,
-                x: 35,
-                y: 3,
-                rotation: 0,
-                scale: 1,
-              },
-            ]
-          : items,
-      );
+      setStickers((items) => [
+        ...items,
+        {
+          id,
+          text: 'Your image sticker',
+          image,
+          x: 50,
+          y: 40,
+          rotation: 0,
+          scale: 1,
+        },
+      ]);
       setSelected(id);
-      setNotice('Image added. Stored only in this browser, never uploaded.');
-    } catch {
-      setNotice('This image could not be opened. Try a smaller PNG or JPG.');
+      setNotice(
+        'Image added. Saved in this browser only; nothing is sent to a server.',
+      );
+    } catch (error) {
+      setNotice(
+        error instanceof Error
+          ? error.message
+          : 'This image could not be opened.',
+      );
+    } finally {
+      setBusy(false);
     }
+  }
+  function addText() {
+    if (!text.trim() || stickers.length >= 12) return;
+    const id = Date.now();
+    setStickers((items) => [
+      ...items,
+      { id, text: text.trim(), x: 50, y: 40, rotation: 0, scale: 1 },
+    ]);
+    setSelected(id);
+    setText('');
   }
   function adjust(values: Partial<Sticker>) {
     setStickers((items) =>
@@ -216,12 +261,12 @@ export default function CreativeTools() {
     );
   }
   const selection = stickers.find((s) => s.id === selected);
-  const clamp = (n: number) => Math.max(0, Math.min(100, n));
+  const clamp = (n: number) => Math.max(5, Math.min(95, n));
   return (
     <>
       <div
         id="creative"
-        className={`creativeToolbar shell ${tour !== null ? 'activeTour' : ''}`}
+        className={`creativeToolbar shell ${tour !== null ? 'activeTour' : ''} ${editing ? 'isEditing' : ''}`}
         ref={toolbar}
       >
         <div className="creativeControls">
@@ -233,7 +278,8 @@ export default function CreativeTools() {
               setEditing(false);
             }}
           >
-            ✳ Creative mode {creative ? 'on' : 'off'}
+            <Asterisk size={16} aria-hidden="true" /> Creative mode{' '}
+            {creative ? 'on' : 'off'}
           </button>
           {creative && (
             <>
@@ -242,31 +288,44 @@ export default function CreativeTools() {
                 aria-pressed={editing}
                 onClick={() => setEditing(!editing)}
               >
-                {editing ? 'Done editing' : 'Edit stickers'}
+                {editing ? 'Done editing' : 'Add / edit stickers'}
+              </button>
+              <button
+                type="button"
+                aria-pressed={colour}
+                onClick={() => setColour(!colour)}
+              >
+                <Palette size={16} aria-hidden="true" />{' '}
+                {colour ? 'Colour' : 'Black & white'}
               </button>
               {editing && (
                 <>
+                  <label className="stickerTextInput">
+                    Text or emoji
+                    <input
+                      maxLength={49}
+                      value={text}
+                      placeholder="Type your own…"
+                      onChange={(e) => setText(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          addText();
+                        }
+                      }}
+                    />
+                  </label>
                   <button
                     type="button"
-                    disabled={stickers.length >= 8}
-                    onClick={() =>
-                      setStickers((s) => [
-                        ...s,
-                        {
-                          id: Date.now(),
-                          text: 'Make something ✳',
-                          x: 15,
-                          y: 12,
-                        },
-                      ])
-                    }
+                    disabled={!text.trim() || stickers.length >= 12}
+                    onClick={addText}
                   >
-                    Add text
+                    Add text / emoji
                   </button>
                   <input
                     ref={upload}
                     type="file"
-                    accept="image/png,image/jpeg,image/webp"
+                    accept="image/png,image/jpeg,image/webp,image/svg+xml,image/gif,.svg"
                     hidden
                     onChange={(e) => {
                       void addImage(e.target.files?.[0]);
@@ -275,10 +334,11 @@ export default function CreativeTools() {
                   />
                   <button
                     type="button"
-                    disabled={stickers.length >= 8}
+                    disabled={busy || stickers.length >= 12}
                     onClick={() => upload.current?.click()}
                   >
-                    Upload sticker
+                    <Upload size={16} aria-hidden="true" />{' '}
+                    {busy ? 'Opening…' : 'Upload sticker'}
                   </button>
                   <button
                     type="button"
@@ -288,16 +348,16 @@ export default function CreativeTools() {
                       setSelected(null);
                     }}
                   >
-                    Remove selected
+                    <Trash2 size={16} aria-hidden="true" /> Remove selected
                   </button>
                   <button
                     type="button"
                     onClick={() => {
-                      setStickers(initial);
+                      setStickers([]);
                       setSelected(null);
                     }}
                   >
-                    Reset
+                    Clear all
                   </button>
                 </>
               )}
@@ -305,7 +365,7 @@ export default function CreativeTools() {
           )}
           {tour === null ? (
             <button type="button" onClick={() => go(0)}>
-              Take a tour ↗
+              Take a tour ↗︎
             </button>
           ) : (
             <>
@@ -382,11 +442,18 @@ export default function CreativeTools() {
           </div>
         )}
         <output>{notice}</output>
+        {creative && stickers.length === 0 && (
+          <p>
+            No preset stickers. Add your own SVG, PNG, JPG, WebP or GIF, or type
+            an emoji.
+          </p>
+        )}
         <a href="#playground">Open mini arcade ↓</a>
         {editing && (
           <p>
             Drag a sticker, or select it and use the arrow keys. Delete removes
-            it. Escape finishes editing. Saved only in this browser.
+            it. Escape finishes editing. Stickers move across the screen and
+            stay with you as you scroll. Saved only in this browser.
           </p>
         )}
         <output>
@@ -397,6 +464,8 @@ export default function CreativeTools() {
       </div>
       {creative && (
         <div
+          ref={layer}
+          data-colour={colour}
           className={`stickerLayer ${editing ? 'editing' : ''}`}
           aria-label={editing ? 'Editable decorative stickers' : undefined}
         >
@@ -406,14 +475,14 @@ export default function CreativeTools() {
               type="button"
               tabIndex={editing ? 0 : -1}
               aria-hidden={!editing}
-              className={`pageSticker ${s.image ? 'imageSticker' : ''}`}
+              className={`pageSticker ${!s.image && /\p{Extended_Pictographic}/u.test(s.text) ? 'emojiSticker' : ''} ${s.image ? 'imageSticker' : ''}`}
               aria-label={s.text}
               style={{
-                left: `calc(${s.x / 100} * (100% - 180px))`,
-                top: `calc(${s.y / 100} * (100% - 60px))`,
-                transform: `rotate(${s.rotation ?? -5}deg)`,
+                left: `${s.x}%`,
+                top: `${s.y}%`,
+                transform: `translate(-50%, -50%) rotate(${s.rotation ?? 0}deg)`,
                 width: 174 * (s.scale ?? 1),
-                maxWidth: '90vw',
+                maxWidth: '65vw',
               }}
               data-selected={selected === s.id}
               onFocus={() => setSelected(s.id)}
@@ -431,7 +500,7 @@ export default function CreativeTools() {
               }}
               onPointerMove={(e) => {
                 const d = drag.current;
-                const root = document.getElementById('portfolio-page');
+                const root = layer.current;
                 if (!editing || !d || d.id !== s.id || !root) return;
                 setStickers((items) =>
                   items.map((item) =>
@@ -441,19 +510,22 @@ export default function CreativeTools() {
                           x: clamp(
                             d.startX +
                               ((e.clientX - d.x) /
-                                Math.max(1, root.clientWidth - 180)) *
+                                Math.max(1, root.clientWidth)) *
                                 100,
                           ),
                           y: clamp(
                             d.startY +
                               ((e.clientY - d.y) /
-                                Math.max(1, root.scrollHeight - 60)) *
+                                Math.max(1, root.clientHeight)) *
                                 100,
                           ),
                         }
                       : item,
                   ),
                 );
+              }}
+              onLostPointerCapture={() => {
+                drag.current = null;
               }}
               onPointerUp={() => {
                 drag.current = null;
@@ -495,9 +567,9 @@ export default function CreativeTools() {
                             y: clamp(
                               item.y +
                                 (e.key === 'ArrowUp'
-                                  ? -0.2
+                                  ? -2
                                   : e.key === 'ArrowDown'
-                                    ? 0.2
+                                    ? 2
                                     : 0),
                             ),
                           }

@@ -612,3 +612,5 @@
     font-size: 38px;
   }
 }
+
+@media(min-width:761px){.serviceCard:last-child:nth-child(odd){grid-column:1 / -1}}

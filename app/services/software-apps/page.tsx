@@ -114,7 +114,7 @@ export default function SoftwareAppsPage() {
         <ol className={ui.flow}>{[['Aanvraag','De afgesproken gegevens komen binnen.'],['Controle','Ontbrekende of ongeldige invoer wordt gesignaleerd.'],['Registratie','De aanvraag komt in het afgesproken overzicht of CRM.'],['Opvolging','Een taak of conceptbericht staat klaar voor de juiste persoon.']].map(([title,text],i)=><li key={title}><span>0{i+1}</span><strong>{title}</strong><p>{text}</p></li>)}</ol>
         <div className={ui.deliverables}>{[['Een koppeling','Een afgesproken gegevensstroom tussen systemen, met controles, foutmeldingen en uitleg over herstel.'],['Een dashboard','Een overzicht van afgesproken gegevens en statussen. Bronnen, toegang, actualisering en definities leggen we vooraf vast.'],['AI als ondersteuning','Bijvoorbeeld informatie ordenen of een conceptantwoord voorbereiden. We bepalen wat automatisch mag en waar een mens controleert.']].map(([title,text])=><article key={title}><h3>{title}</h3><p>{text}</p></article>)}</div>
         <p className={styles.note}>Dit zijn mogelijke opdrachten. We beoordelen haalbaarheid en benodigde expertise vooraf. API’s, licenties, hosting en doorlopend beheer zijn apart; er is geen onbeperkte of foutloze automatisering beloofd.</p>
-        <Link className={styles.primaryLink} href="/services/prijsindicatie?dienst=software">Stel jouw procesvraag samen ↗</Link>
+        <Link className={styles.primaryLink} href="/services/prijsindicatie?dienst=software">Stel jouw procesvraag samen ↗︎</Link>
       </section>
       <section
         id="aanpak"

@@ -281,7 +281,7 @@ export default function ProjectCards({ projects }: { projects: Project[] }) {
                 }}
               >
                 <span>Flip for a learning note</span>
-                <span aria-hidden="true">↗</span>
+                <span aria-hidden="true">↗︎</span>
               </button>
             )}
           </article>

@@ -24,6 +24,19 @@ export const serviceCategories = [
     ],
   },
   {
+    id: 'ugc',
+    title: 'UGC & productcontent',
+    href: '/services/ugc',
+    description:
+      'Korte productvideo’s en appdemo’s voor jouw merk, op aanvraag.',
+    outcome: 'Laat je product zien.',
+    links: [
+      ['Productvideo’s & appdemo’s', '/services/ugc#mogelijkheden'],
+      ['Prijsopbouw & gebruik', '/services/ugc#kosten'],
+      ['Van briefing tot oplevering', '/services/ugc#werkwijze'],
+    ],
+  },
+  {
     id: 'visibility',
     title: 'Online zichtbaarheid',
     href: '/services/zichtbaarheid',
