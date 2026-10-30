@@ -21,3 +21,6 @@ https://intellectual-property-helpdesk.ec.europa.eu/regional-ip-helpdesks/europe
 https://www.tesla.com/legal/additional-resources
 https://www.tesla.com/roadster
 Tesla currently describes cold-gas thrusters and restricted Rocket trim; this does not license its vehicle designs or branding for a game.
+
+## Garage and control update
+Original vector coupe redesigned with selectable paint, custom colour, aero/sport wheels and contrast accent. Stored browser-locally. Flip now launches from the ground, eases through one turn and permits one stunt per flight. Focus loss releases thrust without pausing; hidden tabs still pause. Regression tests cover saved customization, flip without accidental pause, explicit pause/resume and four viewport widths.

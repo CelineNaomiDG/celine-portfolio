@@ -27,6 +27,7 @@ export type Run = {
   rotation: number;
   flipping: boolean;
   bonus: number;
+  flipUsed: boolean;
 };
 
 export function createRun(width: number, status: RunStatus = 'playing'): Run {
@@ -45,6 +46,7 @@ export function createRun(width: number, status: RunStatus = 'playing'): Run {
     rotation: 0,
     flipping: false,
     bonus: 0,
+    flipUsed: false,
   };
 }
 
@@ -94,7 +96,7 @@ export function advanceRun(current: Run, elapsed: number): Run {
     remaining -= step;
     run.time += step;
     if (run.flipping) {
-      run.rotation += 900 * step;
+      run.rotation += 720 * step;
       if (run.rotation >= 360) { run.rotation = 0; run.flipping = false; run.bonus += 100; }
     }
 
@@ -110,6 +112,7 @@ export function advanceRun(current: Run, elapsed: number): Run {
       );
       run.velocity = run.y > 0 ? run.velocity - gravity * step : 0;
     }
+    if (run.y === 0 && run.velocity === 0) run.flipUsed = false;
     if (run.y === 0 && run.flipping) { run.rotation = 0; run.flipping = false; }
     if (run.y > 150) { run.y = 150; run.velocity = Math.min(0, run.velocity); }
     run.obstacleX -= runSpeed(run.time) * step;
@@ -128,7 +131,9 @@ export function advanceRun(current: Run, elapsed: number): Run {
 export function boostRun(run: Run, held: boolean): Run { return { ...run, thrust: held && run.status === 'playing' }; }
 
 export function flipRun(run: Run): Run {
-  if (run.status !== 'playing' || run.y < 65 || run.flipping) return run;
-  return { ...run, flipping: true, rotation: 0 };
+  if (run.status !== 'playing' || run.flipping || run.flipUsed) return run;
+  // One stunt per flight; a controlled launch gives the full turn enough airtime.
+  return { ...run, flipping: true, flipUsed: true, rotation: 0,
+    velocity: Math.max(run.velocity, 440) };
 }
 export const runScore = (run: Run) => Math.floor(run.time * 10) + run.bonus;

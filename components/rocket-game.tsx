@@ -17,6 +17,7 @@ import {
   type Run,
 } from '@/lib/rocket-engine';
 import styles from './rocket-game.module.css';
+import { RaceCar } from './race-car';
 
 export default function RocketGame({ active }: { active: boolean }) {
   const gameRef = useRef<HTMLDivElement>(null);
@@ -24,6 +25,26 @@ export default function RocketGame({ active }: { active: boolean }) {
   const runRef = useRef<Run>(createRun(600, 'idle'));
   const [run, setRun] = useState<Run>(() => createRun(600, 'idle'));
   const [best, setBest] = useState(0);
+  const [paint, setPaint] = useState('#d7e3ea');
+  const [wheels, setWheels] = useState('aero');
+  const [stripe, setStripe] = useState(true);
+  const [garage, setGarage] = useState(false);
+  const palette = ['#d7e3ea', '#f17464', '#adc7a3', '#ad9ed1', '#dfbd78', '#5ca9c8'];
+  const saveCar = (color: string, rims: string, line: boolean) => {
+    setPaint(color); setWheels(rims); setStripe(line);
+    try { localStorage.setItem('rocket-car-v1', JSON.stringify({color, rims, line})); } catch {}
+  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      try {
+        const saved = JSON.parse(localStorage.getItem('rocket-car-v1') || 'null');
+        if (saved && /^#[0-9a-f]{6}$/i.test(saved.color) && ['aero','sport'].includes(saved.rims)) {
+          setPaint(saved.color); setWheels(saved.rims); setStripe(saved.line === true);
+        }
+      } catch {}
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   const publish = (next: Run) => {
     runRef.current = next;
@@ -33,6 +54,7 @@ export default function RocketGame({ active }: { active: boolean }) {
   const jump = () => {
     const now = performance.now();
     const current = runRef.current;
+    if (current.status !== 'playing') return;
     if (now - lastJump.current < 300 && current.y > 0 && current.fuel >= 25)
       publish({ ...current, velocity: 480, fuel: current.fuel - 25 });
     else publish(jumpRun(current));
@@ -48,6 +70,8 @@ export default function RocketGame({ active }: { active: boolean }) {
   };
   const start = () => {
     try { setBest(Number(localStorage.getItem('rocket-best-v1')) || 0); } catch {}
+    lastJump.current = 0;
+    setGarage(false);
     publish(createRun(stageRef.current?.clientWidth ?? 600));
     gameRef.current?.focus({ preventScroll: true });
   };
@@ -76,7 +100,7 @@ export default function RocketGame({ active }: { active: boolean }) {
     const hidden = () => {
       if (document.hidden) pause();
     };
-    const blur = () => pause();
+    const blur = () => duck(false);
     document.addEventListener('visibilitychange', hidden);
     window.addEventListener('blur', blur);
     return () => {
@@ -117,7 +141,6 @@ export default function RocketGame({ active }: { active: boolean }) {
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) {
           duck(false);
-          pause();
         }
       }}
       onKeyDown={(event) => {
@@ -143,6 +166,7 @@ export default function RocketGame({ active }: { active: boolean }) {
           NIGHT SHIFT
         </strong>
         <div className={styles.topActions}>
+          <button className={styles.garageButton} aria-label="Customize car" onClick={() => { pause(); setGarage(true); }}>Garage</button>
           <span className={styles.score}>
             HI {String(best).padStart(4, '0')}{' '}
             <b>{String(score).padStart(4, '0')}</b>
@@ -189,32 +213,11 @@ export default function RocketGame({ active }: { active: boolean }) {
             left: runnerX(run.width),
             width: runnerSize.width,
             height: run.ducking ? runnerSize.duckHeight : runnerSize.height,
-            transform: `translateY(${-run.y}px) rotate(${-run.rotation}deg)`,
+            transform: `translateY(${-run.y}px) rotate(${-(run.rotation / 360 - Math.sin(2 * Math.PI * run.rotation / 360) / (2 * Math.PI)) * 360}deg)`,
           }}
           aria-hidden="true"
         >
-          <svg viewBox="0 0 100 46" width="100%" height="100%" fill="currentColor">
-            <ellipse cx="51" cy="40" rx="43" ry="3" fill="#a3e8f1" opacity=".23" />
-            {run.thrust && run.fuel > 0 && <g className={styles.jet}>
-              <path d="M12 26-22 29 12 33M24 35 29 61 35 35M69 35 76 61 81 35" fill="#91dbe9" opacity=".6" />
-              <path d="M11 28-9 30 11 31M27 35 29 50 32 35M72 35 76 50 78 35" fill="white" />
-            </g>}
-            <path d="M6 26 22 22 38 10Q45 7 60 10L77 21 93 25 98 31 94 36H6Z" fill="#899aa5" />
-            <path d="M7 26 24 23 39 11Q46 8 60 11L77 23 93 26 96 30H7Z" fill="#e1e9ee" />
-            <path d="m29 23 13-11 15 1 13 10Z" fill="#304550" />
-            <path d="m44 13 11 1 10 7H36Z" fill="#94bdca" opacity=".65" />
-            <path d="m49 13 3 10M31 26l2 7h30l7-8" fill="none" stroke="#657b89" strokeWidth="1" />
-            <path d="M5 19h19v3H5Zm5 13h81l-5 5H12Z" fill="#253740" />
-            <path d="M10 27h9" stroke="#ef9a99" strokeWidth="2" />
-            <path d="M85 27h9" stroke="#efffff" strokeWidth="3" />
-            <path d="m94 27 45-8v22l-45-12" fill="#c8ecf3" opacity=".09" />
-            {[27,77].map(x=><g key={x}>
-              <circle cx={x} cy="34" r="9" fill="#0a1118" stroke="#91a2b0" strokeWidth="1.5" />
-              <circle cx={x} cy="34" r="5.8" fill="#435967" stroke="#d3e0e5" strokeWidth="1" />
-              <path d={`M${x-4} 30l8 8m-8 0 8-8M${x} 28v12`} stroke="#ccdce2" strokeWidth="1" />
-              <circle cx={x} cy="34" r="1.7" fill="#edf6fa" />
-            </g>)}
-          </svg>
+          <RaceCar paint={paint} wheels={wheels} stripe={stripe} thrust={run.thrust && run.fuel > 0} />
         </div>
         <div
           className={`${styles.obstacle} ${run.obstacle === 'double' ? styles.double : ''}`}
@@ -254,7 +257,7 @@ export default function RocketGame({ active }: { active: boolean }) {
             <small>
               Double-tap Jump for a burst · Hold Boost to fly
               <br />
-              Space / ↑ jump · ↓ boost · F flip above 65px
+              Space / ↑ jump · ↓ boost · F flip
             </small>
           </div>
         )}
@@ -266,7 +269,7 @@ export default function RocketGame({ active }: { active: boolean }) {
         )}
         {inGame && (
           <div className={styles.controls}>
-            <button onClick={flip} disabled={run.status !== 'playing' || run.y < 65 || run.flipping} aria-label="Backflip">↶<small>Flip +100</small></button>
+            <button onPointerDown={(event) => { event.preventDefault(); flip(); }} onClick={(event) => { if (event.detail === 0) flip(); }} disabled={run.status === 'paused'} aria-label="Backflip">↶<small>Flip +100</small></button>
             <button
               disabled={run.status === 'paused'}
               onPointerDown={(event) => {
@@ -310,6 +313,14 @@ export default function RocketGame({ active }: { active: boolean }) {
           </div>
         )}
       </div>
+      {garage && <section className={styles.garage} aria-label="Customize your car" onKeyDown={event => { event.stopPropagation(); if (event.key === 'Escape') setGarage(false); }}>
+        <div className={styles.garageHeading}><div><small>YOUR CAR / YOUR STYLE</small><h3>The garage</h3></div><button aria-label="Close garage" onClick={() => setGarage(false)}>×</button></div>
+        <div className={styles.carPreview}><RaceCar paint={paint} wheels={wheels} stripe={stripe} thrust={false} /></div>
+        <fieldset><legend>Body colour</legend><div className={styles.swatches}>{palette.map(color => <button key={color} style={{background:color}} aria-label={`Paint ${color}`} aria-pressed={paint === color} onClick={() => saveCar(color,wheels,stripe)} />)}</div><label className={styles.customColor}>Custom colour <input type="color" value={paint} onChange={event => saveCar(event.target.value,wheels,stripe)} /></label></fieldset>
+        <fieldset><legend>Wheels</legend><div className={styles.wheelOptions}>{['aero','sport'].map(rim => <button key={rim} aria-pressed={wheels === rim} onClick={() => saveCar(paint,rim,stripe)}>{rim === 'aero' ? 'Aero discs' : 'Sport spokes'}</button>)}</div></fieldset>
+        <label className={styles.stripeOption}><input type="checkbox" checked={stripe} onChange={event => saveCar(paint,wheels,event.target.checked)} /> Contrast accent</label>
+        <button className={styles.driveButton} onClick={() => { setGarage(false); if (runRef.current.status === 'paused') togglePause(); else start(); }}>Save & drive</button>
+      </section>}
     </div>
   );
 }
