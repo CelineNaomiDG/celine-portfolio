@@ -91,6 +91,7 @@ export default function ProjectForm({
           </option>
           {[
             ['Website', 'Website'],
+            ['Webshop', 'Online store'],
             ['Software & automatisering', 'Software & automation'],
             ['Content & design', 'Content & design'],
             ['UGC & productcontent', 'UGC & product content'],

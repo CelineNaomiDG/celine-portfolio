@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { PageIntro, ServicesShell } from '../services-shared';
 import { estimate, readSelection } from '../pricing-data';
 import ProjectForm from '../project-form';
+import { shopPlatforms } from '../webshops/webshop-data';
 import styles from '../services.module.css';
 export const metadata: Metadata = {
   title: 'Bespreek je project | Celine de Graaf',
@@ -15,6 +16,7 @@ export default async function ContactPage({
     samenstelling?: string;
     kennismaking?: string;
     interesse?: string;
+    platform?: string;
   }>;
 }) {
   const query = await searchParams;
@@ -23,6 +25,7 @@ export default async function ContactPage({
   );
   const names = {
     website: 'Website',
+    webshop: 'Webshop',
     ugc: 'UGC & productcontent',
     design: 'Content & design',
     maintenance: 'Onderhoud',
@@ -30,6 +33,10 @@ export default async function ContactPage({
     visibility: 'Online zichtbaarheid',
   };
   const productIdea = query.interesse === 'product';
+  const shopPlatform =
+    query.interesse === 'webshop'
+      ? shopPlatforms.find((platform) => platform.id === query.platform)
+      : undefined;
   return (
     <ServicesShell current="/services/contact">
       <PageIntro
@@ -60,15 +67,23 @@ export default async function ContactPage({
           </div>
           <ProjectForm
             key={JSON.stringify(query)}
-            initialSummary={selection ? estimate(selection).summary : ''}
+            initialSummary={
+              selection
+                ? estimate(selection).summary
+                : shopPlatform
+                  ? `Webshop op aanvraag\nVoorkeur: ${shopPlatform.title}\nPlatform, mogelijkheden, kosten en haalbaarheid nog te bespreken.`
+                  : ''
+            }
             initialService={
               selection
                 ? names[selection.service]
                 : productIdea
                   ? 'Digitaal product'
-                  : query.interesse === 'ugc'
-                    ? 'UGC & productcontent'
-                    : ''
+                  : query.interesse === 'webshop'
+                    ? 'Webshop'
+                    : query.interesse === 'ugc'
+                      ? 'UGC & productcontent'
+                      : ''
             }
             requestMeeting={query.kennismaking === '1'}
             productIdea={productIdea}

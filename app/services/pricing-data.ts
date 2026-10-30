@@ -138,6 +138,11 @@ export const serviceChoices = [
   },
   { id: 'website', label: 'Website', description: 'Een passende websitebasis' },
   {
+    id: 'webshop',
+    label: 'Webshop',
+    description: 'Shopify, WooCommerce of maatwerk',
+  },
+  {
     id: 'design',
     label: 'Content & design',
     description: 'Ontwerp, content of publicatie',
@@ -163,6 +168,41 @@ export const addOns: Record<
   Service,
   { id: string; label: string; description: string }[]
 > = {
+  webshop: [
+    {
+      id: 'payments',
+      label: 'Betaalmethoden inrichten',
+      description:
+        'iDEAL, kaarten, PayPal of andere passende opties; providergoedkeuring vereist.',
+    },
+    {
+      id: 'products',
+      label: 'Productinvoer of migratie',
+      description: 'Aantallen, varianten en bestaande data vooraf afspreken.',
+    },
+    {
+      id: 'shipping',
+      label: 'Verzending & orderafhandeling',
+      description: 'Bezorging, afhalen, retouren of een vervoerderskoppeling.',
+    },
+    {
+      id: 'digital',
+      label: 'Digitale producten of abonnementen',
+      description:
+        'Levering, toegang en ondersteunde betaalflow afzonderlijk uitwerken.',
+    },
+    {
+      id: '3d',
+      label: '3D, AR of een configurator',
+      description:
+        'Eerst de modelbestanden, bediening en technische haalbaarheid bekijken.',
+    },
+    {
+      id: 'integrations',
+      label: 'Koppelingen & zakelijke verkoop',
+      description: 'Bijvoorbeeld voorraad, boekhouding of zakelijke accounts.',
+    },
+  ],
   website: [
     {
       id: 'cms',
@@ -365,6 +405,10 @@ export function estimate(input: Selection) {
     pending.push('Eventuele startcontrole; hosting en licenties');
   if (selection.service === 'software')
     pending.push('Verkenning, bouw, gebruikskosten en beheer');
+  if (selection.service === 'webshop')
+    pending.push(
+      'Platform, ontwerp, inrichting en tests; abonnement of hosting, apps/plugins, betaaltransacties en webshoponderhoud apart begroten',
+    );
   if (selection.service === 'ugc')
     pending.push(
       'Briefing, opname, montage, correcties en gebruiksafspraken; eventuele verzending, reis- en licentiekosten',

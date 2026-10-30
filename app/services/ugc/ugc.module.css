@@ -66,6 +66,7 @@
 }
 .frames li {
   background: var(--card);
+  color: var(--fg);
   border: 1px solid var(--line);
   border-radius: 28px;
   padding: 26px 18px;
@@ -89,7 +90,8 @@
     serif;
   letter-spacing: -0.02em;
 }
-.frames p {
+.storyboard .frames li p {
+  color: inherit;
   font-size: 12px;
   line-height: 1.5;
 }
@@ -175,10 +177,10 @@
     font-size: 21px;
   }
   .frames span {
-    font-size: 8px;
+    font-size: 10px;
   }
-  .frames p {
-    font-size: 11px;
+  .storyboard .frames li p {
+    font-size: 12px;
   }
   .formats article,
   .boundary {

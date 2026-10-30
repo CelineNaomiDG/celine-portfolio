@@ -100,3 +100,9 @@ Creative Mode starts without stock stickers. Visitors can add their own text/emo
 SVG input is restricted to static shapes and rasterised without embedding its document. GIF data remains animated. Image size, sticker count and local-storage budget are bounded. Files stay in the visitor’s browser. Existing custom stickers migrate, while the three former preset labels are removed. The mobile portfolio menu follows the theme button on the right and supports Escape and outside dismissal. Interface symbols use SVG or explicit text presentation.
 
 `/services/ugc` describes product content and app demos on enquiry. It is linked from the shared catalogue, content page and English overview, and included in the sitemap. The configurator and form preserve the selected UGC requirements without inventing a price. See `docs/ugc-aanbod.md` for scope and research. No new tracking, booking, messaging or payment integration was installed.
+
+## Webshop service and contrast correction
+
+`/services/webshops` compares Shopify, WordPress/WooCommerce and bespoke/headless routes, payment options, 3D experiences and ongoing costs. Features remain subject to feasibility and a quote; no store, payment account or paid tool is provisioned. Platform enquiry links accept only allowlisted values. The configurator prices webshop work independently as a quote, with no inherited website or maintenance amount. Sources and boundaries are in `docs/webshops-aanbod.md`.
+
+The UGC storyboard sets its card text explicitly instead of inheriting paper-band colours. Paragraph selectors also override the paper-band rule, preserving readable text on all three cards in both themes. Other page layouts and creative controls remain unchanged.
