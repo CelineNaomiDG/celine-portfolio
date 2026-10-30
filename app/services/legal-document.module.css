@@ -1,0 +1,256 @@
+.page {
+  color: var(--fg);
+  background: var(--bg);
+  font-family: var(--font-geist-sans), sans-serif;
+  min-height: 100vh;
+}
+.page :is(a, button):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}
+.page main:focus {
+  outline: none;
+}
+.skipLink {
+  position: fixed;
+  top: 12px;
+  left: 20px;
+  z-index: 100;
+  transform: translateY(-200%);
+  padding: 14px 20px;
+  background: var(--fg);
+  color: var(--bg);
+}
+.skipLink:focus {
+  transform: translateY(0);
+}
+.header,
+.footer {
+  width: min(1000px, calc(100% - 48px));
+  margin-inline: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.header {
+  min-height: 88px;
+  border-bottom: 1px solid var(--line);
+}
+.header > a {
+  font-size: 16px;
+  font-weight: 600;
+}
+.header > a > span {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 400;
+  margin-top: 4px;
+}
+.document {
+  width: min(760px, calc(100% - 48px));
+  margin-inline: auto;
+  padding-block: 38px 72px;
+}
+.back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 12px;
+}
+.back:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.version {
+  margin: 32px 0 14px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+.document h1 {
+  font-size: clamp(40px, 6vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.055em;
+  font-weight: 550;
+  margin: 0 0 25px;
+  overflow-wrap: anywhere;
+}
+.intro {
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 30px;
+}
+.notice {
+  background: var(--soft);
+  border-left: 2px solid var(--fg);
+  padding: 22px 25px;
+  margin-bottom: 38px;
+}
+.notice strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+.notice p {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+.section {
+  border-top: 1px solid var(--line);
+  padding-block: 28px;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 20px;
+}
+.number {
+  font:
+    italic 19px Georgia,
+    serif;
+  color: var(--muted);
+}
+.document h2 {
+  font-size: 21px;
+  font-weight: 550;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+  margin: 0 0 15px;
+}
+.section p {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--muted);
+  margin: 0 0 14px;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+.section p:last-child {
+  margin-bottom: 0;
+}
+.sources {
+  border-top: 1px solid var(--line);
+  padding-top: 30px;
+}
+.sources h2 {
+  font-size: 17px;
+}
+.sources ul {
+  padding-left: 20px;
+  margin: 0;
+}
+.sources li {
+  padding-block: 5px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.sources a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  overflow-wrap: anywhere;
+}
+.footer {
+  border-top: 1px solid var(--line);
+  padding-block: 22px 30px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer a {
+  display: inline-block;
+  padding-block: 10px;
+}
+@media (max-width: 480px) {
+  .header,
+  .footer,
+  .document {
+    width: calc(100% - 36px);
+  }
+  .section {
+    grid-template-columns: 24px 1fr;
+    gap: 12px;
+  }
+  .section p {
+    font-size: 13px;
+  }
+  .document h2 {
+    font-size: 19px;
+  }
+  .notice {
+    padding: 18px;
+  }
+  .footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+}
+@media print {
+  .page {
+    --bg: white;
+    --fg: black;
+    --muted: #333;
+    --soft: #f4f4f4;
+    --line: #bbb;
+    background: white;
+    color: black;
+  }
+  .header,
+  .back,
+  .skipLink,
+  .footer nav {
+    display: none;
+  }
+  .document,
+  .footer {
+    width: 100%;
+    max-width: none;
+    padding-block: 0;
+  }
+  .version {
+    margin-top: 0;
+  }
+  .document h1 {
+    font-size: 30pt;
+  }
+  .intro {
+    font-size: 11pt;
+  }
+  .document h2 {
+    font-size: 14pt;
+    break-after: avoid;
+  }
+  .section p,
+  .notice p {
+    font-size: 10pt;
+    line-height: 1.6;
+    orphans: 3;
+    widows: 3;
+  }
+  .notice {
+    break-inside: avoid;
+    padding: 12pt;
+    margin-bottom: 20pt;
+  }
+  .section {
+    padding-block: 16pt;
+  }
+  .sources {
+    break-inside: avoid;
+  }
+  .sources a::after {
+    content: ' (' attr(href) ')';
+    font-size: 8pt;
+  }
+  .footer {
+    margin-top: 20pt;
+    padding-top: 10pt;
+  }
+}
