@@ -1,0 +1,378 @@
+.game {
+  height: 430px;
+  border-radius: 34px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  user-select: none;
+  outline: none;
+}
+.game:focus-visible {
+  box-shadow:
+    var(--shadow),
+    inset 0 0 0 2px var(--fg);
+}
+.top {
+  height: 62px;
+  padding: 0 23px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+  gap: 8px;
+}
+.top strong {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.top i {
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--fg);
+  border-radius: 50%;
+}
+.topActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.topActions > button {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--soft);
+  color: var(--fg);
+  cursor: pointer;
+}
+.score {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.score b {
+  margin-left: 10px;
+  color: var(--fg);
+}
+.stage {
+  position: relative;
+  height: 368px;
+  overflow: hidden;
+  touch-action: none;
+  cursor: pointer;
+}
+.runner {
+  position: absolute;
+  z-index: 3;
+  bottom: 67px;
+  display: grid;
+  place-items: center;
+  will-change: transform;
+  line-height: 1;
+}
+.runner span {
+  font-size: 48px;
+  filter: grayscale(1);
+  transform: scaleX(-1);
+  display: block;
+  transform-origin: center bottom;
+}
+.runner[data-ducking='true'] span {
+  transform: scaleX(-1) scaleY(0.55);
+}
+.obstacle {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: 38px;
+  filter: grayscale(1);
+  line-height: 1;
+  white-space: nowrap;
+  will-change: transform;
+}
+.double {
+  font-size: 34px;
+  letter-spacing: -12px;
+  padding-right: 12px;
+}
+.ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 64px;
+  height: 3px;
+  background: var(--fg);
+}
+.ground:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 8px;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--muted) 0 8px,
+    transparent 8px 21px
+  );
+}
+.cloud,
+.cloudTwo {
+  position: absolute;
+  top: 64px;
+  left: 24%;
+  color: var(--muted);
+  opacity: 0.45;
+  letter-spacing: 5px;
+}
+.cloudTwo {
+  left: 70%;
+  top: 110px;
+}
+.stage[data-status='playing'] .ground:after {
+  animation: terrain 0.5s linear infinite;
+}
+.stage[data-status='playing']
+  .runner[data-jumping='false'][data-ducking='false']
+  span {
+  animation: footsteps 0.22s steps(2, end) infinite;
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--card) 85%, transparent);
+  backdrop-filter: blur(5px);
+  text-align: center;
+  padding: 20px;
+}
+.overlay p {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+.overlay h3 {
+  font-size: clamp(25px, 4vw, 42px);
+  letter-spacing: -0.04em;
+  margin: 0 0 20px;
+}
+.overlay button {
+  min-height: 46px;
+  min-width: 112px;
+  border: 0;
+  border-radius: 15px;
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 700;
+  cursor: pointer;
+}
+.overlay small {
+  margin-top: 14px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.controls {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+.controls button {
+  width: 54px;
+  height: 46px;
+  touch-action: none;
+  display: grid;
+  place-content: center;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: var(--card);
+  color: var(--fg);
+  cursor: pointer;
+  line-height: 1;
+  font-size: 18px;
+}
+.controls small {
+  font-size: 10px;
+  margin-top: 3px;
+}
+.controls button:active {
+  background: var(--soft);
+}
+.controls button:disabled {
+  opacity: 0.5;
+}
+.game button:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+}
+@keyframes footsteps {
+  50% {
+    transform: scaleX(-1) translateY(-2px);
+  }
+}
+@keyframes terrain {
+  to {
+    transform: translateX(-21px);
+  }
+}
+@media (max-width: 560px) {
+  .game {
+    height: 370px;
+  }
+  .stage {
+    height: 308px;
+  }
+  .top {
+    padding: 0 12px;
+    font-size: 11px;
+  }
+  .topActions {
+    gap: 6px;
+  }
+  .score b {
+    margin-left: 6px;
+  }
+  .top strong {
+    gap: 5px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stage[data-status='playing'] .ground:after,
+  .stage[data-status='playing'] .runner span {
+    animation: none;
+  }
+}
+
+.runner svg {
+  overflow: visible;
+  transform-origin: center bottom;
+  transition: height 0.1s;
+}
+.legA,
+.legB {
+  transform-origin: center 44px;
+}
+.stage[data-status='playing'] .runner[data-jumping='false'] .legA {
+  animation: stride 0.18s steps(2) infinite;
+}
+.stage[data-status='playing'] .runner[data-jumping='false'] .legB {
+  animation: stride 0.18s steps(2) infinite reverse;
+}
+.runner[data-jumping='true'] svg {
+  transform: rotate(-7deg);
+}
+.runner[data-ducking='true'] svg {
+  transform: rotate(6deg);
+}
+.cloud,
+.cloudTwo {
+  width: 65px;
+  height: 16px;
+  border: 1px solid var(--muted);
+  border-radius: 40px;
+  letter-spacing: 0;
+  font-size: 0;
+}
+.cloud:before,
+.cloudTwo:before {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 15px;
+  width: 25px;
+  height: 16px;
+  border-radius: 20px 20px 0 0;
+  border: 1px solid var(--muted);
+  border-bottom: 0;
+  background: var(--card);
+}
+@keyframes stride {
+  to {
+    transform: translateY(-5px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .legA,
+  .legB {
+    animation: none !important;
+  }
+  .runner svg {
+    transition: none;
+  }
+}
+
+.game { --card:#101820; --bg:#101820; --fg:#edf2f4; --muted:#b6c3cb; --line:#43515c; --soft:#293943; color:var(--fg); height:464px; }
+.fuel { height:34px; display:flex; align-items:center; gap:12px; padding:0 24px; font-size:11px; letter-spacing:2px; }
+.fuel meter { flex:1; max-width:180px; }
+.stage { background:radial-gradient(circle at 80% 18%, #dce3e7 0 3px, transparent 4px), radial-gradient(ellipse at bottom,#33434e, #101820 70%); }
+.cloud,.cloudTwo { border:0; border-radius:0; width:180px; height:95px; top:auto; bottom:67px; opacity:.3; background:repeating-linear-gradient(90deg,#53616a 0 22px,transparent 22px 29px); }
+.cloud:before,.cloudTwo:before { display:none; }
+.cloudTwo { height:65px; }
+.controls button { width:86px; }
+@media(max-width:560px) { .game { height:404px; } }
+
+.runner { transform-origin:center; }
+.runner[data-jumping='true'] svg { transform:none; }
+.fuel { letter-spacing:.5px; font-variant-numeric:tabular-nums; }
+.stage:before { content:''; position:absolute; inset:0 0 100px; pointer-events:none; opacity:.5; background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#fff 1px,transparent 1px); background-size:73px 51px,113px 83px; background-position:11px 17px,47px 30px; }
+@media(max-width:380px) { .controls { gap:5px; } .controls button { width:72px; } .fuel { padding:0 12px; font-size:10px; } }
+
+/* Layered night city: duplicated strips loop without a visible reset. */
+.cityFar,.cityNear { position:absolute; left:0; bottom:70px; display:flex; width:max-content; pointer-events:none; animation:cityDrift 36s linear infinite; animation-play-state:paused; }
+.cityFar { opacity:.45; filter:blur(.4px); }
+.cityNear { animation-duration:19s; }
+.cityStrip { display:flex; gap:9px; align-items:flex-end; padding-right:9px; }
+.cityStrip i { display:block; position:relative; border-top:1px solid #566772; background-color:#172832; background-image:repeating-linear-gradient(0deg,transparent 0 10px,#172832 10px 18px),repeating-linear-gradient(90deg,transparent 0 6px,#172832 6px 13px),linear-gradient(120deg,#a0b4b5,#5d727b); box-shadow:inset 3px 0 #263a46; }
+.cityFar .cityStrip i { background-color:#30414d; background-image:none; clip-path:polygon(0 100%,0 12%,20% 12%,20% 0,80% 0,80% 12%,100% 12%,100% 100%); }
+.cityNear .cityStrip i:nth-child(3n) { border-top:2px solid #92b5bf; }
+.stage[data-status='playing'] .cityFar,.stage[data-status='playing'] .cityNear { animation-play-state:running; }
+.moon { position:absolute; width:19px; height:19px; right:16%; top:38px; border-radius:50%; background:#e5eced; box-shadow:0 0 30px 9px #bdd2df18; }
+.moon:after { content:''; position:absolute; width:17px; height:17px; left:6px; top:-3px; border-radius:50%; background:#101a23; }
+.roadGlow { position:absolute; bottom:64px; left:0; right:0; height:35px; background:linear-gradient(transparent,#7cc2d214); border-bottom:1px solid #acced8; }
+.runner svg { filter:drop-shadow(0 3px 3px #0008); }
+.jet { filter:drop-shadow(0 0 3px #b6f5ff); }
+@keyframes cityDrift { to { transform:translateX(-50%); } }
+@media(prefers-reduced-motion:reduce) { .cityFar,.cityNear { animation:none; } }
+.game { position:relative; }
+.topActions > .garageButton { width:auto; padding:0 9px; font-size:11px; }
+.garage { position:absolute; inset:0; z-index:20; overflow-y:auto; padding:20px 24px; background:linear-gradient(145deg,#202f3a,#101820 75%); color:#edf2f4; }
+.garageHeading { display:flex; justify-content:space-between; align-items:center; }
+.garageHeading small { font-size:9px; letter-spacing:2px; color:#afc2ce; }
+.garageHeading h3 { margin:4px 0; font-size:25px; }
+.garageHeading button { border:1px solid #4b5d68; border-radius:50%; width:34px; height:34px; background:transparent; color:inherit; font-size:22px; }
+.carPreview { height:100px; max-width:310px; margin:5px auto 10px; filter:drop-shadow(0 8px 12px #0005); }
+.garage fieldset { border:0; padding:0; margin:10px 0; }
+.garage legend { font-size:11px; color:#c6d4dd; margin-bottom:9px; }
+.swatches { display:flex; gap:10px; }
+.swatches button { width:32px; height:32px; border:3px solid transparent; border-radius:50%; cursor:pointer; }
+.swatches button[aria-pressed='true'] { outline:2px solid white; outline-offset:3px; }
+.customColor { display:flex; align-items:center; gap:12px; margin-top:10px; font-size:11px; }
+.customColor input { border:0; width:36px; height:24px; background:transparent; }
+.wheelOptions { display:flex; gap:8px; }
+.wheelOptions button { color:#dae7ee; padding:8px 12px; border:1px solid #526876; border-radius:10px; background:#20323f; cursor:pointer; }
+.wheelOptions button[aria-pressed='true'] { color:#12222c; background:#dce9ee; }
+.stripeOption { font-size:12px; display:flex; gap:8px; align-items:center; }
+.driveButton { padding:11px 20px; margin-top:14px; width:100%; border:0; border-radius:12px; background:#e5eef3; color:#12222c; font-weight:700; cursor:pointer; }
+@media(max-width:560px) { .garage { padding:14px 18px; } .carPreview { height:75px; } .garage fieldset { margin:8px 0; } .topActions { gap:5px; } .score { font-size:9px; } }
+@media(max-width:560px) {
+  .garage { padding:12px 18px; }
+  .garageHeading h3 { font-size:21px; }
+  .carPreview { height:57px; margin:2px auto 5px; }
+  .garage fieldset { margin:6px 0; }
+  .garage legend { margin-bottom:6px; }
+  .customColor { margin-top:7px; }
+  .driveButton { margin-top:9px; padding:9px 15px; }
+}
